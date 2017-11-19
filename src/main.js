@@ -5,7 +5,7 @@ import store from './store'
 import { Swipe, SwipeItem } from 'vue-swipe'
 
 //设置全局请求Api
-global.API = 'https://bird.ioliu.cn/v1?url=http://118.89.226.181:8080/api'
+global.API = 'http://hzzly.net:3000'
 global.KEYWORD = ''
 global.MUSIC_ID = '531925'
 store.dispatch('get_musicUrl');
