@@ -1,4 +1,4 @@
-# CloudMusic-Vue-
+# 山寨云音乐 (ง •̀_•́)ง
 
 ![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo.jpg)
 
