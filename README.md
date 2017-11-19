@@ -1,5 +1,7 @@
 # CloudMusic-Vue-
 
+![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/master/demo.jpg)
+
 > demo地址：https://uchihaobitozzz.github.io/CloudMusic/
 
 ### 技术栈
