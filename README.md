@@ -2,7 +2,7 @@
 
 ![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo.jpg)
 
-> demo地址：cxk.nbxinyitec.com
+> demo地址：http://cxk.nbxinyitec.com/#/
 
 ### 技术栈
 
