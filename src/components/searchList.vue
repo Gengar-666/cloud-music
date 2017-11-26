@@ -4,7 +4,7 @@
             {{ "搜索"+'"'+keyword+'"' }}
         </p>
         <ul>
-            <li v-for="item in result" class="search-item" @click="getId(item.id)">
+            <li v-for="(item, index) in result" class="search-item" :key="index" @click="getMusicUrl(item.id)">
                 <p class="name">{{ item.name }}</p>
                 <span>{{ item.artists[0].name }}-{{ item.album.name }}</span>
             </li>
@@ -15,15 +15,17 @@
 <script>
 export default {
     props: ['keyword', 'result'],
-    data() {
-        return {}
-    },
+    data: () => ({
+    }),
     methods: {
-        getId(id) {
-            MUSIC_ID = id;
-            this.$store.dispatch('get_musicUrl');
+        getMusicUrl(id) {
+            // 获取歌曲Url
+            this.$store.dispatch('get_musicDetail', id)
+            this.$fetch.MusicUrl(id).then(res => {
+                this.$store.dispatch('get_audioUrl', res.data[0])
+                this.$store.dispatch('add_ListenLists', res.data[0])
+            })
         }
-
     }
 }
 </script>

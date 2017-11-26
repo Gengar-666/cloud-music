@@ -2,7 +2,7 @@
     <div class="search">
         <div class="search-bar">
             <span class="search-icon"></span>
-            <input @focus="cancelShow" @input="searchListShow" v-on:input="getSearchList" v-model="keyword" type="text" :style="inputWidth" placeholder="(•̀ᴗ•́)و ̑̑   搜索歌曲">
+            <input @focus="cancelShow" @input="searchListShow" v-on:input="getSearchList" v-model="keyword" type="text" :style="inputWidth" placeholder="搜索歌曲">
             <span @click="cancelHide" class="cancel" v-if=" CancelBtnShow !='' ">取消</span>
         </div>
         <component :is="currentView" :keyword="keyword" :result="result" :currentView="currentView" v-on:listenToHotSearch="showMsgFromHotSearch"></component>
@@ -38,9 +38,7 @@ export default {
             this.currentView = data.currentView;
             this.keyword = data.keyword;
             // 获取搜索列表
-            let keyword = data.keyword;
-            KEYWORD = keyword;
-            this.$store.dispatch('get_searchList');
+            this.$store.dispatch('get_searchList', this.keyword);
         },
         cancelShow() {
             if (this.keyword == "") {
@@ -59,11 +57,10 @@ export default {
             this.currentView = 'searchList';
         },
         getSearchList() {
-            KEYWORD = this.keyword;
-            if (KEYWORD != "") {
-                this.$store.dispatch('get_searchList');
+            if (this.keyword != "") {
+                this.$store.dispatch('get_searchList', this.keyword);
             }
-            if (KEYWORD == "" || KEYWORD == " ") {
+            if (this.keyword == "" || this.keyword == " ") {
                 _this.$store.state.searchList = '';
                 _this.result = _this.$store.state.searchList;
             }

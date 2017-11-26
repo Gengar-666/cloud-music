@@ -2,15 +2,14 @@
     <div class="hot-search">
         <p class="hot-title">热门搜索</p>
         <div class="hot-tags">
-            <a href="#" @click="searchListShow(tag.msg)" v-for="(tag,index) in tags" :class="['tags-item','active-'+index]">{{ tag.msg }}</a>
+            <span @click="searchListShow(tag.msg)" v-for="(tag, index) in tags" :class="['tags-item','active-'+index]" :key="index">{{ tag.msg }}</span>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
+    data:() =>({
             tags: [{
                 msg: '火影忍者'
             },{
@@ -32,8 +31,7 @@ export default {
             },{
                 msg: '造梦者'
             }]
-        }
-    },
+    }),
     methods: {
         searchListShow (msg) {
             this.$emit('listenToHotSearch',{currentView:'searchList',keyword:msg})

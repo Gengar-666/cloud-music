@@ -1,72 +1,114 @@
 <template>
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="str in banners" :style="{ backgroundImage: 'url(' + str.url + ')' }"></div>
-        </div>
-        <div class="swiper-pagination swiper-pagination-white"></div>
+    <div id="banner">
+        <swiper auto height="120px">
+            <swiper-item class="black" v-for="(item, index) in bannerList" :key="index">
+                <img style="width:100%;" :src="item.img" alt="">
+            </swiper-item>
+            <swiper-item class="black" v-for="(item, index) in textList" :key="index">
+                <h2 class="title fadeInUp animated">{{ item.title }}</h2>
+            </swiper-item>
+        </swiper>
     </div>
 </template>
 
 <script>
-import 'swiper/dist/css/swiper.min.css'
+import { Swiper, SwiperItem } from 'vux'
 import { mapState } from 'vuex'
-import Swiper from 'swiper'
-import banner1 from './../../static/img/banner1.jpg'
-import banner2 from './../../static/img/banner2.jpg'
-import banner3 from './../../static/img/banner3.jpg'
-import banner4 from './../../static/img/banner4.jpg'
+import banner from './../../static/img/banner666.jpg'
 export default {
-    data () {
-        return {
-            banners:[{
-                url:banner1
-            },{
-                url:banner2
-            },{
-                url:banner3
-            },{
-                url:banner4
-            }]
-        }
-    },
+    data: () => ({
+        bannerList: [
+            { img:banner }
+        ],
+        textList: [
+            { title: '你无处可藏' },
+            { title: '不是它可恶' },
+            { title: '而是它不懂你' },
+            { title: '我们试图' },
+            { title: '做些改变' }
+        ]
+    }),
     mounted() {
-            var swiper = new Swiper('.swiper-container', {
-                pagination: '.swiper-pagination',
-                paginationClickable: true,
-                loop: true,
-                speed: 600,
-                autoplay: 3000,
-                onTouchEnd: function () {
-                    swiper.startAutoplay()
-                }
-            });
+    },
+    components: {
+        Swiper,
+        SwiperItem
     }
 }
 </script>
 
 <style lang="less" scoped>
-.swiper-container {
+#banner {
+    padding-top: 10px;
+}
+
+.copyright {
+    font-size: 12px;
+    color: #ccc;
+    text-align: center;
+}
+
+.text-scroll {
+    border: 1px solid #ddd;
+    border-left: none;
+    border-right: none;
+}
+
+.text-scroll p {
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.black {
+    background: -webkit-linear-gradient(left, #000);
+    background: -moz-linear-gradient(left, #000);
+    background: -o-linear-gradient(left, #000);
+    background: linear-gradient(to right, #000);
+}
+
+.title {
+    line-height: 120px;
+    text-align: center;
+    color: #fff;
+}
+
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.vux-indicator.custom-bottom {
+    bottom: 30px;
+}
+
+@-webkit-keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.fadeInUp {
+    animation-name: fadeInUp;
+}
+
+.swiper-demo-img img {
     width: 100%;
-    height: 12rem;
-    .swiper-wrapper {
-        width: 100%;
-        height: 100%;
-    }
-    .swiper-slide {
-        background-position: center;
-        background-size: cover;
-        width: 100%;
-        height: 100%;
-        img {
-            width: 100%;
-            height: 100%;
-        }
-    }
-    .swiper-pagination-bullet {
-        width: 0.833rem;
-        height: 0.833rem;
-        display: inline-block;
-        background: #7c5e53;
-    }
 }
 </style>

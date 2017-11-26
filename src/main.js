@@ -2,13 +2,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import { Swipe, SwipeItem } from 'vue-swipe'
+import fetch from '@/api'
+//点击延迟
+import FastClick from 'fastclick'
+FastClick.attach(document.body)
 
-//设置全局请求Api
-global.API = 'http://hzzly.net:3000'
-global.KEYWORD = ''
-global.MUSIC_ID = '531925'
-store.dispatch('get_musicUrl');
+Object.defineProperty(Vue.prototype, '$fetch', { value: fetch })
 
 Vue.config.productionTip = false
 
