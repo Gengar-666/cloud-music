@@ -5,6 +5,7 @@
         </p>
         <ul>
             <li v-for="(item, index) in result" class="search-item" :key="index" @click="getMusicUrl(item.id)">
+                <img :src="item.album.blurPicUrl" alt="">
                 <p class="name">{{ item.name }}</p>
                 <span>{{ item.artists[0].name }}-{{ item.album.name }}</span>
             </li>
@@ -17,6 +18,9 @@ export default {
     props: ['keyword', 'result'],
     data: () => ({
     }),
+    mounted() {
+        console.log(this.result)
+    },
     methods: {
         getMusicUrl(id) {
             // 获取歌曲Url
@@ -43,7 +47,10 @@ export default {
         border-bottom: 1px solid rgba(0, 0, 0, .1);
     }
     ul {
+        height: 75vh;
+        overflow: auto;
         .search-item {
+            position: relative;
             -webkit-box-align: center;
             align-items: center;
             height: 45px;
@@ -51,10 +58,15 @@ export default {
             font-size: 14px;
             border-bottom: 1px solid rgba(0, 0, 0, .1);
             padding-top: 5px;
+            img {
+                width: 40px;
+                height: 40px;
+                position: absolute;
+            }
             .name {
-                width: 100%;
                 height: 50%;
                 color: #333;
+                margin-left: 50px;
             }
             span {
                 display: inline-block;
@@ -65,6 +77,7 @@ export default {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
+                margin-left: 50px;
             }
         }
     }

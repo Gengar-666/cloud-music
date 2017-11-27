@@ -5,7 +5,8 @@ import store from '@/store'
 // 配置默认请求超时
 axios.defaults.timeout = 12000
 // 配置默认接口地址
-axios.defaults.baseURL = 'http://localhost:3000'
+// axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'http://106.14.151.175:3000'
 
 export const fetchGet = (url, para) => {
     store.state.isLoading = true
@@ -18,6 +19,8 @@ export const fetchGet = (url, para) => {
                 resolve(res.data)
             }, err => {
                 reject(err)
+                store.state.isLoading = false
+                store.state.alertShow = true
             })
             .catch(err => {
                 reject(err)
@@ -28,8 +31,20 @@ export const fetchGet = (url, para) => {
 export default {
     axios,
     // 登录
-    Login() {
-        return fetchGet('login/cellphone', { phone: 18758311835, password: 'chenxiangkai.' })
+    Login(params) {
+        return fetchGet('login/cellphone', params)
+    },
+    // 获取用户详情
+    UserDetail(uid) {
+        return fetchGet('/user/detail', {uid})
+    },
+    // 获取用户信息,歌单，收藏，mv, dj 数量
+    UserSubcount() {
+        return fetchGet('/user/subcount')
+    },
+    // 获取用户歌单
+    UserPlaylist(uid) {
+        return fetchGet('/user/playlist', {uid})
     },
     // 搜索
     Search(keywords) {

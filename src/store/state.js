@@ -2,14 +2,29 @@
 import pause from './../../static/img/pause.svg'
 
 export default {
+  // 用户信息
+  user: JSON.parse(localStorage.getItem('user')) || {
+    profile: {
+      backgroundUrl: null
+    }
+  },
+  userDetail: JSON.parse(localStorage.getItem('userDetail')) ||  {
+    profile: {
+      followeds: null
+    }
+  },
+  userPlayList: JSON.parse(localStorage.getItem('userPlayList')) || {
+    playlist: []
+  },
   // 是否加载状态
   isLoading: false,
+  alertShow: false,
   count: 1,
   transitionName: 'slide-right',
   routeChain: [],
   activeTab: 0,
   // 试听列表
-  listenLists:[],
+  listenLists: [],
   // 当前播放歌曲Url
   audioUrl: '',
   // 推荐歌单

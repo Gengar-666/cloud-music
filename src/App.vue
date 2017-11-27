@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <loading v-model="isLoading"></loading>
+    <div v-transfer-dom>
+      <alert v-model="alertShow" title="提示" @on-hide="onHide"> {{ '网络好像不太给力，刷新页面试试~' }}</alert>
+    </div>
     <div class="contianer">
       <transition :name="transitionName">
         <router-view class="view"></router-view>
@@ -13,14 +16,20 @@
 <script>
 import playBar from '@/components/PlayBar'
 import { mapState, mapMutations } from 'vuex';
-import { Loading } from 'vux'
+import { Loading, Alert, TransferDomDirective as TransferDom } from 'vux'
 export default {
   name: 'app',
+  data: () => ({
+  }),
+  directives: {
+    TransferDom
+  },
   computed: {
     ...mapState([
       // 过渡效果
       'transitionName',
-      'isLoading'
+      'isLoading',
+      'alertShow'
     ]),
   },
   mounted() {
@@ -30,9 +39,16 @@ export default {
     //   this.$store.dispatch('add_ListenLists', res.data[0])
     // })
   },
+  methods: {
+    onHide () {
+      this.$store.state.alertShow = false
+      this.$route.path !== '/recommend' && this.$route.path !== '/search' && this.$route.path !== '/login' ? this.$router.go(-1) : ''
+    }
+  },
   components: {
     'v-playbar': playBar,
-    Loading
+    Loading,
+    Alert
   }
 }
 </script>
@@ -41,10 +57,6 @@ export default {
 * {
   padding: 0;
   margin: 0;
-}
-
-html {
-  overflow: hidden;
 }
 
 body {

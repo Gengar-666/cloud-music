@@ -75,8 +75,10 @@ export default {
 
 <style scoped>
 #navbar {}
-
 .header {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
   width: 100%;
   height: 50px;
   background: -webkit-linear-gradient(left, #2A78DC, #CCC);
@@ -109,6 +111,7 @@ export default {
 .nav {
   list-style: none;
   height: 50px;
+  margin-top: 50px;
 }
 
 .nav li {
