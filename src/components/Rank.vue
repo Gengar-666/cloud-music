@@ -34,7 +34,7 @@ export default {
     }),
     methods: {
         getDetail(idx) {
-            this.$router.push({name: 'rankDetail', query: {idx}})
+            this.$router.push({ name: 'rankDetail', query: { idx } })
         }
     }
 }
@@ -42,35 +42,32 @@ export default {
 
 <style lang="less" scoped>
 #rank {
-    // height: 72vh;
-    // overflow: auto;
-}
-
-.list {
-    padding-left: 10px;
-    display: flex;
-    align-items: center;
-    width: 92%;
-    height: 100px;
-    margin: 0 auto;
-    margin-top: 10px;
-    border-radius: 6px;
-    img {
-        width: 80px;
-        height: 80px;
-        border-radius: 6px;
-        border: 1px solid #FFF;
-    }
-    .title {
-        color: #FFF;
-        margin-left: 20px;
-        font-size: 15px;
-    }
-    p {
-        color: #FFF;
+    .list {
+        padding-left: 10px;
+        display: flex;
+        align-items: center;
+        width: 92%;
+        height: 100px;
+        margin: 0 auto;
         margin-top: 10px;
-        margin-left: 20px;
-        font-size: 13px;
+        border-radius: 6px;
+        img {
+            width: 80px;
+            height: 80px;
+            border-radius: 6px;
+            border: 1px solid #FFF;
+        }
+        .title {
+            color: #FFF;
+            margin-left: 20px;
+            font-size: 15px;
+        }
+        p {
+            color: #FFF;
+            margin-top: 10px;
+            margin-left: 20px;
+            font-size: 13px;
+        }
     }
 }
 </style>

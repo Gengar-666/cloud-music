@@ -54,8 +54,8 @@ export default {
     // 获取导航的下标宽度和平移坐标
     getTabPosition() {
       this.tabBoxWidth = this.$refs.tab[this.activeTab].clientWidth
-    this.tabBottomWidth = this.$refs.tabLink[this.activeTab].$el.clientWidth + 20
-    this.left = this.$refs.tab[this.activeTab].clientWidth * this.activeTab + 6
+      this.tabBottomWidth = this.$refs.tabLink[this.activeTab].$el.clientWidth + 20
+      this.left = this.$refs.tab[this.activeTab].clientWidth * this.activeTab + 6
     },
     //导航切换
     toggle(i, e) {
@@ -69,93 +69,85 @@ export default {
   watch: {
     // 监听路由变化重新设置导航的下标宽度和平移坐标
     '$route': 'getTabPosition'
-    }
+  }
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 #navbar {
   width: 100%;
   position: fixed;
   top: 0;
   z-index: 1000;
-}
-.header {
-  width: 100%;
-  height: 50px;
-  background: -webkit-linear-gradient(left, #2A78DC, #CCC);
-  background: -moz-linear-gradient(left, #2A78DC, #CCC);
-  background: -o-linear-gradient(left, #2A78DC, #CCC);
-  background: linear-gradient(to right, #2A78DC, #CCC);
-  /* 标准的语法（必须放在最后）*/
-}
+  .header {
+    width: 100%;
+    height: 50px;
+    background: -webkit-linear-gradient(left, #2A78DC, #CCC);
+    background: -moz-linear-gradient(left, #2A78DC, #CCC);
+    background: -o-linear-gradient(left, #2A78DC, #CCC);
+    background: linear-gradient(to right, #2A78DC, #CCC);
+    /* 标准的语法（必须放在最后）*/
+    #menu {
+      position: absolute;
+      top: 13px;
+      left: 20px;
+      width: 25px;
+    }
 
-#menu {
-  position: absolute;
-  top: 13px;
-  left: 20px;
-  width: 25px;
-}
+    #search {
+      position: absolute;
+      top: 10px;
+      right: 25px;
+      width: 28px;
+    }
 
-#search {
-  position: absolute;
-  top: 10px;
-  right: 25px;
-  width: 28px;
-}
-
-.title {
-  text-align: center;
-  color: #FFF;
-  line-height: 50px;
-}
-
-.nav {
-  list-style: none;
-  height: 50px;
-}
-
-.nav li {
-  display: inline-flex;
-  justify-content: center;
-  float: left;
-  width: 32%;
-}
-
-.nav li a {
-  display: inline-block;
-  width: 60%;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  text-decoration: none;
-  color: rgba(0, 0, 0, .6);
-  font-size: 14px;
-}
-
-
- .active {
-  color: #2A78DC !important;
-} 
-
-.tab {
-  position: relative;
-  height: 3px;
-  transition: left .3s;
-  -moz-transition: left .3s;
-  /* Firefox 4 */
-  -webkit-transition: left .3s;
-  /* Safari 和 Chrome */
-  -o-transition: left .3s;
-  /* Opera */
-}
-
-.tab-bottom {
-  display: inline-block;
-  height: 2px;
-  background: -webkit-linear-gradient(left, #2A78DC, #FFF);
-  background: -moz-linear-gradient(left, #2A78DC, #FFF);
-  background: -o-linear-gradient(left, #2A78DC, #FFF);
-  background: linear-gradient(to right, #2A78DC, #FFF);
+    .title {
+      text-align: center;
+      color: #FFF;
+      line-height: 50px;
+    }
+  }
+  .nav {
+    list-style: none;
+    height: 50px;
+    li {
+      display: inline-flex;
+      justify-content: center;
+      float: left;
+      width: 32%;
+      a {
+        display: inline-block;
+        width: 60%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        text-decoration: none;
+        color: rgba(0, 0, 0, .6);
+        font-size: 14px;
+      }
+      .active {
+        color: #2A78DC !important;
+      }
+    }
+  }
+  .tab {
+    position: relative;
+    height: 3px;
+    transition: left .3s;
+    -moz-transition: left .3s;
+    /* Firefox 4 */
+    -webkit-transition: left .3s;
+    /* Safari 和 Chrome */
+    -o-transition: left .3s;
+    /* Opera */
+    .tab-bottom {
+      display: inline-block;
+      height: 2px;
+      background: -webkit-linear-gradient(left, #2A78DC, #FFF);
+      background: -moz-linear-gradient(left, #2A78DC, #FFF);
+      background: -o-linear-gradient(left, #2A78DC, #FFF);
+      background: linear-gradient(to right, #2A78DC, #FFF);
+    }
+  }
 }
 </style>

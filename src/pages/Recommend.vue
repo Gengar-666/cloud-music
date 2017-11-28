@@ -31,9 +31,6 @@ export default {
 }
 </script>
 
-<style scoped>
-#recommend {
-  /* height: 85vh;
-  overflow: auto; */
-}
+<style lang="less" scoped>
+#recommend {}
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="search">
+    <div id="search-input">
         <div class="search-bar">
             <span class="search-icon"></span>
             <input @focus="cancelShow" @input="searchListShow" v-on:input="getSearchList" v-model="keyword" type="text" :style="inputWidth" placeholder="搜索歌曲">
@@ -10,20 +10,18 @@
 </template>
 
 <script>
-import hotSearch from './hotSearch'
-import searchList from './searchList'
+import hotSearch from './HotSearch'
+import searchList from './SearchList'
 import { mapState } from 'vuex'
 export default {
-    data() {
-        return {
+    data: () => ({
             inputWidth: {
                 width: '97.5%'
             },
             CancelBtnShow: '',
             currentView: 'hotSearch',
             keyword: '',
-        }
-    },
+    }),
     computed: {
         ...mapState({
             result: state => state.searchList
@@ -69,41 +67,41 @@ export default {
 }
 </script>
 
-<style scoped>
-.search-bar {
-    width: 100%;
-    background: #f4f4f4;
-    padding: 6px;
-    box-sizing: border-box;
-    position: relative;
-    margin-top: 4px;
-}
-
-.search-bar input {
-    border: none;
-    height: 40px;
-    border-radius: 6px;
-    font-size: 14px;
-    margin-left: 5px;
-    text-indent: 2rem;
-    outline: medium;
-}
-
-.search-icon {
-    display: inline-block;
-    background-image: url('../../static/img/search.svg');
-    width: 25px;
-    height: 25px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: absolute;
-    top: 15px;
-    left: 15px;
-}
-
-.cancel {
-    font-size: 14px;
-    color: rgba(0, 0, 0, .6);
-    margin-left: 10px;
+<style lang="less" scoped>
+#search-input {
+    .search-bar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: #f4f4f4;
+        padding: 6px;
+        box-sizing: border-box;
+        z-index: 1000;
+        input {
+            border: none;
+            height: 40px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-left: 5px;
+            text-indent: 2rem;
+            outline: medium;
+        }
+        .search-icon {
+            display: inline-block;
+            background-image: url('../../static/img/search.svg');
+            width: 25px;
+            height: 25px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+        .cancel {
+            font-size: 14px;
+            color: rgba(0, 0, 0, .6);
+            margin-left: 10px;
+        }
+    }
 }
 </style>

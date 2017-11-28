@@ -17,7 +17,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#rank {
-  margin-top: 15px;
-}
+#rank {}
 </style>

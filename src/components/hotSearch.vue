@@ -1,5 +1,5 @@
 <template>
-    <div class="hot-search">
+    <div id="hot-search">
         <p class="hot-title">热门搜索</p>
         <div class="hot-tags">
             <span @click="searchListShow(tag.msg)" v-for="(tag, index) in tags" :class="['tags-item','active-'+index]" :key="index">{{ tag.msg }}</span>
@@ -41,7 +41,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.hot-search {
+#hot-search {
+    margin-top: 50px;
     padding-left: 15px;
     padding-top: 15px;
     font-size: 14px;

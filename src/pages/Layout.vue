@@ -3,9 +3,7 @@
         <v-navbar />
         <div id="content">
             <transition :name="transitionName">
-                <keep-alive>
-                    <router-view class="view"></router-view>
-                </keep-alive>
+                <router-view class="view"></router-view>
             </transition>
         </div>
     </div>
@@ -34,14 +32,14 @@ export default {
 }
 </script>
 
-<style scoped>
-#layout {}
-
-#content {
-    width: 100vw;
-    height: 80vh;
-    overflow: auto;
-    position: relative; 
-    margin-top: 100px;
+<style lang="less" scoped>
+#layout {
+    #content {
+        width: 100vw;
+        height: 75vh;
+        overflow-y: auto;
+        position: relative;
+        margin-top: 100px;
+    }
 }
 </style>

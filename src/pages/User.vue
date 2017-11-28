@@ -1,31 +1,38 @@
 <template>
   <div id="user">
-    <div class="user-wrap" :style="'background-image: url(' + user.profile.backgroundUrl + ')'">
-      <div class="user-content">
-        <div class="user-top">
-          <div class="user-fl">
-            <p class="num">{{ userDetail.listenSongs }}</p>
-            <p class="listen-num">听歌数</p>
+    <div v-transfer-dom>
+      <confirm v-model="show" title="提示" @on-cancel="onCancel" @on-confirm="onConfirm">
+        <p style="text-align:center;">你还未登录，赶紧去登录吧~</p>
+      </confirm>
+    </div>
+    <div v-show="user.code == 200">
+      <div class="user-wrap" :style="'background-image: url(' + user.profile.backgroundUrl + ')'">
+        <div class="user-content">
+          <div class="user-top">
+            <div class="user-fl">
+              <p class="num">{{ userDetail.listenSongs }}</p>
+              <p class="listen-num">听歌数</p>
+            </div>
+            <div class="avatar" :style="'background-image: url(' + user.profile.avatarUrl + ')'"></div>
+            <div class="user-fr">
+              <p class="num">{{ userDetail.profile.followeds }}</p>
+              <p class="followeds">粉丝数</p>
+            </div>
           </div>
-          <div class="avatar" :style="'background-image: url(' + user.profile.avatarUrl + ')'"></div>
-          <div class="user-fr">
-            <p class="num">{{ userDetail.profile.followeds }}</p>
-            <p class="followeds">粉丝数</p>
+          <div class="user-bottom">
+            <p>{{ user.profile.nickname }}</p>
           </div>
-        </div>
-        <div class="user-bottom">
-          <p>{{ user.profile.nickname }}</p>
         </div>
       </div>
-    </div>
-    <div class="user-playlist">
-      <div class="title">歌单{{ userPlayList.playlist.length }}</div>
-      <div class="playlist">
-        <div class="playlist-item" v-for="(item, index) in userPlayList.playlist" :key="index" @click="toDetail(item.id)">
-          <img :src="item.coverImgUrl" alt="">
-          <div class="text-content">
-            <p>{{ item.name }}</p>
-            <p class="text">{{ item.trackCount }}首，by{{ item.creator.nickname }}，播放{{ item.playCount }}次</p>
+      <div class="user-playlist">
+        <div class="title">歌单{{ userPlayList.playlist.length }}</div>
+        <div class="playlist">
+          <div class="playlist-item" v-for="(item, index) in userPlayList.playlist" :key="index" @click="toDetail(item.id)">
+            <img :src="item.coverImgUrl" alt="">
+            <div class="text-content">
+              <p>{{ item.name }}</p>
+              <p class="text">{{ item.trackCount }}首，by{{ item.creator.nickname }}，播放{{ item.playCount }}次</p>
+            </div>
           </div>
         </div>
       </div>
@@ -35,10 +42,15 @@
 
 <script>
 import { mapState } from 'vuex'
+import { Confirm, TransferDomDirective as TransferDom } from 'vux'
 export default {
   name: 'user',
   data: () => ({
+    show: false
   }),
+  directives: {
+    TransferDom
+  },
   computed: {
     ...mapState({
       user: state => state.user,
@@ -47,7 +59,7 @@ export default {
     })
   },
   mounted() {
-    if(this.user.code == 200) {
+    if (this.user.code == 200) {
       this.$fetch.UserDetail(this.user.profile.userId).then(res => {
         this.$store.state.userDetail = res
         localStorage.setItem('userDetail', JSON.stringify(res))
@@ -56,12 +68,26 @@ export default {
         this.$store.state.userPlayList = res
         localStorage.setItem('userPlayList', JSON.stringify(res))
       })
+    } else {
+      this.show = true
     }
   },
   methods: {
+    // 未登录弹窗取消
+    onCancel() {
+      this.show = false
+      this.$router.go(-1)
+    },
+    onConfirm() {
+      this.show = false
+      this.$router.push('/login')
+    },
     toDetail(id) {
       this.$router.push({ name: 'songsheetDetail', query: { id } })
     }
+  },
+  components: {
+    Confirm
   }
 }
 </script>
@@ -88,6 +114,7 @@ export default {
         display: flex;
         align-items: center;
         .user-fl {
+          
           width: 20%;
           color: #FFF;
           float: left;
@@ -145,15 +172,13 @@ export default {
       padding-left: 10px;
     }
     .playlist {
-      // height: 41vh;
-      // overflow: auto;
       .playlist-item {
         display: flex;
         align-items: center;
-        padding-left: 10px;
+        margin-left: 10px;
         padding-top: 10px;
         padding-bottom: 10px;
-        border-bottom: 1px solid #CCC;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         font-size: 13px;
         font-weight: bold;
         img {

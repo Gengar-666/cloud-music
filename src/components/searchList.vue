@@ -1,5 +1,5 @@
 <template>
-    <div class="search-list">
+    <div id="search-list">
         <p class="search-title">
             {{ "搜索"+'"'+keyword+'"' }}
         </p>
@@ -35,20 +35,25 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.search-list {
+#search-list {
     margin-bottom: 60px;
+    height: 66vh;
     .search-title {
+        position: fixed;
+        width: 100%;
+        top: 52px;
         height: 50px;
         margin-left: 10px;
         padding-right: 10px;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 50px;
         color: #507daf;
         border-bottom: 1px solid rgba(0, 0, 0, .1);
+        z-index: 1000;
+        background: #FFF;
     }
     ul {
-        // height: 75vh;
-        // overflow: auto;
+        margin-top: 100px;
         .search-item {
             position: relative;
             -webkit-box-align: center;
@@ -67,12 +72,13 @@ export default {
                 height: 50%;
                 color: #333;
                 margin-left: 50px;
+                font-size: 13px;
             }
             span {
                 display: inline-block;
                 width: 85%;
                 height: 50%;
-                font-size: 13px;
+                font-size: 12px;
                 color: rgba(0, 0, 0, .6);
                 overflow: hidden;
                 text-overflow: ellipsis;

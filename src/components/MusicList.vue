@@ -47,77 +47,70 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 #music-list {
   position: relative;
-}
-
-.title {
-  width: 68px;
-  text-align: center;
-  padding: 5px 0 5px 0;
-  color: #666;
-  font-size: 13px;
-  margin-left: 1.5rem;
-  margin-top: 21rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid #ccc;
-}
-
-.remd_newsg {
-  position: relative;
-}
-
-.m-sglst {
-  margin-left: 10px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
-}
-
-.m-sg-item {
-  text-decoration: none;
-  color: #000;
-  display: flex;
-  padding-left: 10px;
-  font-size: 14px;
-}
-
-.sg-btn {
-  -webkit-box-flex: 1;
-  flex: 1 1 auto;
-  display: -webkit-box;
-  display: flex;
-  position: relative;
-  padding-top: 6px;
-}
-
-.sg-left {
-  -webkit-box-flex: 1;
-  flex: 1 1 auto;
-  padding: 6px 0;
-  width: 0;
-}
-
-.sg-play {
-  background-position: 0px -265px;
-  position: absolute;
-  right: 10px;
-  width: 40px;
-  height: 40px;
-  background-size: 250px;
-  background-repeat: no-repeat;
-}
-
-.sg-singer {
-  color: #888;
-  font-size: 12px;
-  margin-top: 5px;
-}
-
-.pic img {
-  width: 50px;
-  height: 50px;
-  margin-right: 20px;
+  .title {
+    width: 68px;
+    text-align: center;
+    padding: 5px 0 5px 0;
+    color: #666;
+    font-size: 13px;
+    margin-left: 1.5rem;
+    margin-top: 21rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+  }
+  .remd_newsg {
+    position: relative;
+    .m-sglst {
+      margin-left: 10px;
+      padding-bottom: 5px;
+      padding-top: 5px;
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+      .m-sg-item {
+        text-decoration: none;
+        color: #000;
+        display: flex;
+        padding-left: 10px;
+        font-size: 14px;
+        .sg-btn {
+          -webkit-box-flex: 1;
+          flex: 1 1 auto;
+          display: -webkit-box;
+          display: flex;
+          position: relative;
+          padding-top: 6px;
+          .pic {
+            img {
+              width: 50px;
+              height: 50px;
+              margin-right: 20px;
+            }
+          }
+          .sg-left {
+            -webkit-box-flex: 1;
+            flex: 1 1 auto;
+            padding: 6px 0;
+            width: 0;
+          }
+          .sg-play {
+            background-position: 0px -265px;
+            position: absolute;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background-size: 250px;
+            background-repeat: no-repeat;
+          }
+          .sg-singer {
+            color: #888;
+            font-size: 12px;
+            margin-top: 5px;
+          }
+        }
+      }
+    }
+  }
 }
 </style>

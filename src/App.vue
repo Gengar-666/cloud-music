@@ -59,6 +59,10 @@ export default {
   margin: 0;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   width: 100vw;
   width: 100vh;
@@ -70,29 +74,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.contianer {
-}
-
 /*app页面切换效果*/
 
 .view {
   position: absolute;
   width: 100vw;
   overflow-y: auto;
-  transition: all 0.8s cubic-bezier(.55, 0, .1, 1);
+  transition: all 0.8s cubic-bezier(.5, 0, .1, 1);
 }
 
 .slide-left-enter,
 .slide-right-leave-active {
   opacity: 0;
-  -webkit-transform: translate(150px, 0);
-  transform: translate(150px, 0);
+  -webkit-transform: translate(100vw, 0);
+  transform: translate(100vw, 0);
 }
 
 .slide-left-leave-active,
 .slide-right-enter {
   opacity: 0;
-  -webkit-transform: translate(-150px, 0);
-  transform: translate(-150px, 0);
+  -webkit-transform: translate(-100vw, 0);
+  transform: translate(-100vw, 0);
 }
 </style>

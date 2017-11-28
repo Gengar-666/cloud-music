@@ -1,4 +1,4 @@
-//初始化按钮
+// 初始化按钮
 import pause from './../../static/img/pause.svg'
 
 export default {
@@ -8,20 +8,28 @@ export default {
       backgroundUrl: null
     }
   },
+  // 用户详细信息
   userDetail: JSON.parse(localStorage.getItem('userDetail')) ||  {
     profile: {
       followeds: null
     }
   },
+  // 用户歌单
   userPlayList: JSON.parse(localStorage.getItem('userPlayList')) || {
     playlist: []
   },
   // 是否加载状态
   isLoading: false,
+  // 是否网络异常
   alertShow: false,
+
+  /* 判断前进后退 */
   count: 1,
   transitionName: 'slide-right',
   routeChain: [],
+  /* END */
+
+  // 导航下标位置
   activeTab: 0,
   // 试听列表
   listenLists: [],
@@ -41,23 +49,6 @@ export default {
   rankDetail: [],
   // 歌手单曲
   singerSong: {},
-  // 歌手专辑
-  Singeralbums: {},
-  // 专辑内容
-  albums: {
-    'album': {
-      'picUrl': '',
-      'name': '',
-      'info': {
-        'likedCount': '',
-        'commentCount': '',
-        'shareCount': ''
-      },
-      'artist': {
-        'name': ''
-      }
-    }
-  },
   // 底部导航栏播放按钮状态
   playBtn: pause,
   // 音乐歌词
