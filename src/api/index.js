@@ -5,7 +5,7 @@ import store from '@/store'
 // 配置默认请求超时
 axios.defaults.timeout = 12000
 // 配置默认接口地址
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'http://localhost:3000/'
 
 export const fetchGet = (url, para) => {
     store.state.isLoading = true
