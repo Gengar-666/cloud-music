@@ -66,12 +66,14 @@ html {
 body {
   width: 100vw;
   width: 100vh;
+  background: #FFF;
 }
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #FFF;
 }
 
 /*app页面切换效果*/

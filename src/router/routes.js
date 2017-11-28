@@ -6,7 +6,7 @@ import Layout from '@/pages/Layout'
 const routes = [
     {
         path: '/',
-        redirect: '/recommend',
+        redirect: '/login',
         component: Layout,
         children: [
             {
