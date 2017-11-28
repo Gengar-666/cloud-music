@@ -1,12 +1,14 @@
 <template>
   <div id="login">
-    <input type="text" v-model="phone">
+    <div class="content">
+      <input type="text" v-model="phone">
     <br>
     <br>
     <input type="password" v-model='password'>
     <br>
     <br>
     <button @click="login">登录</button>
+    </div>
   </div>
 </template>
 
@@ -36,5 +38,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#login {}
+#login {
+  .content {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('./../../static/img/loginbg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
 </style>
