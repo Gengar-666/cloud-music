@@ -42,8 +42,8 @@ export default {
 
 <style lang="less" scoped>
 #rank {
-    height: 72vh;
-    overflow: auto;
+    // height: 72vh;
+    // overflow: auto;
 }
 
 .list {

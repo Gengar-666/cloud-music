@@ -49,7 +49,6 @@ export default {
 
 <style scoped>
 #music-list {
-  margin-bottom: 60px;
   position: relative;
 }
 

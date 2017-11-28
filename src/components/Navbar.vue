@@ -74,8 +74,12 @@ export default {
 </script>
 
 <style scoped>
-#navbar {}
-
+#navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
 .header {
   width: 100%;
   height: 50px;

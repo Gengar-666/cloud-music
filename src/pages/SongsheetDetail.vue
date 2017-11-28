@@ -75,7 +75,7 @@ export default {
 
 <style scoped>
 #songSheetDetail {
-    overflow: hidden;
+    overflow-x: hidden;
     background-color: #f8f8f8
 }
 
@@ -177,8 +177,8 @@ export default {
 }
 
 .paly-list {
-     height: 53vh; 
-    overflow: auto;
+    /* height: 53vh;
+    overflow: auto; */
 }
 
 .paly-list p {

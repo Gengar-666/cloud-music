@@ -39,6 +39,9 @@ export default {
 
 #content {
     width: 100vw;
-    position: relative;
+    height: 80vh;
+    overflow: auto;
+    position: relative; 
+    margin-top: 100px;
 }
 </style>

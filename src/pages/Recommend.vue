@@ -33,7 +33,7 @@ export default {
 
 <style scoped>
 #recommend {
-  height: 85vh;
-  overflow: auto;
+  /* height: 85vh;
+  overflow: auto; */
 }
 </style>

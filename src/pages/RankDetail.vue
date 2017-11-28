@@ -163,8 +163,8 @@ export default {
 }
 
 .paly-list {
-  height: 53vh;
-  overflow: auto;
+  /* height: 53vh;
+  overflow: auto; */
 }
 
 .paly-list p {
