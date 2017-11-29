@@ -22,7 +22,7 @@
     <div class="paly-list">
       <p>歌曲列表</p>
       <div class="sg_list">
-        <div class="m-sglst" v-for="(item,index) in rankDetail.tracks" @click="getMusicUrl(item.id)" :key="index">
+        <div class="m-sglst" v-for="(item,index) in rankDetail.tracks" @click="handleClick(item.id)" :key="index">
           <div class="m-sg-item">
             <div class="sg_num">{{ index+1 }}</div>
             <div class="sg-btn">
@@ -39,27 +39,28 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'rankDetail',
   data: () => ({
   }),
   computed: {
-    ...mapState({
-      rankDetail: state => state.rankDetail
-    })
+    ...mapGetters([
+      // 排行榜歌单详情
+      'rankDetail'
+    ])
   },
   mounted() {
-    this.$store.dispatch('get_MusicRankDetail', this.$route.query.idx)
+    this.get_MusicRankDetail(this.$route.query.idx)
   },
   methods: {
-    getMusicUrl(id) {
-      // 获取歌曲Url
-      this.$store.dispatch('get_musicDetail', id)
-      this.$fetch.MusicUrl(id).then(res => {
-        this.$store.dispatch('get_audioUrl', res.data[0])
-        this.$store.dispatch('add_ListenLists', res.data[0])
-      })
+    ...mapActions([
+      'handleClickMusic',
+      'get_MusicRankDetail'
+    ]),
+    handleClick(id) {
+      // 点击歌曲之后的处理
+      this.handleClickMusic(id)
     }
   }
 }

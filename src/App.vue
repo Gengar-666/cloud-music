@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <loading v-model="isLoading"></loading>
     <div v-transfer-dom>
       <alert v-model="alertShow" title="提示" @on-hide="onHide"> {{ '网络好像不太给力，刷新页面试试~' }}</alert>
     </div>
@@ -9,13 +8,17 @@
         <router-view class="view"></router-view>
       </transition>
     </div>
-    <v-playbar />
+    <!-- 公用组件 -->
+    <bubble></bubble>
+    <playbar></playbar>
+    <loading v-model="isLoading"></loading>
   </div>
 </template>
 
 <script>
-import playBar from '@/components/PlayBar'
-import { mapState, mapMutations } from 'vuex';
+import bubble from '@/components/Bubble'
+import playbar from '@/components/Playbar'
+import { mapGetters } from 'vuex';
 import { Loading, Alert, TransferDomDirective as TransferDom } from 'vux'
 export default {
   name: 'app',
@@ -25,10 +28,12 @@ export default {
     TransferDom
   },
   computed: {
-    ...mapState([
+    ...mapGetters([
       // 过渡效果
       'transitionName',
+      // 加载状态是否显示
       'isLoading',
+      // 网络错误弹窗是否显示
       'alertShow'
     ]),
   },
@@ -46,7 +51,8 @@ export default {
     }
   },
   components: {
-    'v-playbar': playBar,
+    bubble,
+    playbar,
     Loading,
     Alert
   }

@@ -1,32 +1,33 @@
 <template>
   <div id="recommend">
-    <v-banner />
-    <v-song-sheet />
-    <v-music-list isNewSong :musicList="musicList" title="最新音乐" />
+    <banner></banner>
+    <song-sheet></song-sheet>
+    <music-list isNewSong :musicList="musicList" title="最新音乐"></music-list>
   </div>
 </template>
 
 <script>
-import Banner from '@/components/Banner'
-import SongSheet from '@/components/Songsheet'
-import MusicList from '@/components/MusicList'
-import { mapState } from 'vuex'
+import banner from '@/components/Banner'
+import songSheet from '@/components/Songsheet'
+import musicList from '@/components/MusicList'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'recommend',
   data: () => ({
   }),
   mounted() {
-    this.$store.dispatch('get_newSongsList')
+    this.get_newSongsList()
   },
   computed: {
-    ...mapState({
-      musicList: state => state.musicList
-    })
+    ...mapGetters(['musicList'])
+  },
+  methods: {
+    ...mapActions(['get_newSongsList'])
   },
   components: {
-    'v-banner': Banner,
-    'v-song-sheet': SongSheet,
-    'v-music-list': MusicList
+    banner,
+    songSheet,
+    musicList
   }
 }
 </script>

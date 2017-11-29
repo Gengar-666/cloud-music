@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import { Confirm, TransferDomDirective as TransferDom } from 'vux'
 export default {
   name: 'user',
@@ -52,11 +52,11 @@ export default {
     TransferDom
   },
   computed: {
-    ...mapState({
-      user: state => state.user,
-      userDetail: state => state.userDetail,
-      userPlayList: state => state.userPlayList
-    })
+    ...mapGetters([
+      'user',
+      'userDetail',
+      'userPlayList'
+    ])
   },
   mounted() {
     if (this.user.code == 200) {

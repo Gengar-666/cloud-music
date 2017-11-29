@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import play from './../../static/img/play.svg'
 import pause from './../../static/img/pause.svg'
 export default {
@@ -27,32 +27,35 @@ export default {
     data: () => ({
     }),
     computed: {
-        ...mapState({
-            //音乐url
-            audioUrl: state => state.audioUrl,
-            //播放状态
-            playStatus: state => state.playStatus,
-            musicDetail: state => state.musicDetail,
-            playStatus: state => state.playStatus,
-            playBtn : state => state.playBtn
-        })
+        ...mapGetters([
+            // 歌曲url
+            'audioUrl',
+            // 播放状态
+            'playStatus',
+            // 歌曲详情
+            'musicDetail',
+            // 播放状态
+            'playStatus',
+            // 按钮状态
+            'playBtn'
+        ])
     },
     methods: {
         //播放音乐
         playMusic() {
             //设置播放状态
-            this.$store.commit('set_playStatus', true);
+            this.$store.commit('set_playStatus', true)
             //播放歌曲
-            this.$refs.player.play();
+            this.$refs.player.play()
         },
         play(status) {
             if (status != false) {
-                this.$store.state.playStatus = false;
-                this.$store.state.playBtn = play;
+                this.$store.state.playStatus = false
+                this.$store.state.playBtn = play
             }
             else {
-                this.$store.state.playStatus = true;
-                this.$store.state.playBtn = pause;
+                this.$store.state.playStatus = true
+                this.$store.state.playBtn = pause
             }
         }
     },
@@ -61,10 +64,10 @@ export default {
         playStatus(state) {
             if (state != false) {
                 this.$nextTick(() => {
-                    this.$refs.player.play();
+                    this.$refs.player.play()
                 })
             } else {
-                this.$refs.player.pause();
+                this.$refs.player.pause()
             }
         }
     }

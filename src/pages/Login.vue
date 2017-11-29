@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div class="content">
-      <img src="./../../static/img/loginbg.gif" alt="">
+      <img src="./../../static/img/loginbg.jpg" alt="">
       <div class="form">
         <div class="phone">
           <input type="text" placeholder="手机号码" v-model="phone">
@@ -9,7 +9,6 @@
         <div class="pwd">
           <input type="password" placeholder="密码" v-model="password">
         </div>
-        <canvas></canvas>
         <div class="login-btn">
           <button type="button" :class="{'button-active': btnIsActive}" @click="login">
             <span>登录</span>
@@ -17,8 +16,11 @@
         </div>
       </div>
       <div class="pass">
+        <div class="remember-pwd">
+          <x-switch style="display: flex; align-items: center;" title='记住密码：' :value-map="['0', '1']" v-model="value"></x-switch>
+        </div>
         <div class="btn" @click="pass">
-            <span>跳过登录</span>
+          <span>跳过登录</span>
         <img src="./../../static/img/pass.svg" alt="">
         </div>
       </div>
@@ -27,18 +29,24 @@
 </template>
 
 <script>
+import { XSwitch } from 'vux'
 export default {
   name: 'login',
   data: () => ({
     btnIsActive: false,
     phone: '',
-    password: ''
+    password: '',
+    value: '1'
   }),
   mounted() {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    if (userInfo) {
+      this.phone = userInfo.phone
+      this.password = userInfo.password
+    }
     setInterval(() => {
       this.btnIsActive = !this.btnIsActive
     }, 1000)
-    this.H5btn()
   },
   methods: {
     login() {
@@ -47,6 +55,12 @@ export default {
         password: this.password
       }
       this.$fetch.Login(para).then(res => {
+        // 是否记住密码
+        if (this.value == '1' ) {
+          localStorage.setItem('userInfo', JSON.stringify(para))
+        } else {
+          localStorage.removeItem('userInfo')
+        }
         this.$store.state.user = res
         localStorage.setItem('user', JSON.stringify(res))
         this.$router.push('/user')
@@ -54,215 +68,15 @@ export default {
     },
     pass() {
       this.$router.push('/recommend')
-    },
-    H5btn() {
-      // -----------
-      // Definitions
-      // -----------
-      var canvas = document.querySelector('canvas')
-      canvas.width = 840
-      canvas.height = 840
-      var context = canvas.getContext('2d')
-      var currentFrame = 0
-      var circles = []
-      var circleCount = 10
-      // ---------
-      // LIFECYCLE
-      // ---------
-      function update() {
-        // ------------
-        // Update state
-        // ------------
-        currentFrame++
-
-        _projection.refZ = 400
-        _projection.fLength = 102
-
-        for (var i = 0; i < circles.length; i++) {
-          _projection.doProjection(circles[i].shape);
-          _projection.rotateY(circles[i].shape, circles[i].rotationX);
-          _projection.rotateX(circles[i].shape, circles[i].rotationY);
-        }
-        // ------
-        // Render
-        // ------
-        render()
-      }
-      // ------
-      // Render
-      // ------
-      function render() {
-        // -----
-        // Clear
-        // -----
-        context.clearRect(0, 0, canvas.width, canvas.height)
-        // -----------------
-        // Background circle
-        // -----------------
-        context.beginPath();
-        context.fillStyle = 'rgba(0,0,0, 1)'
-        context.lineWidth = 5
-        context.fill()
-        // ----------------
-        // Particle circles
-        // ----------------
-        for (var i = 0; i < circles.length; i++) {
-          circles[i].render()
-        }
-        // ----
-        // Loop
-        // ----
-        requestAnimationFrame(update)
-      }
-      // ---------------
-      // Start Animation
-      // ---------------
-      requestAnimationFrame(update)
-      // -------------
-      // 3D Projection
-      // -------------
-      var Basic3DProjection = function() {
-
-        this.projCenterX = 0
-        this.projCenterY = 0
-        this.fLength = 400
-        this.refZ = 400
-
-        this.getScaleFromZ = function(z) {
-          if (this.fLength + z == 0) {
-            return 0.001
-          } else {
-            return this.refZ / (this.fLength + z)
-          }
-        }
-        this.doProjection = function(_object) {
-
-          var x = _object.posX * this.getScaleFromZ(_object.posZ) + this.projCenterX
-          var y = _object.posY * this.getScaleFromZ(_object.posZ) + this.projCenterY
-          var y0z0 = this.getScaleFromZ(0)
-
-          _object.screenX = x
-          _object.screenY = y - y0z0;
-          _object.scale = this.getScaleFromZ(_object.posZ)
-          _object.pastViewPoint = _object.posZ > this.refZ
-
-        }
-
-        this.rotateY = function(object, ang) {
-          var _cos = Math.cos(ang)
-          var _sin = Math.sin(ang)
-
-          var tz = object.posZ * _cos - object.posX * _sin
-          var tx = object.posZ * _sin + object.posX * _cos
-          object.posX = tx
-          object.posZ = tz
-          this.doProjection(object)
-        }
-
-        this.rotateX = function(object, ang) {
-          var _cos = Math.cos(ang)
-          var _sin = Math.sin(ang)
-
-          var ty = object.posY * _cos - object.posZ * _sin;
-          var tz = object.posY * _sin + object.posZ * _cos;
-          object.posY = ty
-          object.posZ = tz
-          this.doProjection(object)
-        }
-
-        this.rotateZ = function(object, ang) {
-          var _cos = Math.cos(ang)
-          var _sin = Math.sin(ang)
-
-          var object = objects[i];
-          var tx = object.posX * _cos - object.posY * _sin
-          var ty = object.posX * _sin + object.posY * _cos
-          object.posX = tx
-          object.posY = ty
-          this.doProjection(object)
-        }
-
-      }
-
-      var _projection = new Basic3DProjection()
-      _projection.projCenterX = canvas.width / 2
-      _projection.projCenterY = canvas.height / 2
-      // --------
-      // 3D Shape
-      // --------
-      var Basic3DObject = function(x, y, z, size) {
-
-        this.posX = x
-        this.posY = y
-        this.posZ = z
-        this.dispSize = size
-
-        this.screenX = 0
-        this.screenY = 0
-
-        this.scale = 1
-        this.pastViewPoint = false
-
-      }
-
-      function createCircle() {
-        this.shape = new Basic3DObject(0, 0, 68, 0)
-        this.rotationX
-        this.rotationY
-        this.size
-
-        this.render = function() {
-          context.beginPath()
-          context.strokeStyle = 'rgba(182,182,182, ' + (this.shape.posZ * -1) / 60 + ')'
-          context.fillStyle = 'rgba(182,182,182, ' + (this.shape.posZ * -1) / 60 + ')'
-          context.lineWidth = 2 * this.size
-          context.arc(
-            this.shape.screenX,
-            this.shape.screenY,
-            this.size * this.shape.scale,
-            0,
-            Math.PI * 2,
-            false
-          );
-          if (this.fillOrStroke === 'fill') {
-            context.fill()
-          } else {
-            context.stroke()
-          }
-        }
-      }
-
-      for (var i = 0; i < circleCount; i++) {
-        var tempCircle = new createCircle()
-
-        if (Math.random() < 0.5) {
-          tempCircle.rotationX = Math.random() / 100;      
-        } else {
-          tempCircle.rotationX = (Math.random() / 100) * -1
-        }
-
-        if (Math.random() < 0.5) {
-          tempCircle.fillOrStroke = 'fill'
-        } else {
-          tempCircle.fillOrStroke = 'stroke'
-        }
-
-        if (Math.random() < 0.5) {
-          tempCircle.rotationY = Math.random() / 100
-        } else {
-          tempCircle.rotationY = Math.random() / 100 * -1
-        }
-
-        tempCircle.size = Math.random() * 2
-
-        circles.push(tempCircle)
-      }
     }
+  },
+  components: {
+    XSwitch
   }
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 #login {
   height: 80vh;
   overflow: hidden;
@@ -276,8 +90,8 @@ export default {
     width: 100vw;
     position: relative;
     img {
-      width: 200px;
-      height: 200px;
+      width: 150px;
+      height: 150px;
       display: block;
       margin: 0 auto;
     }
@@ -289,7 +103,7 @@ export default {
       left: 0;
       right: 0;
       margin: auto;
-      top: 185px;
+      top: 160px;
       background: transparent;
       .phone {
         width: 100%;
@@ -328,35 +142,56 @@ export default {
   }
   .pass { 
     width: 85vw;
-    margin: 200px auto;
+    margin: 240px auto;
     overflow: hidden;
     padding-top:1px;
-    padding-bottom:5px; 
+    padding-bottom:5px;
+    .remember-pwd {
+      width: 120px;
+      position: absolute;
+      font-size: 13px;
+      .weui-label {
+        width: 65px !important;
+      }
+      .weui-switch, .weui-switch-cp__box {
+        width: 45px;
+        height: 25px;
+      }
+      .weui-switch:before, .weui-switch-cp__box:before {
+        width: 23px;
+        height: 23px;
+      }
+      .weui-switch:after, .weui-switch-cp__box:after {
+        width: 23px;
+        height: 23px;
+      }
+    }
     .btn {
       float: right;
       cursor: pointer;
-      width: 140px;
-      height: 35px;
+      width: 110px;
+      height: 26px;
       position: relative;
       display: flex;
       align-items: center;
       border: 1px solid #CCC;
       border-radius: 50px;
-      box-shadow: 0 3px 9px #CCC, inset 0 0 9px #FFF;
+      box-shadow: 0 3px 3px #CCC, inset 0 0 9px #FFF;
       padding-top: 5px;
       padding-bottom: 5px;
     }
     span {
       position: absolute;
-      right: 60px;
+      right: 45px;
       color: #666;
+      font-size: 13px;
     }
     img {
       position: absolute;
       top: 3px;
       right: 10px;
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
     }
   }
    ::-webkit-input-placeholder {
@@ -464,18 +299,5 @@ button:before {
   left: calc(0% - 10px);
   -webkit-transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
   transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
-}
-
-canvas {
-  width: 420px;
-  height: 420px;
-  background: transparent;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 1000;
 }
 </style>

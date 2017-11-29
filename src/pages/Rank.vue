@@ -1,17 +1,17 @@
 <template>
   <div id="rank">
-    <v-rank />
+    <music-rank></music-rank>
   </div>
 </template>
 
 <script>
-import Rank from '@/components/Rank'
+import musicRank from '@/components/Rank'
 export default {
   name: 'rank',
   data: () => ({
   }),
   components: {
-    'v-rank': Rank
+    musicRank
   }
 }
 </script>

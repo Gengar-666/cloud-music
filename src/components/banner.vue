@@ -13,7 +13,6 @@
 
 <script>
 import { Swiper, SwiperItem } from 'vux'
-import { mapState } from 'vuex'
 import banner from './../../static/img/banner666.jpg'
 export default {
     data: () => ({

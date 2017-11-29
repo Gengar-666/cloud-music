@@ -1,6 +1,6 @@
 <template>
     <div id="layout">
-        <v-navbar />
+        <navbar></navbar>
         <div id="content">
             <transition :name="transitionName">
                 <router-view class="view"></router-view>
@@ -10,19 +10,19 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
-import Navbar from '@/components/Navbar'
+import { mapGetters } from 'vuex';
+import navbar from '@/components/Navbar'
 export default {
     name: 'layout',
     data: () => ({
     }),
     components: {
-        'v-navbar': Navbar
+        navbar
     },
     mounted() {
     },
     computed: {
-        ...mapState([
+        ...mapGetters([
             // 过渡效果
             'transitionName'
         ])

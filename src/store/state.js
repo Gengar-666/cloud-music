@@ -22,7 +22,7 @@ export default {
   isLoading: false,
   // 是否网络异常
   alertShow: false,
-
+  
   /* 判断前进后退 */
   count: 1,
   transitionName: 'slide-right',

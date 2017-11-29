@@ -5,14 +5,14 @@
             <input @focus="cancelShow" @input="searchListShow" v-on:input="getSearchList" v-model="keyword" type="text" :style="inputWidth" placeholder="搜索歌曲">
             <span @click="cancelHide" class="cancel" v-if=" CancelBtnShow !='' ">取消</span>
         </div>
-        <component :is="currentView" :keyword="keyword" :result="result" :currentView="currentView" v-on:listenToHotSearch="showMsgFromHotSearch"></component>
+        <component :is="currentView" :keyword="keyword" :result="searchList" :currentView="currentView" v-on:listenToHotSearch="showMsgFromHotSearch"></component>
     </div>
 </template>
 
 <script>
 import hotSearch from './HotSearch'
 import searchList from './SearchList'
-import { mapState } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
     data: () => ({
             inputWidth: {
@@ -23,44 +23,43 @@ export default {
             keyword: '',
     }),
     computed: {
-        ...mapState({
-            result: state => state.searchList
-        })
+        ...mapGetters(['searchList'])
     },
     components: {
         hotSearch,
         searchList
     },
     methods: {
+        ...mapActions(['get_searchList']),
         showMsgFromHotSearch(data) {
-            this.currentView = data.currentView;
-            this.keyword = data.keyword;
+            this.currentView = data.currentView
+            this.keyword = data.keyword
             // 获取搜索列表
-            this.$store.dispatch('get_searchList', this.keyword);
+            this.get_searchList(this.keyword)
         },
         cancelShow() {
             if (this.keyword == "") {
-                this.currentView = '';
-                this.CancelBtnShow = 'show';
-                this.inputWidth.width = '82%';
+                this.currentView = ''
+                this.CancelBtnShow = 'show'
+                this.inputWidth.width = '82%'
             }
         },
         cancelHide() {
-            this.currentView = 'hotSearch';
-            this.CancelBtnShow = '';
-            this.inputWidth.width = '97.5%';
-            this.keyword = "";
+            this.currentView = 'hotSearch'
+            this.CancelBtnShow = ''
+            this.inputWidth.width = '97.5%'
+            this.keyword = ""
         },
         searchListShow() {
-            this.currentView = 'searchList';
+            this.currentView = 'searchList'
         },
         getSearchList() {
             if (this.keyword != "") {
-                this.$store.dispatch('get_searchList', this.keyword);
+                this.get_searchList(this.keyword)
             }
             if (this.keyword == "" || this.keyword == " ") {
-                _this.$store.state.searchList = '';
-                _this.result = _this.$store.state.searchList;
+                this.$store.state.searchList = []
+                this.result = this.$store.state.searchList
             }
         }
     }

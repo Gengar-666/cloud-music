@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import MenuIcon from './../../static/img/menu.svg'
 import SearchIcon from './../../static/img/search1.svg'
 export default {
@@ -46,9 +46,9 @@ export default {
     this.getTabPosition()
   },
   computed: {
-    ...mapState({
-      activeTab: state => state.activeTab
-    })
+    ...mapGetters([
+      'activeTab'
+    ])
   },
   methods: {
     // 获取导航的下标宽度和平移坐标

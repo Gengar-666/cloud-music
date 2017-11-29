@@ -8,7 +8,7 @@
     <div class="remd_newsg">
       <div class="m-sglst" v-for="(item, index) in musicList" :key="index">
         <div class="m-sg-item">
-          <div class="sg-btn" @click="getMusicUrl(item.song.id)">
+          <div class="sg-btn" @click="handleClick(item.song.id)">
             <div class="pic">
               <img :src="item.song.album.blurPicUrl" alt="">
             </div>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: {
     isNewSong: Boolean,
@@ -35,13 +36,10 @@ export default {
   mounted() {
   },
   methods: {
-    getMusicUrl(id) {
-      // 获取歌曲Url
-      this.$store.dispatch('get_musicDetail', id)
-      this.$fetch.MusicUrl(id).then(res => {
-        this.$store.dispatch('get_audioUrl', res.data[0])
-        this.$store.dispatch('add_ListenLists', res.data[0])
-      })
+    ...mapActions(['handleClickMusic']),
+    handleClick(id) {
+      // 点击歌曲之后的处理
+      this.handleClickMusic(id)
     }
   }
 }

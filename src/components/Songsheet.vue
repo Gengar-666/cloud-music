@@ -19,19 +19,23 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 export default {
     data: () => ({
         title: '推荐歌单'
     }),
     mounted() {
-        this.$store.dispatch('get_songsheet')
+        this.get_songsheet()
     },
     computed: {
-        ...mapState({
+        ...mapGetters([
             //推荐歌单
-            songsheet: state => state.songsheet
-        })
+            'songsheet'
+        ])
+    },
+    methods: {
+        // 获取推荐歌单
+        ...mapActions(['get_songsheet'])
     }
 }
 </script>

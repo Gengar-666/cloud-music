@@ -1,34 +1,33 @@
 <template>
     <div id="search-list">
-        <p class="search-title">
-            {{ "搜索"+'"'+keyword+'"' }}
-        </p>
-        <ul>
-            <li v-for="(item, index) in result" class="search-item" :key="index" @click="getMusicUrl(item.id)">
-                <img :src="item.album.blurPicUrl" alt="">
-                <p class="name">{{ item.name }}</p>
-                <span>{{ item.artists[0].name }}-{{ item.album.name }}</span>
-            </li>
-        </ul>
+        <div v-show="result.length !=0" class="search-result">
+            <p class="search-title">
+                {{ "搜索"+'"'+keyword+'"' }}
+            </p>
+            <ul>
+                <li v-for="(item, index) in result" class="search-item" :key="index" @click="handleClick(item.id)">
+                    <img :src="item.album.blurPicUrl" alt="">
+                    <p class="name">{{ item.name }}</p>
+                    <span>{{ item.artists[0].name }}-{{ item.album.name }}</span>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
     props: ['keyword', 'result'],
     data: () => ({
     }),
     mounted() {
-        console.log(this.result)
     },
     methods: {
-        getMusicUrl(id) {
-            // 获取歌曲Url
-            this.$store.dispatch('get_musicDetail', id)
-            this.$fetch.MusicUrl(id).then(res => {
-                this.$store.dispatch('get_audioUrl', res.data[0])
-                this.$store.dispatch('add_ListenLists', res.data[0])
-            })
+        ...mapActions(['handleClickMusic']),
+        handleClick(id) {
+            // 点击歌曲之后的处理
+            this.handleClickMusic(id)
         }
     }
 }
