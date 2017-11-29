@@ -38,11 +38,11 @@ export default {
     ]),
   },
   mounted() {
-    // this.$store.dispatch('get_musicDetail', 451169473)
-    // this.$fetch.MusicUrl(451169473).then(res => {
-    //   this.$store.dispatch('get_audioUrl', res.data[0])
-    //   this.$store.dispatch('add_ListenLists', res.data[0])
-    // })
+    this.$store.dispatch('get_musicDetail', 405612296)
+    this.$fetch.MusicUrl(405612296).then(res => {
+      this.$store.dispatch('get_audioUrl', res.data[0])
+      this.$store.dispatch('add_ListenLists', res.data[0])
+    })
   },
   methods: {
     onHide () {

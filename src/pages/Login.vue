@@ -142,7 +142,7 @@ export default {
   }
   .pass { 
     width: 85vw;
-    margin: 240px auto;
+    margin: 210px auto;
     overflow: hidden;
     padding-top:1px;
     padding-bottom:5px;

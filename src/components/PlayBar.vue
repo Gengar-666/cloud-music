@@ -1,10 +1,10 @@
 <template>
-<div id="playbar">
-    <div id="music">
-        <audio :src="audioUrl.url" @canplay="playMusic" ref="player" loop="loop"></audio>  
-    </div>
-        <div class="palyer" v-if="musicDetail.length !==0">
-             <div class="pic">
+    <div id="playbar">
+        <div id="music">
+            <audio :src="audioUrl.url" @canplay="playMusic" ref="player" loop="loop"></audio>
+        </div>
+        <div class="palyer" v-if="musicDetail.length !==0 && $route.path !=='/login'">
+            <div class="pic">
                 <img :src="musicDetail.al.picUrl" alt="">
             </div>
             <div class="title">
@@ -13,9 +13,9 @@
             </div>
             <div class="play-btn" @click="play(playStatus)">
                 <img :src="playBtn" alt="">
-            </div> 
-        </div>  
-</div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -75,46 +75,48 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.palyer {
+#playbar {
     position: absolute;
     bottom: 0;
-    width: 100vw;
-    height: 40px;
-    z-index: 1000;
-    background: -webkit-linear-gradient(left, #2A78DC, #CCC);
-    background: -moz-linear-gradient(left, #2A78DC, #CCC);
-    background: -o-linear-gradient(left, #2A78DC, #CCC);
-    background: linear-gradient(to right, #2A78DC, #CCC);
-    padding-top: 10px;
-    padding-bottom: 8px;
-    padding-left: 10px;
-    .pic {
-        display: inline-block;
-        img {
-            width: 40px;
-            height: 40px;
+    .palyer {
+        width: 100vw;
+        height: 40px;
+        z-index: 1000;
+        background: -webkit-linear-gradient(left, #2A78DC, #CCC);
+        background: -moz-linear-gradient(left, #2A78DC, #CCC);
+        background: -o-linear-gradient(left, #2A78DC, #CCC);
+        background: linear-gradient(to right, #2A78DC, #CCC);
+        padding-top: 10px;
+        padding-bottom: 8px;
+        padding-left: 10px;
+        .pic {
+            display: inline-block;
+            img {
+                width: 40px;
+                height: 40px;
+            }
         }
-    }
-    .title {
-        display: inline-block;
-        color: #FFF;
-        font-size: 13px;
-        position: absolute;
-        left: 60px;
-        top: 12px;
-    }
-    .title .song-name {
-        margin-top: 3px;
-        color:#ccc;
-        font-size: 12px;
-    }
-    .play-btn {
-        display: inline-block;
-        float: right;
-        margin-right: 2rem;
-        margin-top: 3px;
-        img {
-            width: 33px;
+        .title {
+            display: inline-block;
+            color: #FFF;
+            font-size: 13px;
+            position: absolute;
+            left: 60px;
+            top: 12px;
+        }
+        .title .song-name {
+            margin-top: 3px;
+            color: #ccc;
+            font-size: 12px;
+        }
+        .play-btn {
+            display: inline-block;
+            float: right;
+            margin-right: 2rem;
+            margin-top: 3px;
+            img {
+                width: 33px;
+            }
         }
     }
 }

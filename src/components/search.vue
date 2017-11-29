@@ -1,12 +1,12 @@
 <template>
-    <div id="search-input">
-        <div class="search-bar">
+    <div class="search">
+         <div class="search-bar">
             <span class="search-icon"></span>
             <input @focus="cancelShow" @input="searchListShow" v-on:input="getSearchList" v-model="keyword" type="text" :style="inputWidth" placeholder="搜索歌曲">
             <span @click="cancelHide" class="cancel" v-if=" CancelBtnShow !='' ">取消</span>
         </div>
         <component :is="currentView" :keyword="keyword" :result="searchList" :currentView="currentView" v-on:listenToHotSearch="showMsgFromHotSearch"></component>
-    </div>
+    </div> 
 </template>
 
 <script>
@@ -67,7 +67,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#search-input {
+.search {
     .search-bar {
         position: fixed;
         top: 0;

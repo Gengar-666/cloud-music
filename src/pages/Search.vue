@@ -1,17 +1,17 @@
 <template>
   <div id="search">
-      <search></search>
+       <music-search></music-search>
   </div>
 </template>
 
 <script>
-import search from '@/components/Search'
+import musicSearch from '@/components/Search'
 export default {
   name: 'search',
   data: () => ({
   }),
   components: {
-    search
+    musicSearch
   }
 }
 </script>

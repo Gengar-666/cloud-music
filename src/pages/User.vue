@@ -6,21 +6,21 @@
       </confirm>
     </div>
     <div v-show="user.code == 200">
-      <div class="user-wrap" :style="'background-image: url(' + user.profile.backgroundUrl + ')'">
+      <div class="user-wrap" :style="'background-image: url(' + userDetail.profile.backgroundUrl + ')'">
         <div class="user-content">
           <div class="user-top">
             <div class="user-fl">
               <p class="num">{{ userDetail.listenSongs }}</p>
               <p class="listen-num">听歌数</p>
             </div>
-            <div class="avatar" :style="'background-image: url(' + user.profile.avatarUrl + ')'"></div>
+            <div class="avatar" :style="'background-image: url(' + userDetail.profile.avatarUrl + ')'"></div>
             <div class="user-fr">
               <p class="num">{{ userDetail.profile.followeds }}</p>
               <p class="followeds">粉丝数</p>
             </div>
           </div>
           <div class="user-bottom">
-            <p>{{ user.profile.nickname }}</p>
+            <p>{{ userDetail.profile.nickname }}</p>
           </div>
         </div>
       </div>
