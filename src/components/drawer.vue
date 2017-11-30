@@ -16,8 +16,7 @@
 </div> 
 </template>
 
-<script scoped>
-
+<script>
  export default {
    props: {
      show: {
@@ -69,7 +68,7 @@
 }
 </script>
 
-<style >
+<style scoped>
  .vue-drawer {
    display: block;
    position: relative;

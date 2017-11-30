@@ -20,8 +20,10 @@ export default {
   },
   // 是否加载状态
   isLoading: false,
-  // 是否网络异常
-  alertShow: false,
+  // 是否显示弹窗提示
+  alertStatus: false,
+  // 是否显示confirm弹窗
+  confirmStatus: false,
 
   /* 判断前进后退 */
   count: 1,
@@ -29,8 +31,10 @@ export default {
   routeChain: [],
   /* END */
 
-  // 导航菜单显示状态
-  menuShow: false,
+  // 弹窗提示文字
+  alertText:'',
+  // 侧边栏显示状态
+  sidebarShow: false,
   // 导航下标位置
   activeTab: 0,
   // 试听列表

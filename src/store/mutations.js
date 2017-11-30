@@ -40,6 +40,14 @@ export default {
     set_playStatus(state, payload) {
         state.playStatus = payload;
     },
+    //设置弹窗提示状态
+    set_alertStatus(state, payload) {
+        state.alertStatus = payload
+    },
+    //设置confirm弹窗状态
+    set_confirmStatus(state, payload) {
+        state.confirmStatus = payload
+    },
     addRouteChain(state, route) {
         state.routeChain.push(route);
     },

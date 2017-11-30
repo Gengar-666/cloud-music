@@ -8,6 +8,7 @@ Vue.use(Router)
 const router = new Router({ routes })
 
 router.beforeEach((to, from, next) => {
+    store.state.sidebarShow = false
     store.state.activeTab = to.path == '/recommend' ? 0 : to.path == '/rank' ? 1 : to.path == '/user' ? 2 : 0
     // 定义一个可以记录路由路径变化的数组，这里用在vuex，其实也可以用sessionStorage,或者在window.routeChain等变量
     // 不一定要用到vuex

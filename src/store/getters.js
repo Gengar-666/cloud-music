@@ -7,8 +7,10 @@ export default {
   userPlayList: state => state.userPlayList,
   // 是否加载状态
   isLoading: state => state.isLoading,
-  // 是否网络异常
-  alertShow: state => state.alertShow,
+  // 是否显示弹窗提示
+  alertStatus: state => state,
+  // 是否显示confirm弹窗
+  confirmStatus: state => state,
 
   /* 判断前进后退 */
   count: state => state.count,
@@ -16,8 +18,10 @@ export default {
   routeChain: state => state.routeChain,
   /* END */
 
-  // 导航菜单显示状态
-  menuShow: state => state.menuShow,
+  // 弹窗提示文字
+  alertText: state => state.alertText,
+  // 侧边栏显示状态
+  sidebarShow: state => state.sidebarShow,
   // 导航下标位置
   activeTab: state => state.activeTab,
   // 试听列表

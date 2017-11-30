@@ -67,7 +67,7 @@ export default {
     },
     // 左侧菜单显示或隐藏 
     menuShow() {
-      this.$store.state.menuShow = !this.$store.state.menuShow
+      this.$store.state.sidebarShow = !this.$store.state.sidebarShow
     }
   },
   watch: {
@@ -82,7 +82,6 @@ export default {
   width: 100%;
   position: fixed;
   top: 0;
-  z-index: 1000;
   .header {
     width: 100%;
     height: 50px;

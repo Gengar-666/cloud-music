@@ -1,9 +1,6 @@
 <template>
   <div id="user">
     <div v-transfer-dom>
-      <confirm v-model="show" title="提示" @on-cancel="onCancel" @on-confirm="onConfirm">
-        <p style="text-align:center;">你还未登录，赶紧去登录吧~</p>
-      </confirm>
     </div>
     <div v-show="user.code == 200">
       <div class="user-wrap" :style="'background-image: url(' + userDetail.profile.backgroundUrl + ')'">
@@ -46,7 +43,6 @@ import { Confirm, TransferDomDirective as TransferDom } from 'vux'
 export default {
   name: 'user',
   data: () => ({
-    show: false
   }),
   directives: {
     TransferDom
@@ -69,19 +65,10 @@ export default {
         localStorage.setItem('userPlayList', JSON.stringify(res))
       })
     } else {
-      this.show = true
+      this.$store.commit('set_confirmStatus', true)
     }
   },
   methods: {
-    // 未登录弹窗取消
-    onCancel() {
-      this.show = false
-      this.$router.go(-1)
-    },
-    onConfirm() {
-      this.show = false
-      this.$router.push('/login')
-    },
     toDetail(id) {
       this.$router.push({ name: 'songsheetDetail', query: { id } })
     }
