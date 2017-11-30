@@ -35,7 +35,7 @@ export default {
 <style lang="less" scoped>
 #layout {
     #content {
-        width: 100vw;
+        width: 100%;
         height: 75vh;
         overflow-y: auto;
         position: relative;

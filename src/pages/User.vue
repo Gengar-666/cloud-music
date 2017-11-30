@@ -65,6 +65,7 @@ export default {
         localStorage.setItem('userPlayList', JSON.stringify(res))
       })
     } else {
+      this.$store.state.confirmText = 'login'
       this.$store.commit('set_confirmStatus', true)
     }
   },

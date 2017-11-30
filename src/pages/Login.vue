@@ -87,7 +87,7 @@ export default {
   bottom: 0;
   margin: auto;
   .content {
-    width: 100vw;
+    width: 100%;
     position: relative;
     img {
       width: 150px;
@@ -96,7 +96,7 @@ export default {
       margin: 0 auto;
     }
     .form {
-      width: 85vw;
+      width: 85%;
       padding-top: 1px;
       position: absolute;
       z-index: 10;
@@ -141,7 +141,7 @@ export default {
     }
   }
   .pass { 
-    width: 85vw;
+    width: 85%;
     margin: 210px auto;
     overflow: hidden;
     padding-top:1px;
@@ -168,7 +168,7 @@ export default {
     }
     .btn {
       float: right;
-      width: 110px;
+      width: 115px;
       height: 26px;
       position: relative;
       display: flex;

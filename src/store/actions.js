@@ -5,7 +5,6 @@ export default {
         dispatch('get_musicDetail', id)
         fetch.MusicUrl(id).then(res => {
             dispatch('get_audioUrl', res.data[0])
-            dispatch('add_ListenLists', res.data[0])
             commit('set_playStatus', id);
         })
     },
@@ -48,8 +47,15 @@ export default {
         })
     },
     //获取歌曲详情
-    get_musicDetail({ commit }, ids) {
+    get_musicDetail({ dispatch, commit }, ids) {
         fetch.MusicDetail(ids).then(res => {
+            const music = {
+                id: res.songs[0].id,
+                MusicName: res.songs[0].name,
+                picUrl: res.songs[0].al.picUrl,
+                singer: res.songs[0].ar[0].name
+            }
+            dispatch('add_ListenLists', music)
             commit('set_musicDetail', res.songs[0])
         })
     },

@@ -9,7 +9,7 @@ export default {
     }
   },
   // 用户详细信息
-  userDetail: JSON.parse(localStorage.getItem('userDetail')) ||  {
+  userDetail: JSON.parse(localStorage.getItem('userDetail')) || {
     profile: {
       followeds: null
     }
@@ -32,7 +32,7 @@ export default {
   /* END */
 
   // 弹窗提示文字
-  alertText:'',
+  alertText: '',
   // confirm弹窗提示文字
   confirmText: '',
   // 侧边栏显示状态
@@ -40,7 +40,14 @@ export default {
   // 导航下标位置
   activeTab: 0,
   // 试听列表
-  listenLists: [],
+  listenLists: [
+    {
+      MusicName: "Awake (Original Mix)",
+      id: 405612296,
+      picUrl: "http://p1.music.126.net/NtysdDfFoyFJ05IzRz4pPQ==/1376588560385903.jpg",
+      singer: "WRLD"
+    }
+  ],
   // 当前播放歌曲Url
   audioUrl: '',
   // 推荐歌单

@@ -5,7 +5,14 @@ export default {
     },
     // 设置试听列表
     set_ListenLists(state, music) {
-        state.listenLists.push(music)
+        let flag = true
+        for (let i = 0; i < state.listenLists.length; i++) {
+            if (state.listenLists[i].id == music.id) {
+                flag = false
+                break
+            }
+        }
+        flag ? state.listenLists.push(music) : ''
     },
     //设置推荐歌单
     set_songsheet(state, payload) {

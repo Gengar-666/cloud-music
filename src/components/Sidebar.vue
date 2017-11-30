@@ -1,8 +1,8 @@
 <template>
   <div id="sidebar">
     <div class="user-info">
-      <div class="avatar" :style="'background-image: url(' + userDetail.profile.avatarUrl + ')'"></div>
-      <div class="nickname">{{ userDetail.profile.nickname }}</div>
+      <div class="avatar" :style="'background-image: url(' + avatar + ')'"></div>
+      <div class="nickname">{{ user.code == 200 ? userDetail.profile.nickname : '你还没有登录~' }}</div>
     </div>
     <div class="cell-box">
       <group>
@@ -12,8 +12,11 @@
         <cell title="设置" @click.native="config" is-link>
           <img slot="icon" src="./../../static/img/config.svg" alt="">
         </cell>
-        <cell title="退出" @click.native="signout" is-link>
+        <cell v-show="user.code == 200" title="退出" @click.native="sign_out" is-link>
           <img slot="icon" src="./../../static/img/signout.svg" alt="">
+        </cell>
+        <cell v-show="user.code !== 200" title="登录" @click.native="login" is-link>
+          <img slot="icon" src="./../../static/img/login.svg" alt="">
         </cell>
       </group>
     </div>
@@ -21,6 +24,7 @@
 </template>
 
 <script>
+import defaultAvatar from './../../static/img/defaultAvatar.jpg'
 import { mapGetters } from 'vuex'
 import { Cell, Group } from 'vux'
 export default {
@@ -28,7 +32,17 @@ export default {
   data: () => ({
   }),
   computed: {
-    ...mapGetters(['userDetail'])
+    ...mapGetters([
+      'user',
+      'userDetail'
+    ]),
+    avatar() {
+      if (this.user.code == 200) {
+        return this.userDetail.profile.avatarUrl
+      } else {
+        return defaultAvatar
+      }
+    }
   },
   components: {
     Cell,
@@ -42,7 +56,11 @@ export default {
       this.$store.state.alertText = '开发中，敬请期待~'
       this.$store.commit('set_alertStatus', true)
     },
-    signout() {
+    login() {
+      this.$router.push('/login')
+    },
+    sign_out() {
+      this.$store.state.confirmText = 'sign_out'
       this.$store.commit('set_confirmStatus', true)
     }
   }

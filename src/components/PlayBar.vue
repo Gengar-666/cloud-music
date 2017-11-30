@@ -11,8 +11,16 @@
                 <p>{{ musicDetail.name }}</p>
                 <p class="song-name">{{ musicDetail.ar[0].name }}</p>
             </div>
-            <div class="play-btn" @click="play(playStatus)">
-                <img :src="playBtn" alt="">
+            <div class="btn">
+                <div class="play-btn" @click="play(playStatus)">
+                    <img :src="playBtn" alt="">
+                </div>
+                <div class="next" @click="play(playStatus)">
+                    <img src="./../../static/img/next.svg" alt="">
+                </div>
+                <div class="listenLists" @click="getListenLists">
+                    <img src="./../../static/img/listenLists.svg" alt="">
+                </div>
             </div>
         </div>
     </div>
@@ -34,11 +42,15 @@ export default {
             'playStatus',
             // 歌曲详情
             'musicDetail',
+            // 试听列表
+            'listenLists',
             // 播放状态
             'playStatus',
             // 按钮状态
             'playBtn'
         ])
+    },
+    mounted() {
     },
     methods: {
         //播放音乐
@@ -57,6 +69,10 @@ export default {
                 this.$store.state.playStatus = true
                 this.$store.state.playBtn = pause
             }
+        },
+        //获取试听列表
+        getListenLists() {
+            console.log(this.listenLists)
         }
     },
     watch: {
@@ -76,10 +92,11 @@ export default {
 
 <style lang="less" scoped>
 #playbar {
+    width: 100%;
     position: absolute;
     bottom: 0;
     .palyer {
-        width: 100vw;
+        width: 100%;
         height: 40px;
         z-index: 1000;
         background: -webkit-linear-gradient(left, #2A78DC, #CCC);
@@ -112,11 +129,29 @@ export default {
         }
         .play-btn {
             display: inline-block;
-            float: right;
-            margin-right: 2rem;
+            position: absolute;
+            right: 6.4rem;
             margin-top: 3px;
             img {
                 width: 33px;
+            }
+        }
+        .next {
+            display: inline-block;
+            position: absolute;
+            right: 3.6rem;
+            margin-top: 3px;
+            img {
+                width: 30px;
+            }
+        }
+        .listenLists {
+            display: inline-block;
+            position: absolute;
+            right: 0.5rem;
+            margin-top: 3px;
+            img {
+                width: 35px;
             }
         }
     }
