@@ -33,6 +33,8 @@ export default {
 
   // 弹窗提示文字
   alertText:'',
+  // confirm弹窗提示文字
+  confirmText: '',
   // 侧边栏显示状态
   sidebarShow: false,
   // 导航下标位置

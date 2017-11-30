@@ -20,6 +20,8 @@ export default {
 
   // 弹窗提示文字
   alertText: state => state.alertText,
+  // confirm弹窗提示文字
+  confirmText: state => state.confirmText,
   // 侧边栏显示状态
   sidebarShow: state => state.sidebarShow,
   // 导航下标位置

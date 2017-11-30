@@ -69,13 +69,13 @@ export default {
     onHide() {
       this.$store.commit('set_alertStatus', false)
     },
-    // 登录或登录弹窗
+    // 登录或退出弹窗
     onCancel() {
-      this.show = false
-      this.$router.go(-1)
+      this.$store.commit('set_confirmStatus', false)
+      this.$route.path == '/user' ? this.$router.go(-1) : ''
     },
     onConfirm() {
-      this.show = false
+      this.$store.commit('set_confirmStatus',false)
       this.$router.push('/login')
     },
     // 显示侧边栏
