@@ -22,13 +22,15 @@ export default {
   isLoading: false,
   // 是否网络异常
   alertShow: false,
-  
+
   /* 判断前进后退 */
   count: 1,
   transitionName: 'slide-right',
   routeChain: [],
   /* END */
 
+  // 导航菜单显示状态
+  menuShow: false,
   // 导航下标位置
   activeTab: 0,
   // 试听列表

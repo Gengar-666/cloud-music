@@ -168,7 +168,6 @@ export default {
     }
     .btn {
       float: right;
-      cursor: pointer;
       width: 110px;
       height: 26px;
       position: relative;

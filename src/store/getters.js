@@ -15,7 +15,9 @@ export default {
   transitionName: state => state.transitionName,
   routeChain: state => state.routeChain,
   /* END */
-  
+
+  // 导航菜单显示状态
+  menuShow: state => state.menuShow,
   // 导航下标位置
   activeTab: state => state.activeTab,
   // 试听列表

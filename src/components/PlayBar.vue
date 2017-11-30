@@ -91,6 +91,7 @@ export default {
         padding-left: 10px;
         .pic {
             display: inline-block;
+            position: absolute;
             img {
                 width: 40px;
                 height: 40px;

@@ -13,7 +13,7 @@
 
 <script>
 import { Swiper, SwiperItem } from 'vux'
-import banner from './../../static/img/banner666.jpg'
+import banner from './../../static/img/banner.jpg'
 export default {
     data: () => ({
         bannerList: [

@@ -2,7 +2,7 @@
   <div id="navbar">
     <div class="header">
       <p class="title">这是一个假的网易云音乐</p>
-      <img id="menu" :src="MenuIcon" alt="">
+      <img id="menu" :src="MenuIcon" alt="" @click="menuShow">
       <router-link to="/search">
         <img id="search" :src="SearchIcon" alt="">
       </router-link>
@@ -64,6 +64,10 @@ export default {
       this.tabBoxWidth = this.$refs.tab[i].clientWidth
       this.tabBottomWidth = this.$refs.tabLink[i].$el.clientWidth + 20
       this.left = this.$refs.tab[i].clientWidth * i + 6
+    },
+    // 左侧菜单显示或隐藏 
+    menuShow() {
+      this.$store.state.menuShow = !this.$store.state.menuShow
     }
   },
   watch: {
