@@ -22,6 +22,10 @@
                 <p slot="header">
                     <ul>
                         <li v-show="listenLists.length != 0" class="header">
+                            <div class="toggle-btn" @click="togglePlayType">
+                                <img v-show="playType == 'listloop'" src="./../../static/img/listloop.svg" alt="">
+                                <img v-show="playType == 'random'" src="./../../static/img/random.svg" alt="">
+                            </div>
                             <div class="delete-btn" @click="deleteAll">
                                 <img src="./../../static/img/delete.svg" alt="">
                                 <span>清空全部</span>
@@ -87,7 +91,10 @@ export default {
             // 试听列表显示状态
             'listenListStatus',
             // 试听列表
-            'listenLists'
+            'listenLists',
+            // 播放模式
+            'playType'
+
         ])
     },
     mounted() {
@@ -101,11 +108,14 @@ export default {
                 this.$store.dispatch('get_audioUrl', res.data[0])
             })
         },
+        // 切换模仿模式
+        togglePlayType() {
+            this.$store.state.playType = this.playType == 'listloop' ? 'random' : 'listloop'
+        },
         // 删除试听列表歌曲
         deleteMusic(id) {
             for (let i = 0; i < this.listenLists.length; i++) {
                 if (this.listenLists[i].id === id) {
-                    console.log(i)
                     this.$store.state.listenLists.splice(i, 1)
                 }
             }
@@ -219,6 +229,13 @@ export default {
                 img {
                     width: 30px;
                     height: 30px;
+                }
+            }
+            .toggle-btn {
+                width: 50px;
+                img {
+                    width: 30px;
+                    height: 30px; 
                 }
             }
         }

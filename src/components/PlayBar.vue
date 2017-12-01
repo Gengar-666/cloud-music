@@ -1,7 +1,7 @@
 <template>
     <div id="playbar">
         <div id="music">
-            <audio :src="audioUrl.url" @canplay="playMusic" ref="player" loop="loop"></audio>
+            <audio :src="audioUrl.url" @canplay="playMusic($event)" ref="player"></audio>
         </div>
         <div class="palyer" v-if="musicDetail.length !==0 && $route.path !=='/login'">
             <div class="pic">
@@ -45,6 +45,8 @@ export default {
             'musicDetail',
             // 试听列表
             'listenLists',
+            // 播放模式
+            'playType',
             // 播放状态
             'playStatus',
             // 按钮状态
@@ -55,11 +57,16 @@ export default {
     },
     methods: {
         //播放音乐
-        playMusic() {
+        playMusic(e) {
+            let _this = this
             //设置播放状态
-            this.$store.commit('set_playStatus', true)
+            _this.$store.commit('set_playStatus', true)
             //播放歌曲
-            this.$refs.player.play()
+            _this.$refs.player.play()
+            //监听歌曲是否播放完毕
+            e.target.addEventListener('ended', function() {
+                _this.next()
+            }, false)
         },
         play(status) {
             if (status != false) {
@@ -74,15 +81,28 @@ export default {
         // 下一首
         next() {
             let id = null
-            for (let i = 0; i < this.listenLists.length; i++) {
+            let musicList = []
+            this.listenLists.map(i => {
+                musicList.push(i)
+            })
+            // 是否列表随机
+            if (this.playType == 'random') {
+                for (var i = musicList.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i - 0 + 1) + 0);
+                    var t = musicList[i];
+                    musicList[i] = musicList[j];
+                    musicList[j] = t;
+                }
+            }
+            for (let i = 0; i < musicList.length; i++) {
                 // 判断是不是最后一首
-                if (i === this.listenLists.length-1) {
-                    id = this.listenLists[0].id
+                if (i === musicList.length - 1) {
+                    id = musicList[0].id
                     break
                 }
                 // 获取下一首歌曲
-                if (this.listenLists[i].id === this.musicDetail.id) {
-                    id = this.listenLists[i+1].id
+                if (musicList[i].id === this.musicDetail.id) {
+                    id = musicList[i + 1].id
                     break
                 }
             }

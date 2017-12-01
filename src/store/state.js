@@ -43,6 +43,8 @@ export default {
   activeTab: 0,
   // 试听列表
   listenLists: JSON.parse(localStorage.getItem('listenLists')) || [],
+  // 播放模式
+  playType: 'listloop',
   // 当前播放歌曲Url
   audioUrl: '',
   // 推荐歌单

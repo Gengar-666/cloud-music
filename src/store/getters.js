@@ -30,6 +30,8 @@ export default {
   activeTab: state => state.activeTab,
   // 试听列表
   listenLists: state => state.listenLists,
+  // 播放模式
+  playType: state => state.playType, 
   // 当前播放歌曲Url
   audioUrl: state => state.audioUrl,
   // 推荐歌单
