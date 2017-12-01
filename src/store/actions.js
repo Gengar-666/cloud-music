@@ -51,7 +51,7 @@ export default {
         fetch.MusicDetail(ids).then(res => {
             const music = {
                 id: res.songs[0].id,
-                MusicName: res.songs[0].name,
+                musicName: res.songs[0].name,
                 picUrl: res.songs[0].al.picUrl,
                 singer: res.songs[0].ar[0].name
             }

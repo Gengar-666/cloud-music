@@ -15,7 +15,7 @@
                 <div class="play-btn" @click="play(playStatus)">
                     <img :src="playBtn" alt="">
                 </div>
-                <div class="next" @click="play(playStatus)">
+                <div class="next" @click="next()">
                     <img src="./../../static/img/next.svg" alt="">
                 </div>
                 <div class="listenLists" @click="getListenLists">
@@ -30,6 +30,7 @@
 import { mapGetters } from 'vuex'
 import play from './../../static/img/play.svg'
 import pause from './../../static/img/pause.svg'
+
 export default {
     name: 'music',
     data: () => ({
@@ -70,9 +71,29 @@ export default {
                 this.$store.state.playBtn = pause
             }
         },
+        // 下一首
+        next() {
+            let id = null
+            for (let i = 0; i < this.listenLists.length; i++) {
+                // 判断是不是最后一首
+                if (i === this.listenLists.length-1) {
+                    id = this.listenLists[0].id
+                    break
+                }
+                // 获取下一首歌曲
+                if (this.listenLists[i].id === this.musicDetail.id) {
+                    id = this.listenLists[i+1].id
+                    break
+                }
+            }
+            this.$store.dispatch('get_musicDetail', id)
+            this.$fetch.MusicUrl(id).then(res => {
+                this.$store.dispatch('get_audioUrl', res.data[0])
+            })
+        },
         //获取试听列表
         getListenLists() {
-            console.log(this.listenLists)
+            this.$store.state.listenListStatus = true
         }
     },
     watch: {
@@ -105,10 +126,10 @@ export default {
         background: linear-gradient(to right, #2A78DC, #CCC);
         padding-top: 10px;
         padding-bottom: 8px;
-        padding-left: 10px;
         .pic {
             display: inline-block;
             position: absolute;
+            left: 10px;
             img {
                 width: 40px;
                 height: 40px;
@@ -130,28 +151,32 @@ export default {
         .play-btn {
             display: inline-block;
             position: absolute;
-            right: 6.4rem;
+            right: 5.5rem;
             margin-top: 3px;
             img {
-                width: 33px;
+                width: 25px;
+                height: 25px;
             }
         }
         .next {
             display: inline-block;
             position: absolute;
-            right: 3.6rem;
+            right: 3.1rem;
             margin-top: 3px;
             img {
-                width: 30px;
+                width: 25px;
+                height: 25px;
             }
         }
         .listenLists {
             display: inline-block;
             position: absolute;
+            top: 8px;
             right: 0.5rem;
             margin-top: 3px;
             img {
-                width: 35px;
+                width: 30px;
+                height: 30px;
             }
         }
     }

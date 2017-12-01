@@ -69,7 +69,6 @@ export default {
 
 <style lang="less">
 #sidebar {
-  background: #eeeff0;
   height: 100vh;
   .user-info {
     padding-top: 50px;
@@ -110,7 +109,6 @@ export default {
       transition-delay: 0s;
     }
     .weui-cells {
-      background: #eeeff0;
       font-size: 15px;
     }
   }

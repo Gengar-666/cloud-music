@@ -30,6 +30,7 @@ html {
 
 body {
   height: 100%;
+  background: #FFF;
 }
 
 /* 取消a标签在移动端点击时的蓝色 */
@@ -48,8 +49,7 @@ a {
   top: 0;
   bottom: 0;
   margin: auto;
-  max-width: 450px;
-  max-height: 800px;
+  max-width: 500px;
   color: #2c3e50;
   height: 100%;
   width: 100%;
@@ -65,17 +65,14 @@ a {
   transition: all 0.8s cubic-bezier(.5, 0, .1, 1);
 }
 
-.slide-left-enter,
-.slide-right-leave-active {
+.slide-left-enter, .slide-right-leave-active {
   opacity: 0;
-  -webkit-transform: translate(-100%, 0);
-  transform: translate(-100%, 0);
+  -webkit-transform: translate(300px, 0);
+  transform: translate(300px, 0);
 }
-
-.slide-left-leave-active,
-.slide-right-enter {
+.slide-left-leave-active, .slide-right-enter {
   opacity: 0;
-  -webkit-transform: translate(-100%, 0);
-  transform: translate(-100%, 0);
+  -webkit-transform: translate(-300px, 0);
+  transform: translate(-300px, 0);
 }
 </style>

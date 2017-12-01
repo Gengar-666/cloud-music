@@ -92,16 +92,18 @@ export default {
     /* 标准的语法（必须放在最后）*/
     #menu {
       position: absolute;
-      top: 13px;
+      top: 15px;
       left: 20px;
-      width: 25px;
+      width: 20px;
+      height: 20px;
     }
 
     #search {
       position: absolute;
-      top: 10px;
-      right: 25px;
-      width: 28px;
+      top: 14px;
+      right: 20px;
+      width: 23px;
+      height: 23px;
     }
 
     .title {

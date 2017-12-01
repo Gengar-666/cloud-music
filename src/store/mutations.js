@@ -12,7 +12,10 @@ export default {
                 break
             }
         }
-        flag ? state.listenLists.push(music) : ''
+        if (flag) {
+            state.listenLists.push(music)
+            localStorage.setItem('listenLists', JSON.stringify(state.listenLists))
+        }
     },
     //设置推荐歌单
     set_songsheet(state, payload) {

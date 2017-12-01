@@ -24,6 +24,8 @@ export default {
   confirmText: state => state.confirmText,
   // 侧边栏显示状态
   sidebarShow: state => state.sidebarShow,
+  // 试听列表显示状态
+  listenListStatus: state => state,
   // 导航下标位置
   activeTab: state => state.activeTab,
   // 试听列表
