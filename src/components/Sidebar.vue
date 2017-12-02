@@ -1,15 +1,20 @@
 <template>
   <div id="sidebar">
-    <div class="user-info">
+    <div class="user-info" :style="'background-image: url(' + backgroundUrl + ')'">
       <div class="avatar" :style="'background-image: url(' + avatar + ')'"></div>
-      <div class="nickname">{{ user.code == 200 ? userDetail.profile.nickname : '你还没有登录~' }}</div>
+      <span class="nickname">{{ user.code == 200 ? userDetail.profile.nickname : '你还没有登录~' }}</span>
+      <span class="level">Lv.{{ userDetail.level}}</span>
+      <div class="sign-in" @click="disabled">
+        <img src="./../../static/img/signIn.svg" alt="">
+        <span>签到</span>
+      </div>
     </div>
     <div class="cell-box">
       <group>
         <cell title="个人中心" @click.native="toUser" is-link>
           <img slot="icon" src="./../../static/img/application.svg" alt="">
         </cell>
-        <cell title="设置" @click.native="config" is-link>
+        <cell title="设置" @click.native="disabled" is-link>
           <img slot="icon" src="./../../static/img/config.svg" alt="">
         </cell>
         <cell v-show="user.code == 200" title="退出" @click.native="sign_out" is-link>
@@ -42,6 +47,13 @@ export default {
       } else {
         return defaultAvatar
       }
+    },
+    backgroundUrl() {
+      if (this.user.code == 200) {
+        return this.userDetail.profile.backgroundUrl
+      } else {
+        return ''
+      }
     }
   },
   components: {
@@ -52,8 +64,8 @@ export default {
     toUser() {
       this.$router.push('/user')
     },
-    config() {
-      this.$store.state.alertText = '开发中，敬请期待~'
+    disabled() {
+      this.$store.state.alertText = '暂不可用，敬请期待~'
       this.$store.commit('set_alertStatus', true)
     },
     login() {
@@ -71,20 +83,55 @@ export default {
 #sidebar {
   height: 100vh;
   .user-info {
-    padding-top: 50px;
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    background-size: cover;
+    background: #000;
     .avatar {
       width: 80px;
       height: 80px;
       background-size: cover;
       border-radius: 50%;
-      margin: 0 auto;
+      margin-bottom: 15px;
     }
     .nickname {
-      text-align: center;
       margin-top: 10px;
       font-size: 15px;
-      color: #333;
-      font-weight: bold;
+      color: #FFF;
+    }
+    .level {
+      font-size: 12px;
+      color: #FFF;
+      border: 1px solid #FFF;
+      border-radius: 50px;
+      padding-left: 6px;
+      padding-right: 6px;
+      margin-left: 5px;
+    }
+    .sign-in {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #FFF;
+      border-radius: 50px;
+      width: 60px;
+      padding-left: 5px;
+      padding-right: 10px;
+      padding-top: 3px;
+      padding-bottom: 3px;
+      top: 132px;
+      right: 15px;
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+      }
+      span {
+        font-size: 15px;
+        color: #FFF;
+      }
     }
   }
   .cell-box {

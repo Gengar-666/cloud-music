@@ -169,7 +169,7 @@ export default {
     width: 100%;
     height: 100%;
     .sidebar {
-        width: 160px;
+        width: 80vw;
     }
     ul {
         position: relative;

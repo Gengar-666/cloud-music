@@ -3,7 +3,7 @@
         <div id="music">
             <audio :src="audioUrl.url" @canplay="playMusic($event)" ref="player"></audio>
         </div>
-        <div class="palyer" v-if="musicDetail.length !==0 && $route.path !=='/login'">
+         <div class="palyer" v-if="musicDetail.length !==0 && $route.path !=='/login'"> 
             <div class="pic">
                 <img :src="musicDetail.al.picUrl" alt="">
             </div>

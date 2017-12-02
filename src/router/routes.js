@@ -1,8 +1,35 @@
-// 登录
-import Login from '@/pages/Login'
-// 布局
-import Layout from '@/pages/Layout'
-
+//登录
+const Login = resolve => {
+    require(['@/pages/Login'], resolve)
+}
+//布局
+const Layout = resolve => {
+    require(['@/pages/Layout'], resolve)
+}
+//推荐
+const Recommend = resolve => {
+    require(['@/pages/Recommend'], resolve)
+}
+//排行榜
+const Rank = resolve => {
+    require(['@/pages/Rank'], resolve)
+}
+//我的
+const User = resolve => {
+    require(['@/pages/User'], resolve)
+}
+//搜索
+const Search = resolve => {
+    require(['@/pages/Search'], resolve)
+}
+//歌单详情
+const SongsheetDetail = resolve => {
+    require(['@/pages/SongsheetDetail'], resolve)
+}
+//排行榜详情
+const RankDetail = resolve => {
+    require(['@/pages/RankDetail'], resolve)
+}
 const routes = [
     {
         path: '/',
@@ -12,23 +39,17 @@ const routes = [
             {
                 path: '/recommend',
                 name: 'recommend',
-                component: resolve => {
-                    require(['@/pages/Recommend'], resolve)
-                }
+                component: Recommend
             },
             {
                 path: '/rank',
                 name: 'rank',
-                component: resolve => {
-                    require(['@/pages/Rank'], resolve)
-                }
+                component: Rank
             },
             {
                 path: '/user',
                 name: 'user',
-                component: resolve => {
-                    require(['@/pages/User'], resolve)
-                }
+                component: User
             }
         ]
     },
@@ -40,23 +61,17 @@ const routes = [
     {
         path: '/search',
         name: 'search',
-        component: resolve => {
-            require(['@/pages/Search'], resolve)
-        }
+        component: Search
     },
     {
         path: '/songsheet-detail',
         name: 'songsheetDetail',
-        component: resolve => {
-            require(['@/pages/SongsheetDetail'], resolve)
-        }
+        component: SongsheetDetail
     },
     {
         path: '/rank-detail',
         name: 'rankDetail',
-        component: resolve => {
-            require(['@/pages/RankDetail'], resolve)
-        }
+        component: RankDetail
     }
 ]
 
