@@ -26,6 +26,8 @@ export default {
   sidebarShow: state => state.sidebarShow,
   // 试听列表显示状态
   listenListStatus: state => state,
+  // 是否显示播放页
+  playShow: state => state,
   // 导航下标位置
   activeTab: state => state.activeTab,
   // 试听列表

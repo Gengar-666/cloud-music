@@ -3,7 +3,7 @@
         <div id="music">
             <audio :src="audioUrl.url" @canplay="playMusic($event)" ref="player"></audio>
         </div>
-         <div class="palyer" v-if="musicDetail.length !==0 && $route.path !=='/login'"> 
+         <div class="palyer" v-if="musicDetail.length !==0 && $route.path !=='/login'" @click="playShow"> 
             <div class="pic">
                 <img :src="musicDetail.al.picUrl" alt="">
             </div>
@@ -12,13 +12,13 @@
                 <p class="song-name">{{ musicDetail.ar[0].name }}</p>
             </div>
             <div class="btn">
-                <div class="play-btn" @click="play(playStatus)">
+                <div class="play-btn" @click.stop="play(playStatus)">
                     <img :src="playBtn" alt="">
                 </div>
-                <div class="next" @click="next()">
+                <div class="next" @click.stop="next()">
                     <img src="./../../static/img/next.svg" alt="">
                 </div>
-                <div class="listenLists" @click="getListenLists">
+                <div class="listenLists" @click.stop="getListenLists">
                     <img src="./../../static/img/listenLists.svg" alt="">
                 </div>
             </div>
@@ -56,6 +56,10 @@ export default {
     mounted() {
     },
     methods: {
+        // 显示播放信息
+        playShow() {
+            this.$store.state.playShow = true
+        },
         //播放音乐
         playMusic(e) {
             let _this = this
@@ -172,7 +176,7 @@ export default {
             display: inline-block;
             position: absolute;
             right: 5.5rem;
-            margin-top: 3px;
+            top: 18px;
             img {
                 width: 25px;
                 height: 25px;
@@ -182,7 +186,7 @@ export default {
             display: inline-block;
             position: absolute;
             right: 3.1rem;
-            margin-top: 3px;
+            top: 18px;
             img {
                 width: 25px;
                 height: 25px;
@@ -191,9 +195,8 @@ export default {
         .listenLists {
             display: inline-block;
             position: absolute;
-            top: 8px;
             right: 0.5rem;
-            margin-top: 3px;
+            top: 15px;
             img {
                 width: 30px;
                 height: 30px;

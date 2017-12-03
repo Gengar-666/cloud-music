@@ -3,8 +3,8 @@
     <div class="user-info" :style="'background-image: url(' + backgroundUrl + ')'">
       <div class="avatar" :style="'background-image: url(' + avatar + ')'"></div>
       <span class="nickname">{{ user.code == 200 ? userDetail.profile.nickname : '你还没有登录~' }}</span>
-      <span class="level">Lv.{{ userDetail.level}}</span>
-      <div class="sign-in" @click="disabled">
+      <span class="level" v-show="user.code == 200">Lv.{{ userDetail.level }}</span>
+      <div class="sign-in" v-show="user.code == 200" @click="disabled">
         <img src="./../../static/img/signIn.svg" alt="">
         <span>签到</span>
       </div>

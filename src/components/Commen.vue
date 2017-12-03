@@ -18,31 +18,8 @@
                     <p style="text-align:center;">{{ confirmText == 'login' ? '你还未登录，赶紧去登录吧~' : '确定退出吗？' }}</p>
                 </confirm>
             </div>
-            <actionsheet v-model="listenListStatus.listenListStatus" show-cancel>
-                <p slot="header">
-                    <ul>
-                        <li v-show="listenLists.length != 0" class="header">
-                            <div class="toggle-btn" @click="togglePlayType">
-                                <img v-show="playType == 'listloop'" src="./../../static/img/listloop.svg" alt="">
-                                <img v-show="playType == 'random'" src="./../../static/img/random.svg" alt="">
-                            </div>
-                            <div class="delete-btn" @click="deleteAll">
-                                <img src="./../../static/img/delete.svg" alt="">
-                                <span>清空全部</span>
-                            </div>
-                        </li>
-                        <li v-show="listenLists.length == 0" style="text-align: center;">试听列表暂无歌曲~</li>
-                        <li class="list" v-for="(item, index) in listenLists" :key="index">
-                            <div class="play" @click="playMusic(item.id)">
-                                <img :src="item.picUrl" alt="">
-                                <p>{{ item.musicName }}</p>
-                                <span>{{ item.singer }}</span>
-                            </div>
-                            <img class="delete" src="./../../static/img/close.svg" alt="" @click="deleteMusic(item.id)">
-                        </li>
-                    </ul>
-                </p>
-            </actionsheet>
+            <listenLists></listenLists>
+            <play></play>
         </drawer>
     </div>
 </template>
@@ -52,13 +29,8 @@ import {
     Loading,
     Alert,
     Confirm,
-    Actionsheet,
     TransferDomDirective as TransferDom
 } from 'vux'
-import bubble from '@/components/Bubble'
-import playbar from '@/components/Playbar'
-import drawer from '@/components/drawer.vue'
-import sidebar from '@/components/Sidebar'
 import { mapGetters } from 'vuex';
 
 export default {
@@ -87,43 +59,10 @@ export default {
             // confirm弹窗是否显示
             'confirmStatus',
             // 左侧菜单是否显示
-            'sidebarShow',
-            // 试听列表显示状态
-            'listenListStatus',
-            // 试听列表
-            'listenLists',
-            // 播放模式
-            'playType'
-
+            'sidebarShow'
         ])
     },
-    mounted() {
-        this.$store.dispatch('handleClickMusic', 405612296)
-    },
     methods: {
-        // 播放试听列表歌曲
-        playMusic(id) {
-            this.$store.dispatch('get_musicDetail', id)
-            this.$fetch.MusicUrl(id).then(res => {
-                this.$store.dispatch('get_audioUrl', res.data[0])
-            })
-        },
-        // 切换模仿模式
-        togglePlayType() {
-            this.$store.state.playType = this.playType == 'listloop' ? 'random' : 'listloop'
-        },
-        // 删除试听列表歌曲
-        deleteMusic(id) {
-            for (let i = 0; i < this.listenLists.length; i++) {
-                if (this.listenLists[i].id === id) {
-                    this.$store.state.listenLists.splice(i, 1)
-                }
-            }
-        },
-        // 删除试听列表全部歌曲
-        deleteAll() {
-            this.$store.state.listenLists = []
-        },
         // 网络错误弹窗确定按钮判断是否后退
         onHide() {
             this.$store.commit('set_alertStatus', false)
@@ -152,14 +91,27 @@ export default {
         }
     },
     components: {
-        bubble,
-        playbar,
         Loading,
         Alert,
         Confirm,
-        drawer,
-        sidebar,
-        Actionsheet
+        bubble: resolve => {
+            require(['@/components/Bubble'], resolve)
+        },
+        playbar: resolve => {
+            require(['@/components/Playbar'], resolve)
+        },
+        drawer: resolve => {
+            require(['@/components/drawer'], resolve)
+        },
+        sidebar: resolve => {
+            require(['@/components/Sidebar'], resolve)
+        },
+        listenLists: resolve => {
+            require(['@/components/ListenLists'], resolve)
+        },
+        play: resolve => {
+            require(['@/components/Play'], resolve)
+        }
     }
 }
 </script>
@@ -170,75 +122,6 @@ export default {
     height: 100%;
     .sidebar {
         width: 80vw;
-    }
-    ul {
-        position: relative;
-        max-height: 300px;
-        overflow: auto;
-        padding-left: 10px;
-        li {
-            position: relative;
-            height: 35px;
-            text-align: left;
-            margin-top: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            font-size: 13px;
-            .play {
-                position: relative;
-                width: 80%;
-            }
-        }
-        .list {
-            img {
-                width: 35px;
-                height: 35px;
-            }
-            p {
-                position: absolute;
-                top: 3px;
-                left: 45px;
-                font-size: 13px;
-                line-height: 10px;
-            }
-            span {
-                position: absolute;
-                bottom: 5px;
-                left: 45px;
-                font-size: 12px;
-                color: rgba(0, 0, 0, 0.6);
-            }
-            .delete {
-                position: absolute;
-                top: 0;
-                right: 15px;
-                width: 30px;
-                height: 30px;
-            }
-        }
-        .header {
-            position: relative;
-            .delete-btn {
-                position: absolute;
-                top: 0;
-                right: 5px;
-                width: 100px;
-                display: flex;
-                align-items: center;
-                span {}
-                img {
-                    width: 30px;
-                    height: 30px;
-                }
-            }
-            .toggle-btn {
-                width: 50px;
-                img {
-                    width: 30px;
-                    height: 30px; 
-                }
-            }
-        }
     }
 }
 </style>
