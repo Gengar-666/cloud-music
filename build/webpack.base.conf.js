@@ -1,6 +1,7 @@
 var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
+const NyanProgressPlugin = require('nyan-progress-webpack-plugin')
 var vueLoaderConfig = require('./vue-loader.conf')
 const vuxLoader = require('vux-loader')
 
@@ -21,6 +22,10 @@ const webpackConfig = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json', '.less'],
+    modules: [
+      resolve('src'),
+      resolve('node_modules')
+    ],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src')
@@ -67,7 +72,10 @@ const webpackConfig = {
         loader: "style-loader!css-loader!less-loader",
       }
     ]
-  }
+  },
+  plugins: [
+    new NyanProgressPlugin(), // 进度条
+  ]
 }
 
 module.exports = vuxLoader.merge(webpackConfig, {
