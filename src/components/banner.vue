@@ -17,7 +17,7 @@ import banner from './../../static/img/banner.jpg'
 export default {
     data: () => ({
         bannerList: [
-            { img:banner }
+            { img: banner }
         ],
         textList: [
             { title: '你无处可藏' },

@@ -26,10 +26,14 @@ export default {
   sidebarShow: state => state.sidebarShow,
   // 试听列表显示状态
   listenListStatus: state => state,
+  // 是否显示播放页
+  playShow: state => state,
   // 导航下标位置
   activeTab: state => state.activeTab,
   // 试听列表
   listenLists: state => state.listenLists,
+  // 播放模式
+  playType: state => state.playType, 
   // 当前播放歌曲Url
   audioUrl: state => state.audioUrl,
   // 推荐歌单

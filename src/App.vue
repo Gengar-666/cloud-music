@@ -13,6 +13,9 @@ export default {
   name: 'app',
   data: () => ({
   }),
+  mounted() {
+    this.$store.dispatch('handleClickMusic', 496869422)
+  },
   components: { commen }
 }
 </script>

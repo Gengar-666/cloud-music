@@ -13,7 +13,7 @@ export default {
             }
         }
         if (flag) {
-            state.listenLists.push(music)
+            state.listenLists.unshift(music)
             localStorage.setItem('listenLists', JSON.stringify(state.listenLists))
         }
     },
