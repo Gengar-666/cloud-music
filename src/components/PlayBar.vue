@@ -3,7 +3,7 @@
         <div id="music">
             <audio :src="audioUrl.url" @canplay="playMusic($event)" ref="player"></audio>
         </div>
-         <div class="palyer" v-if="musicDetail.length !==0 && $route.path !=='/login'" @click="playShow"> 
+        <div class="palyer" v-if="musicDetail.length !==0 && $route.path !=='/login'" @click="playShow">
             <div class="pic">
                 <img :src="musicDetail.al.picUrl" alt="">
             </div>
@@ -50,7 +50,15 @@ export default {
             // 播放状态
             'playStatus',
             // 按钮状态
-            'playBtn'
+            'playBtn',
+            // 歌曲总时间
+            'musicDuration',
+            // 歌曲当前时间
+            'musicCurrentTime',
+            // 是否滑动进度条
+            'isTouchMove',
+            // 滑动进度条后的时间节点
+            'newTime'
         ])
     },
     mounted() {
@@ -63,15 +71,21 @@ export default {
         //播放音乐
         playMusic(e) {
             let _this = this
+            _this.$store.state.musicDuration = e.target.duration
+            var timer = setInterval(() => {
+                _this.$store.state.musicCurrentTime = e.target.currentTime
+            }, 1000)
             //设置播放状态
             _this.$store.commit('set_playStatus', true)
             //播放歌曲
             _this.$refs.player.play()
             //监听歌曲是否播放完毕
             e.target.addEventListener('ended', function() {
+                clearInterval(timer)
                 _this.next()
             }, false)
         },
+        // 播放或暂停
         play(status) {
             if (status != false) {
                 this.$store.state.playStatus = false
@@ -130,6 +144,14 @@ export default {
             } else {
                 this.$refs.player.pause()
             }
+        },
+        // 是否滑动进度条
+        isTouchMove(val) {
+            setTimeout(() => {
+                this.$store.state.isTouchMove = false
+                // 设置播放时间节点
+                this.$refs.player.currentTime = this.newTime
+            }, 0)
         }
     }
 }

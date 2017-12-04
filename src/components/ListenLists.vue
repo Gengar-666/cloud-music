@@ -63,12 +63,14 @@ export default {
             for (let i = 0; i < this.listenLists.length; i++) {
                 if (this.listenLists[i].id === id) {
                     this.$store.state.listenLists.splice(i, 1)
+                    localStorage.setItem('listenLists', JSON.stringify(this.$store.state.listenLists))
                 }
             }
         },
         // 删除试听列表全部歌曲
         deleteAll() {
             this.$store.state.listenLists = []
+            localStorage.removeItem('listenLists')
         }
     },
     components: { Actionsheet }

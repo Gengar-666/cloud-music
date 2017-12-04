@@ -72,7 +72,11 @@ export default {
   // 歌曲总时间
   musicDuration: 0,
   // 歌曲当前时间
-  musicCurtime: 0,
+  musicCurrentTime: 0,
+  // 是否滑动播放进度条
+  isTouchMove: false,
+  // 滑动进度条后的时间节点
+  newTime: 0,
   // 是否当前音乐
   curMusic: '',
   // 底部播放列表开关

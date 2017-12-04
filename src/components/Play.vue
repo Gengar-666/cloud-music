@@ -24,6 +24,11 @@
                                     <img class="u-img" :src="musicDetail.al.picUrl">
                                 </div>
                             </div>
+                            <div class="progress-bar">
+                                <span class="currentTime">{{ Math.floor(musicCurrentTime/60)+":"+(musicCurrentTime%60/100).toFixed(2).slice(-2) }}</span>
+                                <range v-model="currentTime" @on-change="onChange" @touchmove.native="setTime"></range>
+                                <span class="duration">{{ Math.floor(musicDuration/60)+":"+(musicDuration%60/100).toFixed(2).slice(-2) }}</span>
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -33,19 +38,43 @@
 </template>
 
 <script>
-import { Actionsheet } from 'vux'
+import { Actionsheet, Range } from 'vux'
 import { mapGetters } from 'vuex';
 export default {
     name: 'play',
     data: () => ({
+        // 滑动到的时间节点
+        newTime: 0
     }),
+    computed() {
+        console.log(this.musicDuration)
+    },
     computed: {
         ...mapGetters([
             'playShow',
-            'musicDetail'
-        ])
+            'musicDetail',
+            // 歌曲总时间
+            'musicDuration',
+            // 歌曲当前时间
+            'musicCurrentTime'
+        ]),
+        // 当前播放进度
+        currentTime() {
+            return this.musicCurrentTime / this.musicDuration * 100
+        }
     },
     methods: {
+        // 设置滑动的时间节点
+        setTime() {
+            // 判断是否手滑
+            if (Math.abs(this.newTime - this.$store.state.musicCurrentTime) > 2) {
+                this.$store.state.isTouchMove = true
+                this.$store.state.newTime = this.newTime
+            }
+        },
+        onChange(val) {
+            this.newTime = this.musicDuration * val / 100
+        },
         // 返回
         back() {
             this.$store.state.playShow = false
@@ -57,12 +86,13 @@ export default {
         }
     },
     components: {
-        Actionsheet
+        Actionsheet,
+        Range
     }
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 #play {
     ul {
         height: 99vh;
@@ -196,6 +226,32 @@ export default {
                     height: 122px;
                     background: url('./../../static/img/disc1.png') no-repeat;
                     background-size: contain;
+                }
+                .progress-bar {
+                    position: relative;
+                    width: 85vw;
+                    height: 50px;
+                    margin-left: 4vw;
+                    .range-min {
+                        color: transparent;
+                    }
+                    .range-max {
+                        color: transparent;
+                    }
+                    .currentTime {
+                        position: absolute;
+                        color: #000;
+                        top: -10px;
+                        left: 8px;
+                        font-size: 15px;
+                    }
+                    .duration {
+                        position: absolute;
+                        color: #000;
+                        top: -10px;
+                        right: -13px;
+                        font-size: 15px;
+                    }
                 }
             }
         }
