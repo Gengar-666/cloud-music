@@ -24,13 +24,13 @@
       <div class="user-playlist">
         <div class="title">歌单{{ userPlayList.playlist.length }}</div>
         <div class="playlist">
-          <div class="playlist-item" v-for="(item, index) in userPlayList.playlist" :key="index" @click="toDetail(item.id)">
+          <v-touch class="playlist-item" v-for="(item, index) in userPlayList.playlist" :key="index" v-on:tap="toDetail(item.id)" v-on:press="toDetail(item.id)">
             <img :src="item.coverImgUrl" alt="">
             <div class="text-content">
               <p>{{ item.name }}</p>
               <p class="text">{{ item.trackCount }}首，by{{ item.creator.nickname }}，播放{{ item.playCount }}次</p>
             </div>
-          </div>
+          </v-touch>
         </div>
       </div>
     </div>

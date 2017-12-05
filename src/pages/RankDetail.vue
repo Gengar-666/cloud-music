@@ -22,7 +22,7 @@
     <div class="paly-list">
       <p>歌曲列表</p>
       <div class="sg_list">
-        <div class="m-sglst" v-for="(item,index) in rankDetail.tracks" @click="handleClick(item.id)" :key="index">
+        <v-touch class="m-sglst" v-for="(item,index) in rankDetail.tracks" v-on:tap="handleClick(item.id)" v-on:press="handleClick(item.id)" :key="index">
           <div class="m-sg-item">
             <div class="sg_num">{{ index+1 }}</div>
             <div class="sg-btn">
@@ -32,7 +32,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </v-touch>
       </div>
     </div>
   </div>

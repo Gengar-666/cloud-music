@@ -2,7 +2,7 @@
     <div id="hot-search">
         <p class="hot-title">热门搜索</p>
         <div class="hot-tags">
-            <span @click="searchListShow(tag.msg)" v-for="(tag, index) in tags" :class="['tags-item','active-'+index]" :key="index">{{ tag.msg }}</span>
+            <v-touch tag="span" v-on:tap="searchListShow(tag.msg)" v-on:press="searchListShow(tag.msg)" v-for="(tag, index) in tags" :class="['tags-item','active-'+index]" :key="index">{{ tag.msg }}</v-touch>
         </div>
     </div>
 </template>

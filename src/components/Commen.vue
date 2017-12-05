@@ -70,7 +70,7 @@ export default {
         // 登录或退出弹窗
         onCancel() {
             this.$store.commit('set_confirmStatus', false)
-            this.$route.path == '/user' && this.user.code == 200 ? this.$router.go(-1) : ''
+            this.$route.path == '/user' ? this.$router.go(-1) : ''
         },
         // 登录或退出弹窗
         onConfirm() {
@@ -94,21 +94,27 @@ export default {
         Loading,
         Alert,
         Confirm,
+        // canvas泡泡
         bubble: resolve => {
             require(['@/components/Bubble'], resolve)
         },
+        // 底部播放栏
         playbar: resolve => {
             require(['@/components/Playbar'], resolve)
         },
+        // 左侧过渡效果
         drawer: resolve => {
             require(['@/components/drawer'], resolve)
         },
+        // 侧边栏
         sidebar: resolve => {
             require(['@/components/Sidebar'], resolve)
         },
+        // 试听列表
         listenLists: resolve => {
             require(['@/components/ListenLists'], resolve)
         },
+        // 播放页
         play: resolve => {
             require(['@/components/Play'], resolve)
         }

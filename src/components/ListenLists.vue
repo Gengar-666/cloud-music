@@ -4,24 +4,24 @@
             <p slot="header">
                 <ul>
                     <li v-show="listenLists.length != 0" class="header">
-                        <div class="toggle-btn" @click="togglePlayType">
+                        <v-touch class="toggle-btn" v-on:tap="togglePlayType" v-on:press="togglePlayType">
                             <img v-show="playType == 'listloop'" src="./../../static/img/listloop.svg" alt="">
                             <img v-show="playType == 'random'" src="./../../static/img/random.svg" alt="">
                             <span>{{ playType == 'listloop' ? '列表循环' : '随机播放'}}</span>
-                        </div>
-                        <div class="delete-btn" @click="deleteAll">
+                        </v-touch>
+                        <v-touch class="delete-btn" v-on:tap="deleteAll" v-on:press="deleteAll">
                             <img src="./../../static/img/delete.svg" alt="">
                             <span>清空全部</span>
-                        </div>
+                        </v-touch>
                     </li>
                     <li v-show="listenLists.length == 0" style="text-align: center;">试听列表暂无歌曲~</li>
                     <li class="list" v-for="(item, index) in listenLists" :key="index">
-                        <div class="play" @click="playMusic(item.id)">
-                            <img :src="item.picUrl" alt="">
+                        <v-touch class="play" v-on:tap="playMusic(item.id)" v-on:press="playMusic(item.id)">
+                            <img v-lazy="item.picUrl" alt="">
                             <p>{{ item.musicName }}</p>
                             <span>{{ item.singer }}</span>
-                        </div>
-                        <img class="delete" src="./../../static/img/close.svg" alt="" @click="deleteMusic(item.id)">
+                        </v-touch>
+                        <v-touch tag="img" class="delete" src="./../../static/img/close.svg" alt="" v-on:tap="deleteMusic(item.id)" v-on:press="deleteMusic(item.id)"></v-touch>
                     </li>
                 </ul>
             </p>

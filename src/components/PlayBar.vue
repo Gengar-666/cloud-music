@@ -5,7 +5,7 @@
         </div>
         <div class="palyer" v-if="musicDetail.length !==0 && $route.path !=='/login'" @click="playShow">
             <div class="pic">
-                <img :src="musicDetail.al.picUrl" alt="">
+                <img v-lazy="musicDetail.al.picUrl" alt="">
             </div>
             <div class="title">
                 <p>{{ musicDetail.name }}</p>

@@ -8,7 +8,7 @@
                 <li class="song-item" v-for="(item, index) in songsheet" :key="index">
                     <router-link :to="{name:'songsheetDetail', query:{id:item.id}}">
                         <div class="pic-wrap">
-                            <img :src="item.picUrl" alt="">
+                            <img v-lazy="item.picUrl" alt="">
                         </div>
                     </router-link>
                     <p>{{ item.name.substring(0, 15) + '...'}}</p>

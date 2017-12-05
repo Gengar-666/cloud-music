@@ -59,7 +59,7 @@ export default {
   // 歌曲总时间
   musicDuration: state => state.musicDuration,
   // 歌曲当前时间
-  musicCurrentTime: state => state.musicCurrentTime,
+  musicCurrentTime: state => state,
   // 是否滑动播放进度条
   isTouchMove: state => state.isTouchMove,
   // 滑动进度条后的时间节点

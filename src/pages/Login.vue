@@ -1,7 +1,7 @@
 <template>
-  <div id="login">
+  <div id="login" v-show="show">
     <div class="content">
-      <img src="./../../static/img/loginbg.jpg" alt="">
+      <img ref="img" src="./../../static/img/loginbg.jpg" alt="">
       <div class="form">
         <div class="phone">
           <input type="text" placeholder="手机号码" v-model="phone">
@@ -10,19 +10,19 @@
           <input type="password" placeholder="密码" v-model="password">
         </div>
         <div class="login-btn">
-          <button type="button" :class="{'button-active': btnIsActive}" @click="login">
-            <span>登录</span>
-          </button>
+          <button type="button" v-on:tap="login" v-on:press="login">登录</button>
         </div>
       </div>
       <div class="pass">
         <div class="remember-pwd">
           <x-switch style="display: flex; align-items: center;" title='记住密码：' :value-map="['0', '1']" v-model="value"></x-switch>
         </div>
-        <div class="btn" @click="pass">
-          <span>跳过登录</span>
-        <img src="./../../static/img/pass.svg" alt="">
-        </div>
+        <v-touch v-on:tap="pass" v-on:press="pass">
+          <div class="btn">
+            <span>跳过登录</span>
+            <img src="./../../static/img/pass.svg" alt="">
+          </div>
+        </v-touch>
       </div>
     </div>
   </div>
@@ -36,7 +36,9 @@ export default {
     btnIsActive: false,
     phone: '',
     password: '',
-    value: '1'
+    value: '1',
+    count: 0,
+    show: false
   }),
   mounted() {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -44,9 +46,13 @@ export default {
       this.phone = userInfo.phone
       this.password = userInfo.password
     }
-    setInterval(() => {
-      this.btnIsActive = !this.btnIsActive
-    }, 1000)
+    // 图片预加载
+    let img = this.$refs.img
+    let newImg = new Image()
+    newImg.onload = () => {
+      this.count++
+    }
+    newImg.src = img.getAttribute('src')
   },
   methods: {
     login() {
@@ -56,7 +62,7 @@ export default {
       }
       this.$fetch.Login(para).then(res => {
         // 是否记住密码
-        if (this.value == '1' ) {
+        if (this.value == '1') {
           localStorage.setItem('userInfo', JSON.stringify(para))
         } else {
           localStorage.removeItem('userInfo')
@@ -72,6 +78,16 @@ export default {
   },
   components: {
     XSwitch
+  },
+  watch: {
+    count(val) {
+      if (val < this.$refs.img.length) {
+        this.$store.state.isLoading = true
+      } else {
+        this.$store.state.isLoading = false
+        this.show = true
+      }
+    }
   }
 }
 </script>
@@ -90,8 +106,8 @@ export default {
     width: 100%;
     position: relative;
     img {
-      width: 150px;
-      height: 150px;
+      width: 130px;
+      height: 130px;
       display: block;
       margin: 0 auto;
     }
@@ -140,12 +156,12 @@ export default {
       }
     }
   }
-  .pass { 
+  .pass {
     width: 85%;
-    margin: 210px auto;
+    margin: 230px auto;
     overflow: hidden;
-    padding-top:1px;
-    padding-bottom:5px;
+    padding-top: 1px;
+    padding-bottom: 5px;
     .remember-pwd {
       width: 120px;
       position: absolute;
@@ -153,17 +169,20 @@ export default {
       .weui-label {
         width: 65px !important;
       }
-      .weui-switch, .weui-switch-cp__box {
-        width: 45px;
-        height: 25px;
+      .weui-switch,
+      .weui-switch-cp__box {
+        width: 40px;
+        height: 20px;
       }
-      .weui-switch:before, .weui-switch-cp__box:before {
-        width: 23px;
-        height: 23px;
+      .weui-switch:before,
+      .weui-switch-cp__box:before {
+        width: 18px;
+        height: 18px;
       }
-      .weui-switch:after, .weui-switch-cp__box:after {
-        width: 23px;
-        height: 23px;
+      .weui-switch:after,
+      .weui-switch-cp__box:after {
+        width: 18px;
+        height: 18px;
       }
     }
     .btn {
@@ -221,7 +240,6 @@ button {
   height: 46px;
   font-family: 'Hind Guntur', sans-serif;
   font-size: 15px;
-  line-height: 1;
   color: #fff;
   letter-spacing: 0.025em;
   position: absolute;
@@ -229,7 +247,6 @@ button {
   background: -moz-linear-gradient(left, #2A78DC, #CCC);
   background: -o-linear-gradient(left, #2A78DC, #CCC);
   background: linear-gradient(to right, #2A78DC, #CCC);
-  padding: 18px 0 11px;
   cursor: pointer;
   border: 0;
   border-radius: 6px;
@@ -237,66 +254,9 @@ button {
   overflow: hidden;
 }
 
-button span {
-  display: block;
-  position: relative;
-  z-index: 10;
-}
-
-button:after,
-button:before {
-  padding: 18px 0 11px;
-  content: '';
-  position: absolute;
-  top: 0;
-  left: calc(-100% - 30px);
-  height: calc(100% - 29px);
-  width: calc(100% + 20px);
-  color: #fff;
-  border-radius: 2px;
-  -webkit-transform: skew(-25deg);
-  transform: skew(-25deg);
-}
-
-button:after {
-  background: #fff;
-  -webkit-transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1) 0.2s;
-  transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1) 0.2s;
-  z-index: 0;
-  opacity: 0.8;
-}
-
-button:before {
-  background: -webkit-linear-gradient(left, #CCC, #13c276);
-  background: -moz-linear-gradient(left, #CCC, #13c276);
-  background: -o-linear-gradient(left, #CCC, #13c276);
-  background: linear-gradient(to right, #CCC, #13c276);
-  z-index: 5;
-  -webkit-transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
-}
-
-.button-active:after {
-  background: #fff;
-  -webkit-transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1) 0.2s;
-  transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1) 0.2s;
-  z-index: 0;
-  opacity: 0.8;
-  left: calc(0% - 10px);
-  -webkit-transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: left 0.8s cubic-bezier(0.86, 0, 0.07, 1);
-}
-
-.button-active:before {
-  background: -webkit-linear-gradient(left, #CCC, #13c276);
-  background: -moz-linear-gradient(left, #CCC, #13c276);
-  background: -o-linear-gradient(left, #CCC, #13c276);
-  background: linear-gradient(to right, #CCC, #13c276);
-  z-index: 5;
-  -webkit-transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
-  left: calc(0% - 10px);
-  -webkit-transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
-  transition: left 1s cubic-bezier(0.86, 0, 0.07, 1);
+.weui-switch:checked,
+.weui-switch-cp__input:checked~.weui-switch-cp__box {
+  border-color: #2A78DC !important;
+  background-color: #2A78DC !important;
 }
 </style>

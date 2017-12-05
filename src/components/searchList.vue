@@ -5,11 +5,11 @@
                 {{ "搜索"+'"'+keyword+'"' }}
             </p>
             <ul>
-                <li v-for="(item, index) in result" class="search-item" :key="index" @click="handleClick(item.id)">
-                    <img :src="item.album.blurPicUrl" alt="">
+                <v-touch lag="li" v-for="(item, index) in result" class="search-item" :key="index" v-on:tap="handleClick(item.id)" v-on:press="handleClick(item.id)">
+                    <img v-lazy="item.album.blurPicUrl" alt="">
                     <p class="name">{{ item.name }}</p>
                     <span>{{ item.artists[0].name }}-{{ item.album.name }}</span>
-                </li>
+                </v-touch>
             </ul>
         </div>
     </div>

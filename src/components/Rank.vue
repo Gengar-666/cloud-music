@@ -1,12 +1,12 @@
 <template>
-    <div id="rank">
-        <div class="list" v-for="(item, index) in list" :key="index" @click="getDetail(index)" :style="'background-image: url(' + item.img + ');'">
-            <img :src="item.img" alt="">
+    <div id="rank" v-show="show">
+        <v-touch class="list" v-for="(item, index) in list" :key="index" v-on:tap="getDetail(index)" v-on:press="getDetail(index)" :style="'background-image: url(' + item.img + ');'">
+            <img ref="img" :src="item.img" alt="">
             <div>
                 <p class="title">{{ item.title }}</p>
                 <p>每日更新</p>
             </div>
-        </div>
+        </v-touch>
     </div>
 </template>
 
@@ -16,8 +16,10 @@ import Hot from './../../static/img/hot.png'
 import Original from './../../static/img/original.png'
 import Top from './../../static/img/top.png'
 export default {
-    name: 'home',
+    name: 'rank',
     data: () => ({
+        count: 0,
+        show: false,
         list: [{
             img: New,
             title: '云音乐新歌榜'
@@ -32,9 +34,30 @@ export default {
             title: '云音乐飙升榜'
         }]
     }),
+    mounted() {
+        // 图片预加载
+        let imgs = this.$refs.img
+        Array.from(imgs).forEach((item) => {
+            let img = new Image()
+            img.onload = () => {
+                this.count++
+            }
+            img.src = item.getAttribute('src')
+        })
+    },
     methods: {
         getDetail(idx) {
             this.$router.push({ name: 'rankDetail', query: { idx } })
+        }
+    },
+    watch: {
+        count(val) {
+            if (val < this.$refs.img.length) {
+                this.$store.state.isLoading = true
+            } else {
+                this.$store.state.isLoading = false
+                this.show = true
+            }
         }
     }
 }

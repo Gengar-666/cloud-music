@@ -6,16 +6,16 @@
                     <li>
                         <div class="play-box" v-if="musicDetail.length !==0">
                             <div class="header">
-                                <div class="back" @click="back">
+                                <v-touch class="back" v-on:tap="back" v-on:press="back">
                                     <img src="./../../static/img/back.svg" alt="">
-                                </div>
+                                </v-touch>
                                 <div class="title">
                                     <p class="top">{{ musicDetail.name }}</p>
                                     <p class="bottom">{{ musicDetail.ar[0].name }}</p>
                                 </div>
-                                <div class="share" @click="share">
+                                <v-touch class="share" v-on:tap="share" v-on:press="share">
                                     <img src="./../../static/img/share.svg" alt="">
-                                </div>
+                                </v-touch>
                             </div>
                             <div class="play-bg" :style="'background-image: url(' + musicDetail.al.picUrl + ')'">
                             </div>
@@ -24,11 +24,11 @@
                                     <img class="u-img" :src="musicDetail.al.picUrl">
                                 </div>
                             </div>
-                            <div class="progress-bar">
-                                <span class="currentTime">{{ Math.floor(musicCurrentTime/60)+":"+(musicCurrentTime%60/100).toFixed(2).slice(-2) }}</span>
+                            <v-touch class="progress-bar" v-on:panend="test">
+                                <span class="currentTime">{{ Math.floor(musicCurrentTime.musicCurrentTime/60)+":"+(musicCurrentTime.musicCurrentTime%60/100).toFixed(2).slice(-2) }}</span>
                                 <range v-model="currentTime" @on-change="onChange" @touchmove.native="setTime"></range>
                                 <span class="duration">{{ Math.floor(musicDuration/60)+":"+(musicDuration%60/100).toFixed(2).slice(-2) }}</span>
-                            </div>
+                            </v-touch>
                         </div>
                     </li>
                 </ul>
@@ -46,9 +46,6 @@ export default {
         // 滑动到的时间节点
         newTime: 0
     }),
-    computed() {
-        console.log(this.musicDuration)
-    },
     computed: {
         ...mapGetters([
             'playShow',
@@ -59,11 +56,18 @@ export default {
             'musicCurrentTime'
         ]),
         // 当前播放进度
-        currentTime() {
-            return this.musicCurrentTime / this.musicDuration * 100
+        currentTime: {
+            get() {
+                return this.musicCurrentTime.musicCurrentTime / this.musicDuration * 100
+            },
+            set(newVal) {
+            }
         }
     },
     methods: {
+        test() {
+            console.log(this.newTime)
+        },
         // 设置滑动的时间节点
         setTime() {
             // 判断是否手滑

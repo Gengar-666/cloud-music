@@ -3,7 +3,7 @@
          <div class="search-bar">
             <span class="search-icon"></span>
             <input @focus="cancelShow" @input="searchListShow" v-on:input="getSearchList" v-model="keyword" type="text" :style="inputWidth" placeholder="搜索歌曲">
-            <span @click="cancelHide" class="cancel" v-if=" CancelBtnShow !='' ">取消</span>
+            <v-touch tag="span" v-on:tap="cancelHide" v-on:press="cancelHide" class="cancel" v-if=" CancelBtnShow !='' ">取消</v-touch>
         </div>
         <component :is="currentView" :keyword="keyword" :result="searchList" :currentView="currentView" v-on:listenToHotSearch="showMsgFromHotSearch"></component>
     </div> 

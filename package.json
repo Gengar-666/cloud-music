@@ -18,7 +18,9 @@
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "vue": "^2.3.3",
+    "vue-lazyload": "^1.1.4",
     "vue-router": "^2.6.0",
+    "vue-touch": "^2.0.0-beta.4",
     "vuex": "^2.3.1",
     "vux": "^2.7.4",
     "vux-loader": "^1.1.27"
