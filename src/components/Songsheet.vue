@@ -11,7 +11,7 @@
                             <img v-lazy="item.picUrl" alt="">
                         </div>
                     </router-link>
-                    <p>{{ item.name.substring(0, 15) + '...'}}</p>
+                    <p>{{ item.name.length > 15 ? item.name.substring(0, 15) + '...' : item.name }}</p>
                 </li>
             </ul>
         </div>

@@ -44,6 +44,7 @@ export default {
     },
     //设置歌曲详情
     set_musicDetail(state, payload) {
+        console.log(payload)
         state.musicDetail = payload;
     },
     //设置播放状态

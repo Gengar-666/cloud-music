@@ -75,7 +75,7 @@ export default {
             }
             span {
                 display: inline-block;
-                width: 85%;
+                width: 80%;
                 height: 50%;
                 font-size: 12px;
                 color: rgba(0, 0, 0, .6);

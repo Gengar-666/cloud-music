@@ -8,8 +8,10 @@
                 <img v-lazy="musicDetail.al.picUrl" alt="">
             </div>
             <div class="title">
-                <p>{{ musicDetail.name }}</p>
-                <p class="song-name">{{ musicDetail.ar[0].name }}</p>
+                <p v-if="musicDetail.alia.length !==0" class="top">{{ musicDetail.name + '(' + musicDetail.alia[0] + ')' }}
+                </p>
+                <p v-else class="top">{{ musicDetail.name }}</p>
+                <p class="bottom">{{ musicDetail.ar[0].name }}{{ musicDetail.ar[1] ? '/' + musicDetail.ar[1].name : ''}}</p>
             </div>
             <div class="btn">
                 <div class="play-btn" @click.stop="play(playStatus)">
@@ -34,6 +36,7 @@ import pause from './../../static/img/pause.svg'
 export default {
     name: 'music',
     data: () => ({
+        timer: null
     }),
     computed: {
         ...mapGetters([
@@ -55,7 +58,7 @@ export default {
             'musicDuration',
             // 歌曲当前时间
             'musicCurrentTime',
-            // 是否滑动进度条
+            // 是否滑动滚动条
             'isTouchMove',
             // 滑动进度条后的时间节点
             'newTime'
@@ -72,7 +75,7 @@ export default {
         playMusic(e) {
             let _this = this
             _this.$store.state.musicDuration = e.target.duration
-            var timer = setInterval(() => {
+            _this.timer = setInterval(() => {
                 _this.$store.state.musicCurrentTime = e.target.currentTime
             }, 1000)
             //设置播放状态
@@ -81,7 +84,7 @@ export default {
             _this.$refs.player.play()
             //监听歌曲是否播放完毕
             e.target.addEventListener('ended', function() {
-                clearInterval(timer)
+                clearInterval(_this.timer)
                 _this.next()
             }, false)
         },
@@ -145,13 +148,15 @@ export default {
                 this.$refs.player.pause()
             }
         },
-        // 是否滑动进度条
+        // 是否滑动滚动条
         isTouchMove(val) {
-            setTimeout(() => {
-                this.$store.state.isTouchMove = false
-                // 设置播放时间节点
-                this.$refs.player.currentTime = this.newTime
-            }, 0)
+            if(val) {
+                clearInterval(this.timer)
+            }
+        },
+        // 设置播放时间节点
+        newTime(val) {
+            this.$refs.player.currentTime = val
         }
     }
 }
@@ -188,11 +193,18 @@ export default {
             position: absolute;
             left: 60px;
             top: 12px;
-        }
-        .title .song-name {
-            margin-top: 3px;
+            .top {
+                width: 45vw;
+                height: 15px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .bottom {
+                margin-top: 3px;
             color: #ccc;
             font-size: 12px;
+            }
         }
         .play-btn {
             display: inline-block;

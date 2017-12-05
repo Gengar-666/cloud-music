@@ -10,8 +10,13 @@
                                     <img src="./../../static/img/back.svg" alt="">
                                 </v-touch>
                                 <div class="title">
-                                    <p class="top">{{ musicDetail.name }}</p>
-                                    <p class="bottom">{{ musicDetail.ar[0].name }}</p>
+                                    <marquee v-if="musicDetail.alia.length !==0" scrolldelay="160">
+                                        <p class="top">
+                                            {{ musicDetail.name }}{{ '(' + musicDetail.alia[0] + ')' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ musicDetail.name }}{{ '(' + musicDetail.alia[0] + ')' }}
+                                        </p>
+                                    </marquee>
+                                    <p v-else class="top">{{ musicDetail.name }}</p>
+                                    <p class="bottom">{{ musicDetail.ar[0].name }}{{ musicDetail.ar[1] ? '/' + musicDetail.ar[1].name : ''}}</p>
                                 </div>
                                 <v-touch class="share" v-on:tap="share" v-on:press="share">
                                     <img src="./../../static/img/share.svg" alt="">
@@ -19,15 +24,37 @@
                             </div>
                             <div class="play-bg" :style="'background-image: url(' + musicDetail.al.picUrl + ')'">
                             </div>
-                            <div class="play-disc">
+                            <div class="play-disc" :style="'transform: rotate(' + rotate + 'deg)'">
                                 <div class="play-img">
                                     <img class="u-img" :src="musicDetail.al.picUrl">
                                 </div>
                             </div>
-                            <v-touch class="progress-bar" v-on:panend="panend">
+                            <div class="play-disc-img"></div>
+                            <v-touch class="progress-bar" v-on:panstart="panstart" v-on:panend="panend">
                                 <span class="currentTime">{{ Math.floor(musicCurrentTime.musicCurrentTime/60)+":"+(musicCurrentTime.musicCurrentTime%60/100).toFixed(2).slice(-2) }}</span>
-                                <range v-model="currentTime" @on-change="onChange" @touchmove.native="setTime"></range>
+                                <range v-model="currentTime" @on-change="onChange" :rangeBarHeight="2"></range>
                                 <span class="duration">{{ Math.floor(musicDuration/60)+":"+(musicDuration%60/100).toFixed(2).slice(-2) }}</span>
+                            </v-touch>
+                            <v-touch class="play-bar">
+                                <ul>
+                                    <li>
+                                        <img v-show="playType == 'listloop'" src="./../../static/img/listloop.svg" alt="">
+                                        <img v-show="playType == 'random'" src="./../../static/img/random.svg" alt=""> 
+                                    </li>
+                                    <li>
+                                        <img class="prev" src="./../../static/img/next.svg" alt="">
+                                    </li>
+                                    <v-touch tag="li" v-on:tap="play(playStatus)" v-on:press="play(playStatus)">
+                                        <img v-show="playStatus == false" class="btn" src="./../../static/img/play.svg" alt="">
+                                        <img v-show="playStatus" class="btn" src="./../../static/img/pause.svg" alt="">
+                                    </v-touch>
+                                    <li>
+                                        <img class="next" src="./../../static/img/next.svg" alt="">
+                                    </li>
+                                    <li>
+                                       <img src="./../../static/img/listenLists.svg" alt=""> 
+                                    </li>
+                                </ul>
                             </v-touch>
                         </div>
                     </li>
@@ -43,13 +70,21 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'play',
     data: () => ({
+        timer: null,
         // 滑动到的时间节点
-        newTime: 0
+        newTime: 0,
+        // 旋转角度
+        rotate: 0
     }),
+    mounted() {
+    },
     computed: {
         ...mapGetters([
             'playShow',
+            'playType',
             'musicDetail',
+            // 播放状态
+            'playStatus',
             // 歌曲总时间
             'musicDuration',
             // 歌曲当前时间
@@ -65,16 +100,20 @@ export default {
         }
     },
     methods: {
-        panend() {
-            console.log(this.newTime)
+        // 旋转
+        transformRotate() {
+            this.timer = setInterval(() => {
+                this.rotate += 1
+            }, 50)
         },
-        // 设置滑动的时间节点
-        setTime() {
-            // 判断是否手滑
-            if (Math.abs(this.newTime - this.$store.state.musicCurrentTime) > 2) {
-                this.$store.state.isTouchMove = true
-                this.$store.state.newTime = this.newTime
-            }
+        //滑动开始
+        panstart() {
+            this.$store.state.isTouchMove = true
+        },
+        // 滑动结束
+        panend() {
+            this.$store.state.isTouchMove = false
+            this.$store.state.newTime = this.newTime
         },
         onChange(val) {
             this.newTime = this.musicDuration * val / 100
@@ -87,11 +126,31 @@ export default {
         share() {
             this.$store.state.alertText = '暂不可用，敬请期待~'
             this.$store.commit('set_alertStatus', true)
+        },
+        // 播放或暂停
+        play(status) {
+            if (status != false) {
+                this.$store.state.playStatus = false
+                this.$store.state.playBtn = play
+            }
+            else {
+                this.$store.state.playStatus = true
+                this.$store.state.playBtn = pause
+            }
         }
     },
     components: {
         Actionsheet,
         Range
+    },
+    watch: {
+        playStatus(val) {
+            if (val) {
+                this.transformRotate()
+            } else {
+                clearInterval(this.timer)
+            }
+        }
     }
 }
 </script>
@@ -115,7 +174,7 @@ export default {
                 margin: auto;
                 .header {
                     position: fixed;
-                    top: 10px;
+                    top: 15px;
                     width: 100%;
                     height: 50px;
                     z-index: 100;
@@ -143,12 +202,15 @@ export default {
                         width: 80vw;
                         display: inline-block;
                         text-align: left;
+                        marquee {
+                            width: 65vw;
+                        }
                         .top {
                             color: #FFF;
-                            font-size: 14px;
+                            font-size: 13px;
                         }
                         .bottom {
-                            color: #333;
+                            margin-top: 1px;
                             font-size: 12px;
                         }
                     }
@@ -198,8 +260,8 @@ export default {
                     left: 0;
                     right: 0;
                     margin: auto;
-                    width: 280px;
-                    height: 280px;
+                    width: 260px;
+                    height: 260px;
                     background: url('./../../static/img/disc.png');
                     background-size: contain;
                     background-repeat: no-repeat;
@@ -210,8 +272,8 @@ export default {
                         top: 0;
                         bottom: 0;
                         margin: auto;
-                        width: 180px;
-                        height: 180px;
+                        width: 160px;
+                        height: 160px;
                         border-radius: 50%;
                         overflow: hidden;
                         img {
@@ -220,12 +282,11 @@ export default {
                         }
                     }
                 }
-                .play-disc:after {
-                    content: " ";
+                .play-disc-img {
                     position: absolute;
-                    top: -50px;
-                    left: 135px;
-                    z-index: 5;
+                    top: 30px;
+                    left: 42%;
+                    z-index: 100;
                     width: 84px;
                     height: 122px;
                     background: url('./../../static/img/disc1.png') no-repeat;
@@ -236,6 +297,14 @@ export default {
                     width: 85vw;
                     height: 50px;
                     margin-left: 4vw;
+                    .range-quantity {
+                        background: #2A78DC;
+                    }
+                    .range-handle {
+                        width: 18px;
+                        height: 18px;
+                        top: -8px !important;
+                    }
                     .range-min {
                         color: transparent;
                     }
@@ -244,17 +313,48 @@ export default {
                     }
                     .currentTime {
                         position: absolute;
-                        color: #000;
-                        top: -10px;
+                        color: #ccc;
+                        top: -6px;
                         left: 8px;
-                        font-size: 15px;
+                        font-size: 12px;
                     }
                     .duration {
+                        color: #333;
                         position: absolute;
-                        color: #000;
-                        top: -10px;
+                        top: -6px;
                         right: -13px;
-                        font-size: 15px;
+                        font-size: 12px;
+                    }
+                }
+                .play-bar {
+                    margin-top: -20px;
+                    ul {
+                        overflow: hidden;
+                        height: 50px;
+                        li {
+                            vertical-align:text-top;
+                            display: inline-flex;
+                            width: 18%;
+                            align-items: center;
+                            justify-content: center;
+                            img {
+                                width: 25px;
+                                height: 25px;
+                            }
+                            .btn {
+                                width: 35px;
+                                height: 35px;
+                            }
+                            .prev {
+                                width: 30px;
+                                height: 30px;
+                                transform: rotate(180deg)
+                            }
+                            .next {
+                                width: 30px;
+                                height: 30px;
+                            }
+                        }
                     }
                 }
             }
