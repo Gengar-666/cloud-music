@@ -24,7 +24,7 @@
                                     <img class="u-img" :src="musicDetail.al.picUrl">
                                 </div>
                             </div>
-                            <v-touch class="progress-bar" v-on:panend="test">
+                            <v-touch class="progress-bar" v-on:panend="panend">
                                 <span class="currentTime">{{ Math.floor(musicCurrentTime.musicCurrentTime/60)+":"+(musicCurrentTime.musicCurrentTime%60/100).toFixed(2).slice(-2) }}</span>
                                 <range v-model="currentTime" @on-change="onChange" @touchmove.native="setTime"></range>
                                 <span class="duration">{{ Math.floor(musicDuration/60)+":"+(musicDuration%60/100).toFixed(2).slice(-2) }}</span>
@@ -65,7 +65,7 @@ export default {
         }
     },
     methods: {
-        test() {
+        panend() {
             console.log(this.newTime)
         },
         // 设置滑动的时间节点
