@@ -1,5 +1,5 @@
 <template>
-  <div id="login" v-show="show">
+  <div id="login">
     <div class="content">
       <img ref="img" src="./../../static/img/loginbg.jpg" alt="">
       <div class="form">
@@ -36,9 +36,7 @@ export default {
     btnIsActive: false,
     phone: '',
     password: '',
-    value: '1',
-    count: 0,
-    show: false
+    value: '1'
   }),
   mounted() {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'))
@@ -46,13 +44,6 @@ export default {
       this.phone = userInfo.phone
       this.password = userInfo.password
     }
-    // 图片预加载
-    let img = this.$refs.img
-    let newImg = new Image()
-    newImg.onload = () => {
-      this.count++
-    }
-    newImg.src = img.getAttribute('src')
   },
   methods: {
     login() {
@@ -78,16 +69,6 @@ export default {
   },
   components: {
     XSwitch
-  },
-  watch: {
-    count(val) {
-      if (val < this.$refs.img.length) {
-        this.$store.state.isLoading = true
-      } else {
-        this.$store.state.isLoading = false
-        this.show = true
-      }
-    }
   }
 }
 </script>

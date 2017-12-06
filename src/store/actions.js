@@ -2,6 +2,7 @@ import fetch from '@/api'
 export default {
     // 点击歌曲之后的处理
     handleClickMusic({ dispatch, commit }, id) {
+        dispatch('get_musicLrc', id)
         dispatch('get_musicDetail', id)
         fetch.MusicUrl(id).then(res => {
             dispatch('get_audioUrl', res.data[0])
@@ -59,6 +60,12 @@ export default {
             commit('set_musicDetail', res.songs[0])
         })
     },
+    //获取歌词
+    get_musicLrc({ commit }, id) {
+        fetch.GetLRC(id).then(res => {
+            commit('set_musicLrc', res.lrc.lyric)
+        })
+    },
     //下一首
     set_next_or_prev_Music(store, type) {
         let id = null
@@ -102,9 +109,6 @@ export default {
                 }
             }
         }
-        store.dispatch('get_musicDetail', id)
-        fetch.MusicUrl(id).then(res => {
-            store.dispatch('get_audioUrl', res.data[0])
-        })
+        store.dispatch('handleClickMusic', id)
     }
 }

@@ -15,8 +15,8 @@
             </div>
             <div class="btn">
                 <div class="play-btn" @click.stop="play(playStatus)">
-                     <img v-show="playStatus == false" class="btn" src="./../../static/img/play.svg" alt="">
-                     <img v-show="playStatus" class="btn" src="./../../static/img/pause.svg" alt="">
+                    <img v-show="playStatus == false" class="btn" src="./../../static/img/play.svg" alt="">
+                    <img v-show="playStatus" class="btn" src="./../../static/img/pause.svg" alt="">
                 </div>
                 <div class="listenLists" @click.stop="getListenLists">
                     <img src="./../../static/img/listenLists.svg" alt="">
@@ -55,7 +55,9 @@ export default {
             // 是否滑动滚动条
             'isTouchMove',
             // 滑动进度条后的时间节点
-            'newTime'
+            'newTime',
+            // 歌词
+            'Lyric'
         ])
     },
     mounted() {
@@ -71,9 +73,9 @@ export default {
             this.timer = null
             let _this = this
             _this.$store.state.musicDuration = e.target.duration
-            _this.timer = setInterval(() => {
-                _this.$store.state.musicCurrentTime = e.target.currentTime
-            }, 1000)
+            // _this.timer = setInterval(() => {
+            //     _this.$store.state.musicCurrentTime = e.target.currentTime
+            // }, 30)
             //设置播放状态
             _this.$store.commit('set_playStatus', true)
             //播放歌曲
@@ -81,6 +83,18 @@ export default {
             //监听歌曲是否播放完毕
             e.target.addEventListener('ended', function() {
                 _this.next()
+            })
+            //监听当前播放时间和对应歌词
+            e.target.addEventListener('timeupdate', function() {
+                _this.$store.state.musicCurrentTime = e.target.currentTime
+                for (let i = 0; i < _this.Lyric.length; i++) {
+                    if (_this.Lyric[i].time >= e.target.currentTime && e.target.currentTime <= _this.Lyric[i + 1].time) {
+                        if (i !== 0) {
+                            _this.$store.state.nowLyric = _this.Lyric[i - 1].lrc
+                        }
+                        break
+                    }
+                }
             })
         },
         // 播放或暂停
@@ -109,7 +123,7 @@ export default {
         },
         // 是否滑动滚动条
         isTouchMove(val) {
-            if(val) {
+            if (val) {
                 clearInterval(this.timer)
                 this.timer = null
             }
@@ -162,8 +176,8 @@ export default {
             }
             .bottom {
                 margin-top: 3px;
-            color: #ccc;
-            font-size: 12px;
+                color: #ccc;
+                font-size: 12px;
             }
         }
         .play-btn {

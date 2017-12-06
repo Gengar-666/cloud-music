@@ -62,6 +62,8 @@ export default {
   singerSong: {},
   // 音乐歌词
   Lyric: '[00:00.00]歌词加载中!',
+  // 当前歌词
+  nowLyric: '',
   // 播放状态
   playStatus: false,
   // 歌曲总时间

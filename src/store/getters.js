@@ -52,6 +52,8 @@ export default {
   singerSong: state => state.singerSong,
   // 音乐歌词
   Lyric: state => state.Lyric,
+  // 当前歌词
+  nowLyric: state => state.nowLyric,
   // 播放状态
   playStatus: state => state.playStatus,
   // 歌曲总时间

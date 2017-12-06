@@ -49,10 +49,7 @@ export default {
     methods: {
         // 播放试听列表歌曲
         playMusic(id) {
-            this.$store.dispatch('get_musicDetail', id)
-            this.$fetch.MusicUrl(id).then(res => {
-                this.$store.dispatch('get_audioUrl', res.data[0])
-            })
+            this.$store.dispatch('handleClickMusic', id)
         },
         // 切换播放模式
         togglePlayType() {
@@ -80,7 +77,7 @@ export default {
 <style lang="less" scoped>
 #listenLists {
     position: relative;
-    z-index: 10001;
+    z-index: 100000;
     ul {
         position: relative;
         max-height: 380px;

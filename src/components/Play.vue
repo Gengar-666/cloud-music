@@ -35,6 +35,9 @@
                                 <range v-model="currentTime" @on-change="onChange" :rangeBarHeight="2"></range>
                                 <span class="duration">{{ Math.floor(musicDuration/60)+":"+(musicDuration%60/100).toFixed(2).slice(-2) }}</span>
                             </v-touch>
+                            <div class="lrc">
+                                <p>{{ nowLyric }}</p>
+                            </div>
                             <v-touch class="play-bar">
                                 <ul>
                                     <v-touch tag="li" v-on:tap="togglePlayType" v-on:press="togglePlayType">
@@ -88,7 +91,11 @@ export default {
             // 歌曲总时间
             'musicDuration',
             // 歌曲当前时间
-            'musicCurrentTime'
+            'musicCurrentTime',
+            // 歌词
+            'Lyric',
+            // 当前歌词
+            'nowLyric'
         ]),
         // 当前播放进度
         currentTime: {
@@ -294,6 +301,13 @@ export default {
                         }
                     }
                 }
+                .lrc {
+                    position: absolute;
+                    width: 100%;
+                    top:380px;
+                    color: #CCC;
+                    font-size: 15px;
+                }
                 .play-disc-img {
                     position: absolute;
                     top: 30px;
@@ -309,6 +323,7 @@ export default {
                     width: 85vw;
                     height: 50px;
                     margin-left: 4vw;
+                    margin-top: 20px;
                     .range-quantity {
                         background: #2A78DC;
                     }
@@ -339,7 +354,9 @@ export default {
                     }
                 }
                 .play-bar {
-                    margin-top: -20px;
+                    width: 100%;
+                    position: absolute;
+                    bottom: 10px;
                     ul {
                         overflow: hidden;
                         height: 50px;

@@ -56,6 +56,7 @@ export default {
   },
   mounted() {
     if (this.user.code == 200) {
+      console.log(this.user)
       this.$fetch.UserDetail(this.user.profile.userId).then(res => {
         this.$store.state.userDetail = res
         localStorage.setItem('userDetail', JSON.stringify(res))

@@ -63,6 +63,10 @@ export default {
     SongsheetDetail(id) {
         return fetchGet('playlist/detail', {id})
     },
+    // 获取歌词
+    GetLRC(id) {
+        return fetchGet('lyric', {id})
+    },
     // 最新音乐
     Newsong() {
         return fetchGet('personalized/newsong')

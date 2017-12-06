@@ -47,6 +47,22 @@ export default {
         console.log(payload)
         state.musicDetail = payload;
     },
+    //设置当前播放歌曲歌词
+    set_musicLrc(state, Lyric) {
+        // 把时间转换成毫秒
+        let newLyric = []
+        let arr = Lyric.split('\n')
+        arr.map(i => {
+            let newArr = i.split(']')
+            newArr[0]=((newArr[0].substring(1,3)*60 + newArr[0].substring(4)*1).toFixed(2))
+            const obj = {
+                time: newArr[0],
+                lrc: newArr[1]
+            }
+            newLyric.push(obj)
+        })
+        state.Lyric = newLyric
+    },
     //设置播放状态
     set_playStatus(state, payload) {
         state.playStatus = payload;
