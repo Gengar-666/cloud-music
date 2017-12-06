@@ -1,6 +1,3 @@
-// 初始化按钮
-import pause from './../../static/img/pause.svg'
-
 export default {
   // 用户信息
   user: JSON.parse(localStorage.getItem('user')) || {
@@ -63,8 +60,6 @@ export default {
   rankDetail: [],
   // 歌手单曲
   singerSong: {},
-  // 底部导航栏播放按钮状态
-  playBtn: pause,
   // 音乐歌词
   Lyric: '[00:00.00]歌词加载中!',
   // 播放状态

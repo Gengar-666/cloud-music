@@ -37,23 +37,23 @@
                             </v-touch>
                             <v-touch class="play-bar">
                                 <ul>
-                                    <li>
+                                    <v-touch tag="li" v-on:tap="togglePlayType" v-on:press="togglePlayType">
                                         <img v-show="playType == 'listloop'" src="./../../static/img/listloop.svg" alt="">
-                                        <img v-show="playType == 'random'" src="./../../static/img/random.svg" alt=""> 
-                                    </li>
-                                    <li>
+                                        <img v-show="playType == 'random'" src="./../../static/img/random.svg" alt="">
+                                    </v-touch>
+                                    <v-touch tag="li" v-on:tap="prev" v-on:press="prev">
                                         <img class="prev" src="./../../static/img/next.svg" alt="">
-                                    </li>
+                                    </v-touch>
                                     <v-touch tag="li" v-on:tap="play(playStatus)" v-on:press="play(playStatus)">
                                         <img v-show="playStatus == false" class="btn" src="./../../static/img/play.svg" alt="">
                                         <img v-show="playStatus" class="btn" src="./../../static/img/pause.svg" alt="">
                                     </v-touch>
-                                    <li>
+                                    <v-touch tag="li" v-on:tap="next" v-on:press="next">
                                         <img class="next" src="./../../static/img/next.svg" alt="">
-                                    </li>
-                                    <li>
-                                       <img src="./../../static/img/listenLists.svg" alt=""> 
-                                    </li>
+                                    </v-touch>
+                                    <v-touch tag="li" v-on:tap="getListenLists" v-on:press="getListenLists">
+                                        <img src="./../../static/img/listenLists.svg" alt="">
+                                    </v-touch>
                                 </ul>
                             </v-touch>
                         </div>
@@ -70,7 +70,7 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'play',
     data: () => ({
-        timer: null,
+        RotateTimer: null,
         // 滑动到的时间节点
         newTime: 0,
         // 旋转角度
@@ -100,11 +100,13 @@ export default {
         }
     },
     methods: {
-        // 旋转
+        // 旋转定时器
         transformRotate() {
-            this.timer = setInterval(() => {
-                this.rotate += 1
-            }, 50)
+            clearInterval(this.RotateTimer)
+            this.RotateTimer = null
+            this.RotateTimer = setInterval(() => {
+                this.rotate += 0.5
+            }, 30)
         },
         //滑动开始
         panstart() {
@@ -127,16 +129,25 @@ export default {
             this.$store.state.alertText = '暂不可用，敬请期待~'
             this.$store.commit('set_alertStatus', true)
         },
+        // 切换播放模式
+        togglePlayType() {
+            this.$store.state.playType = this.playType == 'listloop' ? 'random' : 'listloop'
+        },
         // 播放或暂停
         play(status) {
-            if (status != false) {
-                this.$store.state.playStatus = false
-                this.$store.state.playBtn = play
-            }
-            else {
-                this.$store.state.playStatus = true
-                this.$store.state.playBtn = pause
-            }
+            this.$store.state.playStatus = !status
+        },
+        // 上一首
+        prev() {
+            this.$store.dispatch('set_next_or_prev_Music', 'prev')
+        },
+        // 下一首
+        next() {
+            this.$store.dispatch('set_next_or_prev_Music', 'next')
+        },
+        //获取试听列表
+        getListenLists() {
+            this.$store.state.listenListStatus = true
         }
     },
     components: {
@@ -147,8 +158,9 @@ export default {
         playStatus(val) {
             if (val) {
                 this.transformRotate()
-            } else {
-                clearInterval(this.timer)
+            } else if (!val) {
+                clearInterval(this.RotateTimer)
+                this.RotateTimer = null
             }
         }
     }
@@ -332,7 +344,7 @@ export default {
                         overflow: hidden;
                         height: 50px;
                         li {
-                            vertical-align:text-top;
+                            vertical-align: text-top;
                             display: inline-flex;
                             width: 18%;
                             align-items: center;

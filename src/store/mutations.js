@@ -59,6 +59,10 @@ export default {
     set_confirmStatus(state, payload) {
         state.confirmStatus = payload
     },
+    //下一首
+    set_nextMusic() {
+        
+    },
     addRouteChain(state, route) {
         state.routeChain.push(route);
     },

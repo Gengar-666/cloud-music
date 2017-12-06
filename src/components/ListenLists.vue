@@ -54,7 +54,7 @@ export default {
                 this.$store.dispatch('get_audioUrl', res.data[0])
             })
         },
-        // 切换模仿模式
+        // 切换播放模式
         togglePlayType() {
             this.$store.state.playType = this.playType == 'listloop' ? 'random' : 'listloop'
         },
@@ -79,6 +79,8 @@ export default {
 
 <style lang="less" scoped>
 #listenLists {
+    position: relative;
+    z-index: 10001;
     ul {
         position: relative;
         max-height: 380px;

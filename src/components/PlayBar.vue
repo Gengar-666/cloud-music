@@ -15,10 +15,8 @@
             </div>
             <div class="btn">
                 <div class="play-btn" @click.stop="play(playStatus)">
-                    <img :src="playBtn" alt="">
-                </div>
-                <div class="next" @click.stop="next()">
-                    <img src="./../../static/img/next.svg" alt="">
+                     <img v-show="playStatus == false" class="btn" src="./../../static/img/play.svg" alt="">
+                     <img v-show="playStatus" class="btn" src="./../../static/img/pause.svg" alt="">
                 </div>
                 <div class="listenLists" @click.stop="getListenLists">
                     <img src="./../../static/img/listenLists.svg" alt="">
@@ -30,8 +28,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import play from './../../static/img/play.svg'
-import pause from './../../static/img/pause.svg'
 
 export default {
     name: 'music',
@@ -52,8 +48,6 @@ export default {
             'playType',
             // 播放状态
             'playStatus',
-            // 按钮状态
-            'playBtn',
             // 歌曲总时间
             'musicDuration',
             // 歌曲当前时间
@@ -73,6 +67,8 @@ export default {
         },
         //播放音乐
         playMusic(e) {
+            clearInterval(this.timer)
+            this.timer = null
             let _this = this
             _this.$store.state.musicDuration = e.target.duration
             _this.timer = setInterval(() => {
@@ -84,53 +80,16 @@ export default {
             _this.$refs.player.play()
             //监听歌曲是否播放完毕
             e.target.addEventListener('ended', function() {
-                clearInterval(_this.timer)
                 _this.next()
-            }, false)
+            })
         },
         // 播放或暂停
         play(status) {
-            if (status != false) {
-                this.$store.state.playStatus = false
-                this.$store.state.playBtn = play
-            }
-            else {
-                this.$store.state.playStatus = true
-                this.$store.state.playBtn = pause
-            }
+            this.$store.state.playStatus = !status
         },
         // 下一首
         next() {
-            let id = null
-            let musicList = []
-            this.listenLists.map(i => {
-                musicList.push(i)
-            })
-            // 是否列表随机
-            if (this.playType == 'random') {
-                for (var i = musicList.length - 1; i > 0; i--) {
-                    var j = Math.floor(Math.random() * (i - 0 + 1) + 0);
-                    var t = musicList[i];
-                    musicList[i] = musicList[j];
-                    musicList[j] = t;
-                }
-            }
-            for (let i = 0; i < musicList.length; i++) {
-                // 判断是不是最后一首
-                if (i === musicList.length - 1) {
-                    id = musicList[0].id
-                    break
-                }
-                // 获取下一首歌曲
-                if (musicList[i].id === this.musicDetail.id) {
-                    id = musicList[i + 1].id
-                    break
-                }
-            }
-            this.$store.dispatch('get_musicDetail', id)
-            this.$fetch.MusicUrl(id).then(res => {
-                this.$store.dispatch('get_audioUrl', res.data[0])
-            })
+            this.$store.dispatch('set_next_or_prev_Music', 'next')
         },
         //获取试听列表
         getListenLists() {
@@ -139,8 +98,8 @@ export default {
     },
     watch: {
         //监听歌曲播放状态
-        playStatus(state) {
-            if (state != false) {
+        playStatus(status) {
+            if (status) {
                 this.$nextTick(() => {
                     this.$refs.player.play()
                 })
@@ -152,6 +111,7 @@ export default {
         isTouchMove(val) {
             if(val) {
                 clearInterval(this.timer)
+                this.timer = null
             }
         },
         // 设置播放时间节点
@@ -194,7 +154,7 @@ export default {
             left: 60px;
             top: 12px;
             .top {
-                width: 45vw;
+                width: 55vw;
                 height: 15px;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -209,17 +169,7 @@ export default {
         .play-btn {
             display: inline-block;
             position: absolute;
-            right: 5.5rem;
-            top: 18px;
-            img {
-                width: 25px;
-                height: 25px;
-            }
-        }
-        .next {
-            display: inline-block;
-            position: absolute;
-            right: 3.1rem;
+            right: 3rem;
             top: 18px;
             img {
                 width: 25px;

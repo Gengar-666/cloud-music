@@ -59,8 +59,52 @@ export default {
             commit('set_musicDetail', res.songs[0])
         })
     },
-    //获取播放状态
-    get_playStatus(state, payload) {
-        state.playStatus = payload;
+    //下一首
+    set_next_or_prev_Music(store, type) {
+        let id = null
+        let musicList = []
+        store.state.listenLists.map(i => {
+            musicList.push(i)
+        })
+        // 是否列表随机
+        if (store.state.playType == 'random') {
+            for (var i = musicList.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i - 0 + 1) + 0);
+                var t = musicList[i];
+                musicList[i] = musicList[j];
+                musicList[j] = t;
+            }
+        }
+        if (type == 'next') {
+            for (let i = 0; i < musicList.length; i++) {
+                // 判断是不是最后一首
+                if (i === musicList.length - 1) {
+                    id = musicList[0].id
+                    break
+                }
+                // 获取下一首歌曲
+                if (musicList[i].id === store.state.musicDetail.id) {
+                    id = musicList[i + 1].id
+                    break
+                }
+            }
+        } else if (type == 'prev') {
+            for (let i = 0; i < musicList.length; i++) {
+                // 判断是不是最后一首
+                if (i === musicList.length - 1) {
+                    id = musicList[0].id
+                    break
+                }
+                // 获取下一首歌曲
+                if (musicList[i].id === store.state.musicDetail.id) {
+                    id = musicList[i - 1].id
+                    break
+                }
+            }
+        }
+        store.dispatch('get_musicDetail', id)
+        fetch.MusicUrl(id).then(res => {
+            store.dispatch('get_audioUrl', res.data[0])
+        })
     }
 }

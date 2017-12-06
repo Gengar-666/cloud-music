@@ -50,8 +50,6 @@ export default {
   rankDetail: state => state.rankDetail,
   // 歌手单曲
   singerSong: state => state.singerSong,
-  // 底部导航栏播放按钮状态
-  playBtn: state => state.playBtn,
   // 音乐歌词
   Lyric: state => state.Lyric,
   // 播放状态
