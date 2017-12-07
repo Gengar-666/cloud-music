@@ -54,8 +54,10 @@ export default {
   rotate: state => state.rotate,
   // 音乐歌词
   Lyric: state => state.Lyric,
-  // 当前歌词
-  nowLyric: state => state.nowLyric,
+  // 当前歌词下标
+  nowLrcIndex: state => state.nowLrcIndex,
+  // 当前歌词位置
+  nowLrcTop: state => state.nowLrcTop,
   // 播放状态
   playStatus: state => state.playStatus,
   // 歌曲总时间

@@ -2,8 +2,8 @@
     <div id="play">
         <actionsheet v-model="playShow.playShow">
             <p slot="header">
-                <ul>
-                    <li>
+                <ul class="header-box-ul">
+                    <li class="header-box-li">
                         <div class="play-box" v-if="musicDetail.length !==0">
                             <div class="header">
                                 <v-touch class="back" v-on:tap="back" v-on:press="back">
@@ -35,8 +35,12 @@
                                 <range v-model="currentTime" @on-change="onChange" :rangeBarHeight="2"></range>
                                 <span class="duration">{{ Math.floor(musicDuration/60)+":"+(musicDuration%60/100).toFixed(2).slice(-2) }}</span>
                             </v-touch>
-                            <div class="lrc">
-                                <p>{{ nowLyric }}</p>
+                            <div class="lyric ">
+                                <ul :style="{'top': nowLrcTop + 'px'}">
+                                    <li v-for="(item, index) in Lyric" :key="index" :class="{'now-lrc': nowLrcIndex == index}">
+                                        {{ item.lrc == '' ? '● ● ●' : item.lrc }}
+                                    </li>
+                                </ul>
                             </div>
                             <v-touch class="play-bar">
                                 <ul>
@@ -73,9 +77,11 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'play',
     data: () => ({
-        RotateTimer: null,
+        timer: null,
         // 滑动到的时间节点
-        newTime: 0
+        newTime: 0,
+        // 旋转角度
+        rotate: 0
     }),
     mounted() {
     },
@@ -92,10 +98,10 @@ export default {
             'musicCurrentTime',
             // 歌词
             'Lyric',
-            // 当前歌词
-            'nowLyric',
-            // 旋转角度
-            'rotate'
+            // 当前歌词下标
+            'nowLrcIndex',
+            // 当前歌词位置
+            'nowLrcTop',
         ]),
         // 当前播放进度
         currentTime: {
@@ -109,11 +115,16 @@ export default {
     methods: {
         // 旋转定时器
         transformRotate() {
-            clearInterval(this.RotateTimer)
-            this.RotateTimer = null
-            this.RotateTimer = setInterval(() => {
-                this.rotate += 0.5
-            }, 30)
+            clearTimeout(this.timer)
+            this.timer = null
+            if (this.playStatus) {
+                if (this.rotate >= 360) {
+                    this.rotate = 0
+                } else {
+                    this.rotate += 0.5
+                }
+                this.timer = setTimeout(this.transformRotate, 15)
+            }
         },
         //滑动开始
         panstart() {
@@ -164,10 +175,7 @@ export default {
     watch: {
         playStatus(val) {
             if (val) {
-                // this.transformRotate()
-            } else if (!val) {
-                clearInterval(this.RotateTimer)
-                this.RotateTimer = null
+                this.transformRotate()
             }
         }
     }
@@ -176,10 +184,33 @@ export default {
 
 <style lang="less">
 #play {
-    ul {
+    .lyric {
+        width: 400px;
+        height: 63px;
+        position: relative;
+        overflow: hidden;
+        margin-top: -22vh;
+        z-index: 100;
+        ul {
+            width: 100vw;
+            position: absolute;
+            top: -30px;
+            li {
+                list-style: none;
+                color: #000;
+                font-size: 13px;
+                height: 15px;
+                padding: 3px;
+            }
+            .now-lrc {
+                color: #FFF;
+            }
+        }
+    }
+    .header-box-ul {
         height: 99vh;
         position: relative;
-        li {
+        .header-box-li {
             list-style: none;
             height: 100%;
             .play-box {
@@ -301,13 +332,13 @@ export default {
                         }
                     }
                 }
-                .lrc {
-                    position: absolute;
-                    width: 100%;
-                    top:380px;
-                    color: #CCC;
-                    font-size: 15px;
-                }
+                // .lrc {
+                //     position: absolute;
+                //     width: 100%;
+                //     top: 380px;
+                //     color: #CCC;
+                //     font-size: 13px;
+                // }
                 .play-disc-img {
                     position: absolute;
                     top: 30px;

@@ -32,7 +32,6 @@ import { mapGetters } from 'vuex'
 export default {
     name: 'music',
     data: () => ({
-        timer: null
     }),
     computed: {
         ...mapGetters([
@@ -69,13 +68,8 @@ export default {
         },
         //播放音乐
         playMusic(e) {
-            clearInterval(this.timer)
-            this.timer = null
             let _this = this
             _this.$store.state.musicDuration = e.target.duration
-            // _this.timer = setInterval(() => {
-            //     _this.$store.state.musicCurrentTime = e.target.currentTime
-            // }, 30)
             //设置播放状态
             _this.$store.commit('set_playStatus', true)
             //播放歌曲
@@ -86,14 +80,19 @@ export default {
             })
             //监听当前播放时间和对应歌词
             e.target.addEventListener('timeupdate', function() {
-                _this.$store.state.rotate += 1
                 _this.$store.state.musicCurrentTime = e.target.currentTime
                 for (let i = 0; i < _this.Lyric.length; i++) {
-                    if (_this.Lyric[i].time >= e.target.currentTime && e.target.currentTime <= _this.Lyric[i + 1].time) {
+                    if (_this.Lyric[i].time >= e.target.currentTime) {
                         if (i !== 0) {
-                            _this.$store.state.nowLyric = _this.Lyric[i - 1].lrc
+                            _this.$store.state.nowLrcIndex = i - 1
+                            if (i >= 2) {
+                                _this.$store.state.nowLrcTop = -((i - 2) * 21)
+                            }
+                            break
                         }
-                        break
+                    } else if (i === _this.Lyric.length - 1) {
+                        // 结束
+                        _this.$store.state.nowLrcIndex = i - 1
                     }
                 }
             }, false)
@@ -125,9 +124,6 @@ export default {
         // 是否滑动滚动条
         isTouchMove(val) {
             if (val) {
-                // clearInterval(this.timer)
-                // this.timer = null
-                // console.log(this.$refs.player.target)
                 this.$refs.player.pause()
             }
         },

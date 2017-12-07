@@ -11,7 +11,7 @@
                             <img v-lazy="item.picUrl" alt="">
                         </div>
                     </router-link>
-                    <p>{{ item.name.length > 15 ? item.name.substring(0, 15) + '...' : item.name }}</p>
+                    <p class="text">{{ item.name }}</p>
                 </li>
             </ul>
         </div>
@@ -81,6 +81,10 @@ export default {
                     img {
                         width: 100%;
                     }
+                }
+                .text {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
         }

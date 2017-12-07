@@ -49,6 +49,8 @@ export default {
     },
     //设置当前播放歌曲歌词
     set_musicLrc(state, Lyric) {
+        state.nowLrcIndex = 0
+        state.nowLrcTop = 0
         // 把时间转换成毫秒
         let newLyric = []
         let arr = Lyric.split('\n')

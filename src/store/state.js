@@ -64,8 +64,10 @@ export default {
   rotate: 0,
   // 音乐歌词
   Lyric: '',
-  // 当前歌词
-  nowLyric: '',
+  // 当前歌词下标
+  nowLrcIndex: '',
+  // 当前歌词位置
+  nowLrcTop: 0,
   // 播放状态
   playStatus: false,
   // 歌曲总时间
