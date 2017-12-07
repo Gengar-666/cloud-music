@@ -60,8 +60,10 @@ export default {
   rankDetail: [],
   // 歌手单曲
   singerSong: {},
+  // 专辑旋转角度
+  rotate: 0,
   // 音乐歌词
-  Lyric: '[00:00.00]歌词加载中!',
+  Lyric: '',
   // 当前歌词
   nowLyric: '',
   // 播放状态

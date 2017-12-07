@@ -75,9 +75,7 @@ export default {
     data: () => ({
         RotateTimer: null,
         // 滑动到的时间节点
-        newTime: 0,
-        // 旋转角度
-        rotate: 0
+        newTime: 0
     }),
     mounted() {
     },
@@ -95,7 +93,9 @@ export default {
             // 歌词
             'Lyric',
             // 当前歌词
-            'nowLyric'
+            'nowLyric',
+            // 旋转角度
+            'rotate'
         ]),
         // 当前播放进度
         currentTime: {
@@ -164,7 +164,7 @@ export default {
     watch: {
         playStatus(val) {
             if (val) {
-                this.transformRotate()
+                // this.transformRotate()
             } else if (!val) {
                 clearInterval(this.RotateTimer)
                 this.RotateTimer = null

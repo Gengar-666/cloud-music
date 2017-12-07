@@ -50,6 +50,8 @@ export default {
   rankDetail: state => state.rankDetail,
   // 歌手单曲
   singerSong: state => state.singerSong,
+  // 专辑旋转角度
+  rotate: state => state.rotate,
   // 音乐歌词
   Lyric: state => state.Lyric,
   // 当前歌词

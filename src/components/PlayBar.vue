@@ -86,6 +86,7 @@ export default {
             })
             //监听当前播放时间和对应歌词
             e.target.addEventListener('timeupdate', function() {
+                _this.$store.state.rotate += 1
                 _this.$store.state.musicCurrentTime = e.target.currentTime
                 for (let i = 0; i < _this.Lyric.length; i++) {
                     if (_this.Lyric[i].time >= e.target.currentTime && e.target.currentTime <= _this.Lyric[i + 1].time) {
@@ -95,7 +96,7 @@ export default {
                         break
                     }
                 }
-            })
+            }, false)
         },
         // 播放或暂停
         play(status) {
@@ -124,8 +125,10 @@ export default {
         // 是否滑动滚动条
         isTouchMove(val) {
             if (val) {
-                clearInterval(this.timer)
-                this.timer = null
+                // clearInterval(this.timer)
+                // this.timer = null
+                // console.log(this.$refs.player.target)
+                this.$refs.player.pause()
             }
         },
         // 设置播放时间节点
