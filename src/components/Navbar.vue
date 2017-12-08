@@ -1,7 +1,7 @@
 <template>
   <div id="navbar">
     <div class="header">
-      <p class="title">这是一个假的网易云音乐</p>
+      <p class="title">这货不是网易云音乐</p>
       <img id="menu" :src="MenuIcon" alt="" @click="menuShow">
       <router-link to="/search">
         <img id="search" :src="SearchIcon" alt="">

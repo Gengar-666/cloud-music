@@ -1,4 +1,5 @@
 import fetch from '@/api'
+import router from '@/router'
 export default {
     // 点击歌曲之后的处理
     handleClickMusic({ dispatch, commit }, id) {
@@ -6,7 +7,8 @@ export default {
         dispatch('get_musicDetail', id)
         fetch.MusicUrl(id).then(res => {
             dispatch('get_audioUrl', res.data[0])
-            commit('set_playStatus', id);
+            commit('set_playStatus', id)
+            router.push({path: router.app.$route.path, query: {id: id}})
         })
     },
     // 获取当前点击歌曲url
@@ -76,10 +78,10 @@ export default {
         // 是否列表随机
         if (store.state.playType == 'random') {
             for (var i = musicList.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i - 0 + 1) + 0);
-                var t = musicList[i];
-                musicList[i] = musicList[j];
-                musicList[j] = t;
+                var j = Math.floor(Math.random() * (i - 0 + 1) + 0)
+                var t = musicList[i]
+                musicList[i] = musicList[j]
+                musicList[j] = t
             }
         }
         if (type == 'next') {

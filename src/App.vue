@@ -14,7 +14,19 @@ export default {
   data: () => ({
   }),
   mounted() {
-    this.$store.dispatch('handleClickMusic', 496869422)
+    // 路由里有歌曲id参数就播放此歌曲
+    if (this.$route.query.id) {
+      this.$store.dispatch('handleClickMusic', this.$route.query.id)
+    } else {
+      // 随机播放试听列表
+      let id = null
+      let length = this.$store.state.listenLists.length
+      for (let i = length - 1; i > 0; i--) {
+        id = this.$store.state.listenLists[Math.floor(Math.random() * (i - 0 + 1) + 0)].id
+        break
+      }
+      this.$store.dispatch('handleClickMusic', id) 
+    }
   },
   components: { commen }
 }
@@ -35,6 +47,7 @@ body {
   height: 100%;
   background: #FFF;
 }
+
 
 /* 取消a标签在移动端点击时的蓝色 */
 
@@ -59,6 +72,7 @@ a {
   font-family: "Microsoft YaHei";
 }
 
+
 /*app页面切换效果*/
 
 .view {
@@ -68,12 +82,15 @@ a {
   transition: all 0.8s cubic-bezier(.5, 0, .1, 1);
 }
 
-.slide-left-enter, .slide-right-leave-active {
+.slide-left-enter,
+.slide-right-leave-active {
   opacity: 0;
   -webkit-transform: translate(300px, 0);
   transform: translate(300px, 0);
 }
-.slide-left-leave-active, .slide-right-enter {
+
+.slide-left-leave-active,
+.slide-right-enter {
   opacity: 0;
   -webkit-transform: translate(-300px, 0);
   transform: translate(-300px, 0);

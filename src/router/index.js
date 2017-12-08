@@ -8,7 +8,6 @@ Vue.use(Router)
 const router = new Router({ routes })
 
 router.beforeEach((to, from, next) => {
-    store.state.playShow = false
     store.state.listenListStatus = false
     store.state.sidebarShow = false
     store.state.activeTab = to.path == '/recommend' ? 0 : to.path == '/rank' ? 1 : to.path == '/user' ? 2 : 0

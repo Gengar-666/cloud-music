@@ -10,7 +10,7 @@
                                     <img src="./../../static/img/back.svg" alt="">
                                 </v-touch>
                                 <div class="title">
-                                    <marquee v-if="musicDetail.alia.length !==0" scrolldelay="160">
+                                    <marquee v-if="musicDetail.alia.length !==0" scrolldelay="150">
                                         <p class="top">
                                             {{ musicDetail.name }}{{ '(' + musicDetail.alia[0] + ')' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ musicDetail.name }}{{ '(' + musicDetail.alia[0] + ')' }}
                                         </p>
@@ -37,7 +37,7 @@
                             </v-touch>
                             <div class="lyric ">
                                 <ul :style="{'top': nowLrcTop + 'px'}">
-                                    <li v-for="(item, index) in Lyric" :key="index" :class="{'now-lrc': nowLrcIndex == index}">
+                                    <li ref="lrc" v-for="(item, index) in Lyric" :key="index" :class="{'now-lrc': nowLrcIndex == index}">
                                         {{ item.lrc == '' ? '● ● ●' : item.lrc }}
                                     </li>
                                 </ul>
@@ -177,6 +177,12 @@ export default {
             if (val) {
                 this.transformRotate()
             }
+        },
+        nowLrcIndex(val) {
+            // 计算当前歌词位置
+            if (val >= 2) {
+                this.$store.state.nowLrcTop -= this.$refs.lrc[val].clientHeight
+            }
         }
     }
 }
@@ -185,22 +191,22 @@ export default {
 <style lang="less">
 #play {
     .lyric {
-        width: 400px;
-        height: 63px;
+        width: 100vw;
+        height: 51px;
         position: relative;
         overflow: hidden;
-        margin-top: -22vh;
+        margin-top: -23vh;
         z-index: 100;
+        display: flex;
+        justify-content: center;
         ul {
-            width: 100vw;
+            width: 80vw;
             position: absolute;
-            top: -30px;
+            transition: all .5s;
             li {
                 list-style: none;
-                color: #000;
+                color: hsla(0, 0%, 100%, .6);
                 font-size: 13px;
-                height: 15px;
-                padding: 3px;
             }
             .now-lrc {
                 color: #FFF;
@@ -262,6 +268,7 @@ export default {
                         .bottom {
                             margin-top: 1px;
                             font-size: 12px;
+                            color: hsla(0, 0%, 100%, .6);
                         }
                     }
                     .share {
@@ -332,13 +339,6 @@ export default {
                         }
                     }
                 }
-                // .lrc {
-                //     position: absolute;
-                //     width: 100%;
-                //     top: 380px;
-                //     color: #CCC;
-                //     font-size: 13px;
-                // }
                 .play-disc-img {
                     position: absolute;
                     top: 30px;
@@ -354,7 +354,7 @@ export default {
                     width: 85vw;
                     height: 50px;
                     margin-left: 4vw;
-                    margin-top: 20px;
+                    margin-top: 30px;
                     .range-quantity {
                         background: #2A78DC;
                     }
@@ -371,13 +371,13 @@ export default {
                     }
                     .currentTime {
                         position: absolute;
-                        color: #ccc;
+                        color: #FFF;
                         top: -6px;
                         left: 8px;
                         font-size: 12px;
                     }
                     .duration {
-                        color: #333;
+                        color: hsla(0, 0%, 100%, .6);
                         position: absolute;
                         top: -6px;
                         right: -13px;
@@ -387,7 +387,7 @@ export default {
                 .play-bar {
                     width: 100%;
                     position: absolute;
-                    bottom: 10px;
+                    bottom: -10px;
                     ul {
                         overflow: hidden;
                         height: 50px;

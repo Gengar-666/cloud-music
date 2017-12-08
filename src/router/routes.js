@@ -33,7 +33,7 @@ const RankDetail = resolve => {
 const routes = [
     {
         path: '/',
-        redirect: '/login',
+        redirect: '/recommend',
         component: Layout,
         children: [
             {

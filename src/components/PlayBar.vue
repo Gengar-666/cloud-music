@@ -85,9 +85,9 @@ export default {
                     if (_this.Lyric[i].time >= e.target.currentTime) {
                         if (i !== 0) {
                             _this.$store.state.nowLrcIndex = i - 1
-                            if (i >= 2) {
-                                _this.$store.state.nowLrcTop = -((i - 2) * 21)
-                            }
+                            // if (i >= 2) {
+                            //     _this.$store.state.nowLrcTop = -((i - 2) * 23)
+                            // }
                             break
                         }
                     } else if (i === _this.Lyric.length - 1) {
@@ -182,7 +182,7 @@ export default {
         .play-btn {
             display: inline-block;
             position: absolute;
-            right: 3rem;
+            right: 3.2rem;
             top: 18px;
             img {
                 width: 25px;

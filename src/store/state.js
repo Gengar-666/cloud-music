@@ -37,7 +37,7 @@ export default {
   // 试听列表显示状态
   listenListStatus: false,
   // 是否显示播放页
-  playShow: false,
+  playShow: true,
   // 导航下标位置
   activeTab: 0,
   // 试听列表
