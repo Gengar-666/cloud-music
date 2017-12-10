@@ -14,10 +14,23 @@ export default {
   data: () => ({
   }),
   mounted() {
+    // 判断是否手机端打开，是的话触屏全屏
+    if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
+      window.addEventListener('mousedown', function() {
+        var documentElement = document.documentElement;
+        if (documentElement.requestFullscreen) {
+          documentElement.requestFullscreen();
+        } else if (documentElement.mozRequestFullScreen) {
+          documentElement.mozRequestFullScreen();
+        } else if (documentElement.webkitRequestFullScreen) {
+          documentElement.webkitRequestFullScreen();
+        }
+      })
+    }
     // 路由里有歌曲id参数就播放此歌曲
     if (this.$route.query.id) {
       this.$store.dispatch('handleClickMusic', this.$route.query.id)
-    } else {
+    } else if (this.$store.state.listenLists.length > 1) {
       // 随机播放试听列表
       let id = null
       let length = this.$store.state.listenLists.length
@@ -25,7 +38,9 @@ export default {
         id = this.$store.state.listenLists[Math.floor(Math.random() * (i - 0 + 1) + 0)].id
         break
       }
-      this.$store.dispatch('handleClickMusic', id) 
+      this.$store.dispatch('handleClickMusic', id)
+    } else {
+      this.$store.dispatch('handleClickMusic', 405597568)
     }
   },
   components: { commen }
@@ -47,6 +62,7 @@ body {
   height: 100%;
   background: #FFF;
 }
+
 
 
 /* 取消a标签在移动端点击时的蓝色 */
@@ -71,6 +87,7 @@ a {
   width: 100%;
   font-family: "Microsoft YaHei";
 }
+
 
 
 /*app页面切换效果*/

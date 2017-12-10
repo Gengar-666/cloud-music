@@ -85,9 +85,6 @@ export default {
                     if (_this.Lyric[i].time >= e.target.currentTime) {
                         if (i !== 0) {
                             _this.$store.state.nowLrcIndex = i - 1
-                            // if (i >= 2) {
-                            //     _this.$store.state.nowLrcTop = -((i - 2) * 23)
-                            // }
                             break
                         }
                     } else if (i === _this.Lyric.length - 1) {

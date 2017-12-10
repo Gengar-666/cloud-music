@@ -24,7 +24,7 @@
                             </div>
                             <div class="play-bg" :style="'background-image: url(' + musicDetail.al.picUrl + ')'">
                             </div>
-                            <div class="play-disc" :style="'transform: rotate(' + rotate + 'deg)'">
+                            <div :class="[{'circling-pause': !playStatus}, 'play-disc', 'circling']">
                                 <div class="play-img">
                                     <img class="u-img" :src="musicDetail.al.picUrl">
                                 </div>
@@ -77,7 +77,6 @@ import { mapGetters } from 'vuex';
 export default {
     name: 'play',
     data: () => ({
-        timer: null,
         // 滑动到的时间节点
         newTime: 0,
         // 旋转角度
@@ -113,19 +112,6 @@ export default {
         }
     },
     methods: {
-        // 旋转定时器
-        transformRotate() {
-            clearTimeout(this.timer)
-            this.timer = null
-            if (this.playStatus) {
-                if (this.rotate >= 360) {
-                    this.rotate = 0
-                } else {
-                    this.rotate += 0.5
-                }
-                this.timer = setTimeout(this.transformRotate, 15)
-            }
-        },
         //滑动开始
         panstart() {
             this.$store.state.isTouchMove = true
@@ -173,15 +159,10 @@ export default {
         Range
     },
     watch: {
-        playStatus(val) {
-            if (val) {
-                this.transformRotate()
-            }
-        },
         nowLrcIndex(val) {
             // 计算当前歌词位置
             if (val >= 2) {
-                this.$store.state.nowLrcTop -= this.$refs.lrc[val].clientHeight
+                this.$store.state.nowLrcTop = -((val-1) * 17 - (this.$refs.lrc[val].clientHeight - 17))
             }
         }
     }
@@ -190,6 +171,26 @@ export default {
 
 <style lang="less">
 #play {
+    @keyframes circling {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+        to {
+            -webkit-transform: rotate(1turn);
+            transform: rotate(1turn)
+        }
+    }
+    @-webkit-keyframes circling {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+        to {
+            -webkit-transform: rotate(1turn);
+            transform: rotate(1turn)
+        }
+    }
     .lyric {
         width: 100vw;
         height: 51px;
@@ -207,6 +208,7 @@ export default {
                 list-style: none;
                 color: hsla(0, 0%, 100%, .6);
                 font-size: 13px;
+                min-height: 17px;
             }
             .now-lrc {
                 color: #FFF;
@@ -338,6 +340,14 @@ export default {
                             height: 100%;
                         }
                     }
+                }
+                .circling {
+                    -webkit-animation: circling 20s infinite linear;
+                    animation: circling 20s infinite linear;
+                }
+                .circling-pause {
+                    -webkit-animation-play-state: paused;
+                    animation-play-state: paused;
                 }
                 .play-disc-img {
                     position: absolute;

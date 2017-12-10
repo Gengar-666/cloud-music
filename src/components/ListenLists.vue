@@ -10,7 +10,7 @@
                             <span>{{ playType == 'listloop' ? '列表循环' : '随机播放'}}</span>
                         </v-touch>
                         <v-touch class="delete-btn" v-on:tap="deleteAll" v-on:press="deleteAll">
-                            <img src="./../../static/img/delete.svg" alt="">
+                            <img src="./../../static/img/delete-all.svg" alt="">
                             <span>清空全部</span>
                         </v-touch>
                     </li>
@@ -21,7 +21,7 @@
                             <p>{{ item.musicName }}</p>
                             <span>{{ item.singer }}</span>
                         </v-touch>
-                        <v-touch tag="img" class="delete" src="./../../static/img/close.svg" alt="" v-on:tap="deleteMusic(item.id)" v-on:press="deleteMusic(item.id)"></v-touch>
+                        <v-touch tag="img" class="delete" src="./../../static/img/delete.svg" alt="" v-on:tap="deleteMusic(item.id)" v-on:press="deleteMusic(item.id)"></v-touch>
                     </li>
                 </ul>
             </p>
