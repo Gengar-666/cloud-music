@@ -40,6 +40,7 @@ export default {
       }
       this.$store.dispatch('handleClickMusic', id)
     } else {
+      // 默认播放歌曲
       this.$store.dispatch('handleClickMusic', 405597568)
     }
   },
