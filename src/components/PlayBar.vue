@@ -15,11 +15,11 @@
             </div>
             <div class="btn">
                 <div class="play-btn" @click.stop="play(playStatus)">
-                    <img v-show="playStatus == false" class="btn" src="./../../static/img/play.svg" alt="">
-                    <img v-show="playStatus" class="btn" src="./../../static/img/pause.svg" alt="">
+                    <i v-show="playStatus == false" class="iconfont">&#xe625;</i>
+                    <i v-show="playStatus" class="iconfont">&#xe629;</i>
                 </div>
                 <div class="listenLists" @click.stop="getListenLists">
-                    <img src="./../../static/img/listenLists.svg" alt="">
+                    <i class="iconfont">&#xe640;</i>
                 </div>
             </div>
         </div>
@@ -179,21 +179,21 @@ export default {
         .play-btn {
             display: inline-block;
             position: absolute;
-            right: 3.2rem;
+            right: 4rem;
             top: 18px;
-            img {
-                width: 25px;
-                height: 25px;
+            .iconfont {
+                color: #FFF;
+                font-size: 25px;
             }
         }
         .listenLists {
             display: inline-block;
             position: absolute;
-            right: 0.5rem;
+            right: 1rem;
             top: 15px;
-            img {
-                width: 30px;
-                height: 30px;
+            .iconfont {
+                color: #FFF;
+                font-size: 30px;
             }
         }
     }

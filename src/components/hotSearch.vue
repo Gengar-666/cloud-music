@@ -66,10 +66,8 @@ export default {
 }
 
 .active-0 {
-    background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(blue), to(purple));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    border: 1px solid #3c00c3 !important;
+    color: #2A78DC !important;
+    border: 1px solid #2A78DC !important;
     border-radius: 100px;
 }
 </style>

@@ -28,7 +28,7 @@ export default {
     //获取最新音乐
     get_newSongsList({ commit }) {
         fetch.Newsong().then(res => {
-            commit('set_musicList', res.result)
+            commit('set_newMusicList', res.result)
         })
     },
     //获取推荐歌单详情

@@ -2,7 +2,7 @@
   <div id="recommend">
     <banner></banner>
     <song-sheet></song-sheet>
-    <music-list isNewSong :musicList="musicList" title="最新音乐"></music-list>
+    <music-list isNewSong :musicList="newMusicList" title="最新音乐"></music-list>
   </div>
 </template>
 
@@ -19,7 +19,7 @@ export default {
     this.get_newSongsList()
   },
   computed: {
-    ...mapGetters(['musicList'])
+    ...mapGetters(['newMusicList'])
   },
   methods: {
     ...mapActions(['get_newSongsList'])

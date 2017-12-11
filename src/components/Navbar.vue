@@ -2,9 +2,9 @@
   <div id="navbar">
     <div class="header">
       <p class="title">这货不是网易云音乐</p>
-      <img id="menu" :src="MenuIcon" alt="" @click="menuShow">
+      <i class="iconfont" id="menu" @click="menuShow">&#xe681;</i>
       <router-link to="/search">
-        <img id="search" :src="SearchIcon" alt="">
+        <i class="iconfont" id="search">&#xe678;</i>
       </router-link>
     </div>
     <ul class="nav">
@@ -20,13 +20,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import MenuIcon from './../../static/img/menu.svg'
-import SearchIcon from './../../static/img/search1.svg'
 export default {
   name: 'navbar',
   data: () => ({
-    MenuIcon,
-    SearchIcon,
     tabBoxWidth: 0,
     tabBottomWidth: 0,
     left: 0,
@@ -94,16 +90,16 @@ export default {
       position: absolute;
       top: 15px;
       left: 20px;
-      width: 20px;
-      height: 20px;
+      color: #FFF;
+      font-size: 18px;
     }
 
     #search {
       position: absolute;
       top: 14px;
       right: 20px;
-      width: 23px;
-      height: 23px;
+      color: #FFF;
+      font-size: 23px;
     }
 
     .title {

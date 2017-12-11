@@ -7,7 +7,7 @@
                         <div class="play-box" v-if="musicDetail.length !==0">
                             <div class="header">
                                 <v-touch class="back" v-on:tap="back" v-on:press="back">
-                                    <img src="./../../static/img/back.svg" alt="">
+                                    <i class="iconfont">&#xe617;</i>
                                 </v-touch>
                                 <div class="title">
                                     <marquee v-if="musicDetail.alia.length !==0" scrolldelay="150">
@@ -19,7 +19,7 @@
                                     <p class="bottom">{{ musicDetail.ar[0].name }}{{ musicDetail.ar[1] ? '/' + musicDetail.ar[1].name : ''}}</p>
                                 </div>
                                 <v-touch class="share" v-on:tap="share" v-on:press="share">
-                                    <img src="./../../static/img/share.svg" alt="">
+                                    <i class="iconfont">&#xe635;</i>
                                 </v-touch>
                             </div>
                             <div class="play-bg" :style="'background-image: url(' + musicDetail.al.picUrl + ')'">
@@ -38,28 +38,28 @@
                             <div class="lyric ">
                                 <ul :style="{'top': nowLrcTop + 'px'}">
                                     <li ref="lrc" v-for="(item, index) in Lyric" :key="index" :class="{'now-lrc': nowLrcIndex == index}">
-                                        {{ item.lrc == '' ? '● ● ●' : item.lrc }}
+                                        {{ item.lrc }}
                                     </li>
                                 </ul>
                             </div>
                             <v-touch class="play-bar">
                                 <ul>
                                     <v-touch tag="li" v-on:tap="togglePlayType" v-on:press="togglePlayType">
-                                        <img v-show="playType == 'listloop'" src="./../../static/img/listloop.svg" alt="">
-                                        <img v-show="playType == 'random'" src="./../../static/img/random.svg" alt="">
+                                        <i v-show="playType == 'listloop'" class="iconfont">&#xe6f2;</i>
+                                        <i v-show="playType == 'random'" class="iconfont random">&#xe612;</i>
                                     </v-touch>
                                     <v-touch tag="li" v-on:tap="prev" v-on:press="prev">
-                                        <img class="prev" src="./../../static/img/next.svg" alt="">
+                                        <i class="iconfont prev">&#xe603;</i>
                                     </v-touch>
                                     <v-touch tag="li" v-on:tap="play(playStatus)" v-on:press="play(playStatus)">
-                                        <img v-show="playStatus == false" class="btn" src="./../../static/img/play.svg" alt="">
-                                        <img v-show="playStatus" class="btn" src="./../../static/img/pause.svg" alt="">
+                                        <i v-show="playStatus == false" class="iconfont btn">&#xe625;</i>
+                                        <i v-show="playStatus" class="iconfont btn">&#xe629;</i>
                                     </v-touch>
                                     <v-touch tag="li" v-on:tap="next" v-on:press="next">
-                                        <img class="next" src="./../../static/img/next.svg" alt="">
+                                        <i class="iconfont next">&#xe603;</i>
                                     </v-touch>
                                     <v-touch tag="li" v-on:tap="getListenLists" v-on:press="getListenLists">
-                                        <img src="./../../static/img/listenLists.svg" alt="">
+                                        <i class="iconfont">&#xe640;</i>
                                     </v-touch>
                                 </ul>
                             </v-touch>
@@ -162,7 +162,7 @@ export default {
         nowLrcIndex(val) {
             // 计算当前歌词位置
             if (val >= 2) {
-                this.$store.state.nowLrcTop = -((val-1) * 17 - (this.$refs.lrc[val].clientHeight - 17))
+                this.$store.state.nowLrcTop = -((val - 1) * 17 - (this.$refs.lrc[val].clientHeight - 17))
             }
         }
     }
@@ -242,15 +242,12 @@ export default {
                         width: 50px;
                         height: 50px;
                         position: relative;
-                        img {
-                            width: 30px;
-                            height: 30px;
-                            position: absolute;
-                            left: 0;
-                            right: 0;
-                            top: 0;
-                            bottom: 0;
-                            margin: auto;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        .iconfont {
+                            font-size: 23px;
+                            color: #FFF;
                         }
                     }
                     .title {
@@ -278,15 +275,12 @@ export default {
                         height: 50px;
                         position: absolute;
                         right: 10px;
-                        img {
-                            width: 25px;
-                            height: 25px;
-                            position: absolute;
-                            left: 0;
-                            right: 0;
-                            top: 0;
-                            bottom: 0;
-                            margin: auto;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        .iconfont {
+                            font-size: 23px;
+                            color: #FFF;
                         }
                     }
                 }
@@ -407,13 +401,12 @@ export default {
                             width: 18%;
                             align-items: center;
                             justify-content: center;
-                            img {
-                                width: 25px;
-                                height: 25px;
+                            .iconfont {
+                                color: #FFF;
+                                font-size: 30px;
                             }
                             .btn {
-                                width: 35px;
-                                height: 35px;
+                                font-size: 35px;
                             }
                             .prev {
                                 width: 30px;
@@ -423,6 +416,9 @@ export default {
                             .next {
                                 width: 30px;
                                 height: 30px;
+                            }
+                            .random {
+                                font-size: 35px;
                             }
                         }
                     }

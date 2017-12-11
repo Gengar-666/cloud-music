@@ -7,7 +7,7 @@
             <transition :name="transitionName">
                 <slot></slot>
             </transition>
-            <bubble></bubble>
+             <bubble></bubble> 
             <playbar></playbar>
             <loading v-model="isLoading"></loading>
             <div v-transfer-dom>

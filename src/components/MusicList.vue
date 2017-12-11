@@ -8,13 +8,13 @@
     <div class="remd_newsg">
       <div class="m-sglst" v-for="(item, index) in musicList" :key="index">
         <div class="m-sg-item">
-          <v-touch class="sg-btn" v-on:tap="handleClick(item.song.id)" v-on:press="handleClick(item.song.id)">
+          <v-touch class="sg-btn" v-on:tap="handleClick(item.id)" v-on:press="handleClick(item.id)">
             <div class="pic">
-              <img v-lazy="item.song.album.blurPicUrl" alt="">
+              <img v-lazy="item.blurPicUrl" alt="">
             </div>
             <div sg-left>
               <div class="sg-title">{{ item.name }}</div>
-              <div class="sg-singer">{{ item.song.artists[0].name }}</div>
+              <div class="sg-singer">{{ item.singerName }}</div>
             </div>
           </v-touch>
         </div>

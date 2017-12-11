@@ -12,7 +12,7 @@
     <div class="cell-box">
       <group>
         <cell title="个人中心" @click.native="toUser" is-link>
-          <img slot="icon" src="./../../static/img/application.svg" alt="">
+           <img slot="icon" src="./../../static/img/application.svg" alt=""> 
         </cell>
         <cell title="设置" @click.native="disabled" is-link>
           <img slot="icon" src="./../../static/img/config.svg" alt="">

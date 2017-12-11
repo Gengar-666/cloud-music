@@ -26,8 +26,16 @@ export default {
         state.songsheetDetail = payload
     },
     //设置最新音乐
-    set_musicList(state, payload) {
-        state.musicList = payload;
+    set_newMusicList(state, payload) {
+        payload.forEach((item, i) => {
+            const obj = {
+                id: item.song.id,
+                name: item.name,
+                blurPicUrl: item.song.album.blurPicUrl,
+                singerName: item.song.artists[0].name
+            }
+            state.newMusicList.push(obj)
+        })
     },
     //设置云音乐排行榜歌单
     set_MusicRankDetail(state, payload) {
@@ -56,12 +64,14 @@ export default {
         let arr = Lyric.split('\n')
         arr.map(i => {
             let newArr = i.split(']')
-            newArr[0]=((newArr[0].substring(1,3)*60 + newArr[0].substring(4)*1).toFixed(2))
-            const obj = {
-                time: newArr[0],
-                lrc: newArr[1]
+            newArr[0] = ((newArr[0].substring(1, 3) * 60 + newArr[0].substring(4) * 1).toFixed(2))
+            if (newArr[1] !== '') {
+                const obj = {
+                    time: newArr[0],
+                    lrc: newArr[1]
+                }
+                newLyric.push(obj)
             }
-            newLyric.push(obj)
         })
         state.Lyric = newLyric
     },
@@ -77,10 +87,7 @@ export default {
     set_confirmStatus(state, payload) {
         state.confirmStatus = payload
     },
-    //下一首
-    set_nextMusic() {
-        
-    },
+    /* 设置路由前进后退的效果 */
     addRouteChain(state, route) {
         state.routeChain.push(route);
     },
@@ -90,4 +97,5 @@ export default {
     settransitionName(state, dir) {
         state.transitionName = dir;
     }
+    /* end */
 }

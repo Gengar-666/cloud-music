@@ -39,7 +39,7 @@ export default {
   // 推荐歌单
   songsheet: state => state.songsheet,
   // 音乐列表
-  musicList: state => state.musicList,
+  newMusicList: state => state.newMusicList,
   // 歌单详情
   songsheetDetail: state => state.songsheetDetail,
   // 搜索列表

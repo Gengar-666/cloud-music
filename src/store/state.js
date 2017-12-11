@@ -48,8 +48,8 @@ export default {
   audioUrl: '',
   // 推荐歌单
   songsheet: [],
-  // 音乐列表
-  musicList: [],
+  // 最新音乐列表
+  newMusicList: [],
   // 歌单详情
   songsheetDetail: [],
   // 搜索列表

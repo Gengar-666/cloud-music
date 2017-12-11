@@ -1,7 +1,7 @@
 <template>
     <div class="search">
          <div class="search-bar">
-            <span class="search-icon"></span>
+            <i class="iconfont">&#xe678;</i>
             <input @focus="cancelShow" @input="searchListShow" v-on:input="getSearchList" v-model="keyword" type="text" :style="inputWidth" placeholder="搜索歌曲">
             <v-touch tag="span" v-on:tap="cancelHide" v-on:press="cancelHide" class="cancel" v-if=" CancelBtnShow !='' ">取消</v-touch>
         </div>
@@ -62,6 +62,17 @@ export default {
                 this.result = this.$store.state.searchList
             }
         }
+    },
+    watch: {
+        keyword(val) {
+            if (val === '') {
+                this.currentView = 'hotSearch'
+                this.CancelBtnShow = ''
+            } else if(val !== '' && this.CancelBtnShow === '') {
+                this.CancelBtnShow = 'show'
+                this.inputWidth.width = '82%'
+            }
+        }
     }
 }
 </script>
@@ -85,16 +96,12 @@ export default {
             text-indent: 2rem;
             outline: medium;
         }
-        .search-icon {
-            display: inline-block;
-            background-image: url('../../static/img/search.svg');
-            width: 25px;
-            height: 25px;
-            background-repeat: no-repeat;
-            background-size: cover;
+        .iconfont {
             position: absolute;
             top: 15px;
             left: 15px;
+            color: #C8C8CD;
+            font-size: 20px;
         }
         .cancel {
             font-size: 14px;

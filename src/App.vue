@@ -14,35 +14,24 @@ export default {
   data: () => ({
   }),
   mounted() {
-    // 判断是否手机端打开，是的话触屏全屏
-    if (navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)) {
-      window.addEventListener('mousedown', function() {
-        var documentElement = document.documentElement;
-        if (documentElement.requestFullscreen) {
-          documentElement.requestFullscreen();
-        } else if (documentElement.mozRequestFullScreen) {
-          documentElement.mozRequestFullScreen();
-        } else if (documentElement.webkitRequestFullScreen) {
-          documentElement.webkitRequestFullScreen();
-        }
-      })
-    }
     // 路由里有歌曲id参数就播放此歌曲
-    if (this.$route.query.id) {
-      this.$store.dispatch('handleClickMusic', this.$route.query.id)
-    } else if (this.$store.state.listenLists.length > 1) {
-      // 随机播放试听列表
-      let id = null
-      let length = this.$store.state.listenLists.length
-      for (let i = length - 1; i > 0; i--) {
-        id = this.$store.state.listenLists[Math.floor(Math.random() * (i - 0 + 1) + 0)].id
-        break
+    setTimeout(() => {
+      if (this.$route.query.id) {
+        this.$store.dispatch('handleClickMusic', this.$route.query.id)
+      } else if (this.$store.state.listenLists.length > 1) {
+        // 随机播放试听列表
+        let id = null
+        let length = this.$store.state.listenLists.length
+        for (let i = length - 1; i > 0; i--) {
+          id = this.$store.state.listenLists[Math.floor(Math.random() * (i - 0 + 1) + 0)].id
+          break
+        }
+        this.$store.dispatch('handleClickMusic', id)
+      } else {
+        // 默认播放歌曲
+        this.$store.dispatch('handleClickMusic', 405597568)
       }
-      this.$store.dispatch('handleClickMusic', id)
-    } else {
-      // 默认播放歌曲
-      this.$store.dispatch('handleClickMusic', 405597568)
-    }
+    }, 500)
   },
   components: { commen }
 }
@@ -63,6 +52,26 @@ body {
   height: 100%;
   background: #FFF;
 }
+
+@font-face {
+  font-family: 'iconfont';
+  /* project id 505314 */
+  src: url('https://at.alicdn.com/t/font_505314_0iosjgx5nmefusor.eot');
+  src: url('https://at.alicdn.com/t/font_505314_0iosjgx5nmefusor.eot?#iefix') format('embedded-opentype'),
+  url('https://at.alicdn.com/t/font_505314_0iosjgx5nmefusor.woff') format('woff'),
+  url('https://at.alicdn.com/t/font_505314_0iosjgx5nmefusor.ttf') format('truetype'),
+  url('https://at.alicdn.com/t/font_505314_0iosjgx5nmefusor.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 
 
 
@@ -97,7 +106,7 @@ a {
   position: absolute;
   width: 100%;
   overflow-y: auto;
-  transition: all 0.8s cubic-bezier(.5, 0, .1, 1);
+  transition: all 0.5s cubic-bezier(.5, 0, .1, 1);
 }
 
 .slide-left-enter,

@@ -5,12 +5,12 @@
                 <ul>
                     <li v-show="listenLists.length != 0" class="header">
                         <v-touch class="toggle-btn" v-on:tap="togglePlayType" v-on:press="togglePlayType">
-                            <img v-show="playType == 'listloop'" src="./../../static/img/listloop.svg" alt="">
-                            <img v-show="playType == 'random'" src="./../../static/img/random.svg" alt="">
+                            <i v-show="playType == 'listloop'" class="iconfont">&#xe6f2;</i>
+                            <i v-show="playType == 'random'" class="iconfont">&#xe612;</i>
                             <span>{{ playType == 'listloop' ? '列表循环' : '随机播放'}}</span>
                         </v-touch>
                         <v-touch class="delete-btn" v-on:tap="deleteAll" v-on:press="deleteAll">
-                            <img src="./../../static/img/delete-all.svg" alt="">
+                            <i class="iconfont">&#xe64d;</i>
                             <span>清空全部</span>
                         </v-touch>
                     </li>
@@ -21,7 +21,9 @@
                             <p>{{ item.musicName }}</p>
                             <span>{{ item.singer }}</span>
                         </v-touch>
-                        <v-touch tag="img" class="delete" src="./../../static/img/delete.svg" alt="" v-on:tap="deleteMusic(item.id)" v-on:press="deleteMusic(item.id)"></v-touch>
+                        <v-touch class="delete" v-on:tap="deleteMusic(item.id)" v-on:press="deleteMusic(item.id)">
+                            <i class="iconfont">&#xe624;</i>
+                        </v-touch> 
                     </li>
                 </ul>
             </p>
@@ -121,6 +123,13 @@ export default {
                 right: 15px;
                 width: 30px;
                 height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                .iconfont {
+                    color: #C8C8CD;
+                    font-size: 15px;
+                }
             }
         }
         .header {
@@ -133,10 +142,10 @@ export default {
                 width: 100px;
                 display: flex;
                 align-items: center;
-                span {}
-                img {
-                    width: 30px;
-                    height: 30px;
+                .iconfont {
+                    color: #C8C8CD;
+                    font-size: 20px;
+                    margin-right: 5px;
                 }
             }
             .toggle-btn {
@@ -145,10 +154,9 @@ export default {
                 width: 120px;
                 display: flex;
                 align-items: center;
-                img {
-                    width: 30px;
-                    height: 30px;
-                    margin-left: 5px;
+                .iconfont {
+                    color: #C8C8CD;
+                    font-size: 25px;
                 }
                 span {
                     margin-left: 5px;
