@@ -5,11 +5,12 @@
       </div>
       <p class="title">{{ title }}</p>
     </div>
-    <div class="remd_newsg">
+    <div class="remd_sg">
       <div class="m-sglst" v-for="(item, index) in musicList" :key="index">
         <div class="m-sg-item">
+          <div class="sg_num" v-show="!isNewSong && !isSearch">{{ index+1 }}</div>
           <v-touch class="sg-btn" v-on:tap="handleClick(item.id)" v-on:press="handleClick(item.id)">
-            <div class="pic">
+            <div class="pic" v-show="isNewSong || isSearch">
               <img v-lazy="item.blurPicUrl" alt="">
             </div>
             <div sg-left>
@@ -28,6 +29,7 @@ import { mapActions } from 'vuex'
 export default {
   props: {
     isNewSong: Boolean,
+    isSearch: Boolean,
     title: String,
     musicList: Array
   },
@@ -59,7 +61,7 @@ export default {
     margin-bottom: 1rem;
     border-bottom: 1px solid #ccc;
   }
-  .remd_newsg {
+  .remd_sg {
     position: relative;
     .m-sglst {
       margin-left: 10px;
@@ -70,8 +72,14 @@ export default {
         text-decoration: none;
         color: #000;
         display: flex;
-        padding-left: 10px;
         font-size: 14px;
+        .sg_num {
+          line-height: 50px;
+          margin-right: 20px;
+          font-size: 16px;
+          margin-left: 10px;
+          color: #666;
+        }
         .sg-btn {
           -webkit-box-flex: 1;
           flex: 1 1 auto;
@@ -101,10 +109,22 @@ export default {
             background-size: 250px;
             background-repeat: no-repeat;
           }
+          .sg-title {
+            width: 55vw;
+            height: 18px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
           .sg-singer {
             color: #888;
             font-size: 12px;
             margin-top: 5px;
+            width: 55vw;
+            height: 15px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
         }
       }

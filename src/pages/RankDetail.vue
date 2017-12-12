@@ -9,8 +9,8 @@
       <div class="list-content">
         <p>{{ rankDetail.name }}</p>
         <div class="list-author">
-          <img :src="rankDetail.creator.avatarUrl" class="headPortrait" alt="">
-          <span>{{ rankDetail.creator.nickname }}</span>
+          <img :src="rankDetail.avatarUrl" class="headPortrait" alt="">
+          <span>{{ rankDetail.nickname }}</span>
         </div>
       </div>
     </div>
@@ -22,17 +22,7 @@
     <div class="paly-list">
       <p>歌曲列表</p>
       <div class="sg_list">
-        <v-touch class="m-sglst" v-for="(item,index) in rankDetail.tracks" v-on:tap="handleClick(item.id)" v-on:press="handleClick(item.id)" :key="index">
-          <div class="m-sg-item">
-            <div class="sg_num">{{ index+1 }}</div>
-            <div class="sg-btn">
-              <div sg-left>
-                <div class="sg-title">{{ item.album.name }}</div>
-                <div class="sg-singer">{{ item.album.artists[0].name }} - {{ item.album.name }}</div>
-              </div>
-            </div>
-          </div>
-        </v-touch>
+        <music-list :musicList="rankDetail"></music-list>
       </div>
     </div>
   </div>
@@ -54,13 +44,11 @@ export default {
     this.get_MusicRankDetail(this.$route.query.idx)
   },
   methods: {
-    ...mapActions([
-      'handleClickMusic',
-      'get_MusicRankDetail'
-    ]),
-    handleClick(id) {
-      // 点击歌曲之后的处理
-      this.handleClickMusic(id)
+    ...mapActions(['get_MusicRankDetail'])
+  },
+  components: {
+    musicList: resolve => {
+      require(['@/components/MusicList'], resolve)
     }
   }
 }
@@ -161,69 +149,10 @@ export default {
       background: #eeeff0;
     }
     .sg_list {
+      height: 50vh;
+      overflow-y: auto;
+      overflow-x: hidden;
       position: relative;
-    }
-    .sg_num {
-      line-height: 50px;
-      margin-right: 20px;
-      font-size: 16px;
-      margin-left: 10px;
-      color: #666;
-    }
-    .top {
-      color: #df3436;
-    }
-    .m-sglst {
-      margin-left: 10px;
-      padding-bottom: 5px;
-      padding-top: 5px;
-      border-bottom: 1px solid rgba(0, 0, 0, .1);
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
-    .m-sg-item {
-      text-decoration: none;
-      color: #000;
-      display: flex;
-    }
-    .sg-btn {
-      -webkit-box-flex: 1;
-      flex: 1 1 auto;
-      display: -webkit-box;
-      display: flex;
-      position: relative;
-    }
-    .sg-left {
-      -webkit-box-flex: 1;
-      flex: 1 1 auto;
-      padding: 6px 0;
-      width: 0;
-    }
-    .sg-play {
-      background-position: 0px -265px;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 40px;
-      height: 40px;
-      background-size: 250px;
-      background-repeat: no-repeat;
-    }
-    .sg-title {
-      font-size: 13px;
-    }
-    .sg-singer {
-      width: 260px;
-      color: #888;
-      font-size: 12px;
-      margin-top: 5px;
-    }
-    .sg-title {
-      width: 85%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      margin-top: 10px;
     }
   }
 }

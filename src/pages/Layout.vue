@@ -11,23 +11,20 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import navbar from '@/components/Navbar'
 export default {
     name: 'layout',
     data: () => ({
     }),
-    components: {
-        navbar
-    },
-    mounted() {
-    },
     computed: {
         ...mapGetters([
             // 过渡效果
             'transitionName'
         ])
     },
-    methods: {
+    components: {
+        navbar: resolve => {
+            require(['@/components/Navbar'], resolve)
+        }
     }
 }
 </script>

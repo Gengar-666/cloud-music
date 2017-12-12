@@ -23,7 +23,7 @@
                         </v-touch>
                         <v-touch class="delete" v-on:tap="deleteMusic(item.id)" v-on:press="deleteMusic(item.id)">
                             <i class="iconfont">&#xe624;</i>
-                        </v-touch> 
+                        </v-touch>
                     </li>
                 </ul>
             </p>
@@ -105,17 +105,28 @@ export default {
             }
             p {
                 position: absolute;
-                top: 3px;
+                top: 0;
                 left: 45px;
                 font-size: 13px;
-                line-height: 10px;
+                width: 55vw;
+                height: 18px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
             span {
                 position: absolute;
+                display: inline-block;
                 bottom: 5px;
+                top: 19px;
                 left: 45px;
                 font-size: 12px;
                 color: rgba(0, 0, 0, 0.6);
+                width: 55vw;
+                height: 16px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
             .delete {
                 position: absolute;

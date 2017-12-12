@@ -42,6 +42,8 @@ export default {
   newMusicList: state => state.newMusicList,
   // 歌单详情
   songsheetDetail: state => state.songsheetDetail,
+  // 热门搜索
+  hotSearchList: state => state.hotSearchList,
   // 搜索列表
   searchList: state => state.searchList,
   // 歌曲详情

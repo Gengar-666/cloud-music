@@ -1,21 +1,156 @@
 <template>
   <div id="search">
-       <music-search></music-search>
+    <div class="search-bar">
+      <i class="iconfont">&#xe678;</i>
+      <input @focus="cancelShow" @input="getSearchResult(null, true)" v-model="keyword" type="text" :style="{ width }" placeholder="搜索歌曲">
+      <v-touch tag="span" v-on:tap="cancelHide" v-on:press="cancelHide" class="cancel" v-show="cancelBtnShow">取消</v-touch>
+    </div>
+    <div class="hot-search" v-if="searchList.length == 0">
+      <p class="hot-title">热门搜索</p>
+      <div class="hot-tags">
+        <v-touch tag="span" v-for="(tag, index) in hotSearchList" v-on:tap="getSearchResult(tag.name, false)" v-on:press="getSearchResult(tag.msg, false)" :class="['tags-item','active-'+index]" :key="index">{{ tag.name }}</v-touch>
+      </div>
+    </div>
+    <div class="search-list" v-if="searchList.length > 0">
+      <p class="search-title">{{ "搜索"+'"'+keyword+'"' }}</p>
+      <musicList isSearch :musicList="searchList"></musicList>
+    </div>
   </div>
 </template>
 
 <script>
-import musicSearch from '@/components/Search'
+import { mapGetters } from 'vuex'
 export default {
   name: 'search',
   data: () => ({
+    timer: null,
+    keyword: '',
+    width: '97.5%',
+    cancelBtnShow: false
   }),
+  computed: {
+    ...mapGetters([
+      //热门搜索
+      'hotSearchList',
+      //搜索结果
+      'searchList'
+    ])
+  },
+  methods: {
+    cancelShow() {
+      this.width = '82%'
+      this.cancelBtnShow = true
+    },
+    cancelHide() {
+      this.keyword = ''
+      this.width = '97.5%'
+      this.cancelBtnShow = false
+      this.$store.state.searchList = ''
+    },
+    getSearchResult(keyword, isInput) {
+      this.width = '82%'
+      this.cancelBtnShow = true
+      if (isInput) {
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
+          this.$store.dispatch('get_searchList', this.keyword)
+        }, 1000)
+      } else {
+        this.keyword = keyword
+        this.$store.dispatch('get_searchList', keyword)
+      }
+    }
+  },
   components: {
-    musicSearch
+    musicList: resolve => {
+      require(['@/components/MusicList'], resolve)
+    }
+  },
+  watch: {
   }
 }
 </script>
 
 <style lang="less" scoped>
-#search {}
+#search {
+  .search-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #f4f4f4;
+    padding: 6px;
+    box-sizing: border-box;
+    z-index: 1000;
+    input {
+      border: none;
+      height: 40px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-left: 5px;
+      text-indent: 2rem;
+      outline: medium;
+    }
+    .iconfont {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      color: #C8C8CD;
+      font-size: 20px;
+    }
+    .cancel {
+      font-size: 14px;
+      color: rgba(0, 0, 0, .6);
+      margin-left: 10px;
+    }
+  }
+  .hot-search {
+    margin-top: 50px;
+    padding-left: 15px;
+    padding-top: 15px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, .6);
+    .hot-tags {
+      margin-top: 10px;
+      .tags-item {
+        display: inline-block;
+        font-size: 14px;
+        padding: 0 10px;
+        height: 30px;
+        line-height: 30px;
+        text-decoration: none;
+        color: #000;
+        border: 1px solid rgba(0, 0, 0, .6);
+        border-radius: 100px;
+        margin-right: 15px;
+        margin-bottom: 10px;
+      }
+    }
+    .active-0 {
+      color: #2A78DC !important;
+      border: 1px solid #2A78DC !important;
+      border-radius: 100px;
+    }
+  }
+  .search-list {
+    margin-top: 50px;
+    height: 79vh;
+    .search-title {
+      position: fixed;
+      width: 100%;
+      top: 52px;
+      height: 50px;
+      margin-left: 10px;
+      padding-right: 10px;
+      font-size: 12px;
+      line-height: 50px;
+      color: #507daf;
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+      z-index: 1000;
+      background: #FFF;
+    }
+    #music-list {
+      margin-top: 100px;
+    }
+  }
+}
 </style>

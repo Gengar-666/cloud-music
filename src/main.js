@@ -11,6 +11,7 @@ FastClick.attach(document.body)
 var VueTouch = require('vue-touch')
 Vue.use(VueTouch)
 
+//图片懒加载
 import VueLazyLoad from 'vue-lazyload'
 
 //懒加载的默认图片 
@@ -20,6 +21,7 @@ Vue.use(VueLazyLoad,{
   loading: lazyLoadingImg
 })
 
+//api请求
 Object.defineProperty(Vue.prototype, '$fetch', { value: fetch })
 
 Vue.config.productionTip = false

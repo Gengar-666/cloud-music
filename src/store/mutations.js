@@ -23,7 +23,20 @@ export default {
     },
     //设置歌单详情
     set_songsheetDetail(state, payload) {
-        state.songsheetDetail = payload
+        payload.tracks.forEach((item, i) => {
+            const obj = {
+                id: item.id,
+                name: item.name,
+                singerName: `${item.ar[0].name} - ${item.al.name}`
+            }
+            state.songsheetDetail.push(obj)
+        })
+        state.songsheetDetail.coverImgUrl = payload.coverImgUrl
+        state.songsheetDetail.name = payload.name
+        state.songsheetDetail.avatarUrl = payload.creator.avatarUrl
+        state.songsheetDetail.nickname = payload.creator.nickname
+        state.songsheetDetail.description = payload.description
+        state.songsheetDetail.tags = payload.tags
     },
     //设置最新音乐
     set_newMusicList(state, payload) {
@@ -39,11 +52,33 @@ export default {
     },
     //设置云音乐排行榜歌单
     set_MusicRankDetail(state, payload) {
-        state.rankDetail = payload
+        console.log(payload)
+        payload.tracks.forEach((item, i) => {
+            const obj = {
+                id: item.id,
+                name: item.album.name,
+                singerName: `${item.album.artists[0].name} - ${item.album.name}`
+            }
+            state.rankDetail.push(obj)
+        })
+        state.rankDetail.coverImgUrl = payload.coverImgUrl
+        state.rankDetail.name = payload.name
+        state.rankDetail.avatarUrl = payload.creator.avatarUrl
+        state.rankDetail.nickname = payload.creator.nickname
+        state.rankDetail.description = payload.description
+        state.rankDetail.tags = payload.tags
     },
     //设置搜索列表
     set_searchList(state, payload) {
-        state.searchList = payload;
+        payload.forEach((item, i) => {
+            const obj = {
+                id: item.id,
+                name: item.name,
+                blurPicUrl: item.album.blurPicUrl,
+                singerName: `${item.artists[0].name} - ${item.album.name}`
+            }
+            state.searchList.push(obj)
+        })
     },
     //设置音乐url
     set_musicUrl(state, payload) {

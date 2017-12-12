@@ -7,9 +7,6 @@
 </template>
 
 <script>
-import banner from '@/components/Banner'
-import songSheet from '@/components/Songsheet'
-import musicList from '@/components/MusicList'
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'recommend',
@@ -25,9 +22,15 @@ export default {
     ...mapActions(['get_newSongsList'])
   },
   components: {
-    banner,
-    songSheet,
-    musicList
+    banner: resolve => {
+      require(['@/components/Banner'], resolve)
+    },
+    songSheet: resolve => {
+      require(['@/components/Songsheet'], resolve)
+    },
+    musicList: resolve => {
+      require(['@/components/MusicList'], resolve)
+    }
   }
 }
 </script>

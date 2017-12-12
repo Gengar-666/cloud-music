@@ -15,6 +15,28 @@ export default {
   userPlayList: JSON.parse(localStorage.getItem('userPlayList')) || {
     playlist: []
   },
+  // 热门搜索
+  hotSearchList: [{
+    name: '火影忍者'
+  }, {
+    name: '逆さまの蝶'
+  }, {
+    name: 'rollong star'
+  }, {
+    name: '山外小楼夜听雨'
+  }, {
+    name: 'GLORIA'
+  }, {
+    name: 'again'
+  }, {
+    name: '边走边唱'
+  }, {
+    name: '成全'
+  }, {
+    name: '残酷月光'
+  }, {
+    name: '造梦者'
+  }],
   // 是否加载状态
   isLoading: false,
   // 是否显示弹窗提示

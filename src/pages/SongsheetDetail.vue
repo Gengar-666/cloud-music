@@ -9,8 +9,8 @@
             <div class="list-content">
                 <p>{{ songsheetDetail.name }}</p>
                 <div class="list-author">
-                    <img :src="songsheetDetail.creator.avatarUrl" class="headPortrait" alt="">
-                    <span>{{ songsheetDetail.creator.nickname }}</span>
+                    <img :src="songsheetDetail.avatarUrl" class="headPortrait" alt="">
+                    <span>{{ songsheetDetail.nickname }}</span>
                 </div>
             </div>
         </div>
@@ -26,17 +26,7 @@
         <div class="paly-list">
             <p>歌曲列表</p>
             <div class="sg_list">
-                <v-touch class="m-sglst" v-for="(item,index) in songsheetDetail.tracks" v-on:tap="handleClick(item.id)" v-on:press="handleClick(item.id)" :key="index">
-                    <div class="m-sg-item">
-                        <div class="sg_num">{{ index+1 }}</div>
-                        <div class="sg-btn">
-                            <div sg-left>
-                                <div class="sg-title">{{ item.name }}</div>
-                                <div class="sg-singer">{{ item.ar[0].name }} - {{item.al.name}}</div>
-                            </div>
-                        </div>
-                    </div>
-                </v-touch>
+                <music-list :musicList="songsheetDetail"></music-list>
             </div>
         </div>
     </div>
@@ -46,7 +36,6 @@
 import { mapGetters, mapActions } from 'vuex'
 export default {
     data: () => ({
-
     }),
     computed: {
         ...mapGetters(['songsheetDetail'])
@@ -55,14 +44,15 @@ export default {
         this.get_detail()
     },
     methods: {
-        ...mapActions(['handleClickMusic']),
+        ...mapActions(['get_songsheetDetail']),
         //获取歌单内容
         get_detail() {
-            this.$store.dispatch('get_songsheetDetail', this.$route.query.id)
-        },
-        handleClick(id) {
-            // 点击歌曲之后的处理
-            this.handleClickMusic(id)
+            this.get_songsheetDetail(this.$route.query.id)
+        }
+    },
+    components: {
+        musicList: resolve => {
+            require(['@/components/MusicList'], resolve)
         }
     }
 }
@@ -167,72 +157,10 @@ export default {
             background: #eeeff0;
         }
         .sg_list {
-            height: 42vh;
+            height: 50vh;
             overflow-y: auto;
             overflow-x: hidden;
             position: relative;
-        }
-        .sg_num {
-            line-height: 50px;
-            margin-right: 20px;
-            font-size: 16px;
-            margin-left: 10px;
-            color: #666;
-        }
-        .top {
-            color: #df3436;
-        }
-        .m-sglst {
-            margin-left: 10px;
-            padding-bottom: 5px;
-            padding-top: 5px;
-            border-bottom: 1px solid rgba(0, 0, 0, .1);
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        .m-sg-item {
-            text-decoration: none;
-            color: #000;
-            display: flex;
-        }
-        .sg-btn {
-            -webkit-box-flex: 1;
-            flex: 1 1 auto;
-            display: -webkit-box;
-            display: flex;
-            position: relative;
-        }
-        .sg-left {
-            -webkit-box-flex: 1;
-            flex: 1 1 auto;
-            padding: 6px 0;
-            width: 0;
-        }
-        .sg-play {
-            background-position: 0px -265px;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            background-size: 250px;
-            background-repeat: no-repeat;
-        }
-        .sg-title {
-            font-size: 13px;
-        }
-        .sg-singer {
-            width: 260px;
-            color: #888;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-        .sg-title {
-            width: 85%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            margin-top: 10px;
         }
     }
 }
