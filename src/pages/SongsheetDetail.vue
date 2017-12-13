@@ -1,5 +1,8 @@
 <template>
     <div id="songSheetDetail" v-if="songsheetDetail.length !== 0">
+        <v-touch class="back" v-on:tap="back" v-on:press="back">
+            <i class="iconfont">&#xe617;</i>
+        </v-touch>
         <div class="list-header" :style="{ backgroundImage: 'url(' + songsheetDetail.coverImgUrl + ')' }">
         </div>
         <div class="list-wrap">
@@ -40,14 +43,15 @@ export default {
     computed: {
         ...mapGetters(['songsheetDetail'])
     },
-    mounted() {
-        this.get_detail()
+    activated() {
+        //获取歌单内容
+        this.get_songsheetDetail(this.$route.query.id)
     },
     methods: {
         ...mapActions(['get_songsheetDetail']),
-        //获取歌单内容
-        get_detail() {
-            this.get_songsheetDetail(this.$route.query.id)
+        back() {
+            this.$router.go(-1)
+            this.$store.state.songsheetDetail = []
         }
     },
     components: {
@@ -62,9 +66,21 @@ export default {
 #songSheetDetail {
     overflow: hidden;
     background-color: #f8f8f8;
+    .back {
+        width: 50px;
+        height: 50px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 5px;
+        .iconfont {
+            font-size: 23px;
+        }
+    }
     .list-header {
         height: 55px;
-        padding-top: 30px;
+        padding-top: 5px;
         padding-bottom: 30px;
         padding-left: 20px;
         position: relative;

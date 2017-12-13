@@ -1,7 +1,7 @@
 <template>
   <div id="search">
     <div class="search-bar">
-      <i class="iconfont">&#xe678;</i>
+      <v-touch tag="i" class="iconfont back" v-on:tap="back" v-on:press="back">&#xe617;</v-touch>
       <input @focus="cancelShow" @input="getSearchResult(null, true)" v-model="keyword" type="text" :style="{ width }" placeholder="搜索歌曲">
       <v-touch tag="span" v-on:tap="cancelHide" v-on:press="cancelHide" class="cancel" v-show="cancelBtnShow">取消</v-touch>
     </div>
@@ -51,14 +51,20 @@ export default {
       this.width = '82%'
       this.cancelBtnShow = true
       if (isInput) {
+        this.$store.state.searchList = []
         clearTimeout(this.timer)
         this.timer = setTimeout(() => {
           this.$store.dispatch('get_searchList', this.keyword)
         }, 1000)
       } else {
         this.keyword = keyword
+        this.$store.state.searchList = []
         this.$store.dispatch('get_searchList', keyword)
       }
+    },
+    back() {
+      this.$router.go(-1)
+      this.$store.state.songsheetDetail = []
     }
   },
   components: {
@@ -81,21 +87,23 @@ export default {
     padding: 6px;
     box-sizing: border-box;
     z-index: 1000;
+    .back {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      line-height: 40px;
+      color: #C8C8CD;
+      font-size: 20px;
+    }
     input {
       border: none;
       height: 40px;
       border-radius: 6px;
       font-size: 14px;
       margin-left: 5px;
-      text-indent: 2rem;
+      text-indent: 2.5rem;
       outline: medium;
-    }
-    .iconfont {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      color: #C8C8CD;
-      font-size: 20px;
     }
     .cancel {
       font-size: 14px;

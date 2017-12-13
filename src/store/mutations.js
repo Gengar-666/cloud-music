@@ -52,7 +52,6 @@ export default {
     },
     //设置云音乐排行榜歌单
     set_MusicRankDetail(state, payload) {
-        console.log(payload)
         payload.tracks.forEach((item, i) => {
             const obj = {
                 id: item.id,
@@ -66,7 +65,6 @@ export default {
         state.rankDetail.avatarUrl = payload.creator.avatarUrl
         state.rankDetail.nickname = payload.creator.nickname
         state.rankDetail.description = payload.description
-        state.rankDetail.tags = payload.tags
     },
     //设置搜索列表
     set_searchList(state, payload) {
@@ -92,23 +90,27 @@ export default {
     },
     //设置当前播放歌曲歌词
     set_musicLrc(state, Lyric) {
-        state.nowLrcIndex = 0
-        state.nowLrcTop = 0
-        // 把时间转换成毫秒
-        let newLyric = []
-        let arr = Lyric.split('\n')
-        arr.map(i => {
-            let newArr = i.split(']')
-            newArr[0] = ((newArr[0].substring(1, 3) * 60 + newArr[0].substring(4) * 1).toFixed(2))
-            if (newArr[1] !== '') {
-                const obj = {
-                    time: newArr[0],
-                    lrc: newArr[1]
+        if (Lyric == 'nolyric') {
+            state.Lyric = []
+        } else {
+            state.nowLrcIndex = 0
+            state.nowLrcTop = 0
+            // 把时间转换成毫秒
+            let newLyric = []
+            let arr = Lyric.split('\n')
+            arr.map(i => {
+                let newArr = i.split(']')
+                newArr[0] = ((newArr[0].substring(1, 3) * 60 + newArr[0].substring(4) * 1).toFixed(2))
+                if (newArr[1] !== '') {
+                    const obj = {
+                        time: newArr[0],
+                        lrc: newArr[1]
+                    }
+                    newLyric.push(obj)
                 }
-                newLyric.push(obj)
-            }
-        })
-        state.Lyric = newLyric
+            })
+            state.Lyric = newLyric
+        }
     },
     //设置播放状态
     set_playStatus(state, payload) {

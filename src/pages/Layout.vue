@@ -3,7 +3,9 @@
         <navbar></navbar>
         <div id="content">
             <transition :name="transitionName">
-                <router-view class="view"></router-view>
+                <keep-alive>
+                    <router-view class="view"></router-view>
+                </keep-alive>
             </transition>
         </div>
     </div>

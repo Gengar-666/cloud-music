@@ -65,7 +65,11 @@ export default {
     //获取歌词
     get_musicLrc({ commit }, id) {
         fetch.GetLRC(id).then(res => {
-            commit('set_musicLrc', res.lrc.lyric)
+            if (res.nolyric) {
+                commit('set_musicLrc', 'nolyric')
+            } else {
+                commit('set_musicLrc', res.lrc.lyric)
+            }
         })
     },
     //下一首

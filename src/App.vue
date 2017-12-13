@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <commen>
-      <router-view class="view"></router-view>
+      <keep-alive>
+        <router-view class="view"></router-view>
+      </keep-alive>
     </commen>
   </div>
 </template>

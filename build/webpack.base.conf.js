@@ -74,7 +74,7 @@ const webpackConfig = {
     ]
   },
   plugins: [
-    new NyanProgressPlugin(), // 进度条
+    new NyanProgressPlugin() // 进度条
   ]
 }
 

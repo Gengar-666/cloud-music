@@ -36,7 +36,10 @@
                                 <span class="duration">{{ Math.floor(musicDuration/60)+":"+(musicDuration%60/100).toFixed(2).slice(-2) }}</span>
                             </v-touch>
                             <div class="lyric ">
-                                <ul :style="{'top': nowLrcTop + 'px'}">
+                                <ul v-if="Lyric.length == 0">
+                                    <li>暂无歌词！</li>
+                                </ul>
+                                <ul :style="{'top': nowLrcTop + 'px'}" v-if="Lyric">
                                     <li ref="lrc" v-for="(item, index) in Lyric" :key="index" :class="{'now-lrc': nowLrcIndex == index}">
                                         {{ item.lrc }}
                                     </li>

@@ -3,9 +3,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 import fetch from '@/api'
-//点击延迟
-import FastClick from 'fastclick'
-FastClick.attach(document.body)
 
 //监听移动端触摸事件组件
 var VueTouch = require('vue-touch')

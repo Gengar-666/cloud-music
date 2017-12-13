@@ -1,5 +1,8 @@
 <template>
   <div id="rank-detail" v-if="rankDetail.length !== 0">
+    <v-touch class="back" v-on:tap="back" v-on:press="back">
+      <i class="iconfont">&#xe617;</i>
+    </v-touch>
     <div class="list-header" :style="{ backgroundImage: 'url(' + rankDetail.coverImgUrl + ')' }">
     </div>
     <div class="list-wrap">
@@ -40,11 +43,15 @@ export default {
       'rankDetail'
     ])
   },
-  mounted() {
+  activated() {
     this.get_MusicRankDetail(this.$route.query.idx)
   },
   methods: {
-    ...mapActions(['get_MusicRankDetail'])
+    ...mapActions(['get_MusicRankDetail']),
+    back() {
+      this.$router.go(-1)
+      this.$store.state.songsheetDetail = []
+    }
   },
   components: {
     musicList: resolve => {
@@ -58,9 +65,21 @@ export default {
 #rank-detail {
   overflow: hidden;
   background-color: #f8f8f8;
+  .back {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+    .iconfont {
+      font-size: 23px;
+    }
+  }
   .list-header {
     height: 55px;
-    padding-top: 30px;
+    padding-top: 5px;
     padding-bottom: 30px;
     padding-left: 20px;
     position: relative;
