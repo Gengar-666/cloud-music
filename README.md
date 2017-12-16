@@ -1,11 +1,14 @@
 # 这货不是网易云音乐
 
-![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo1.png)<br>
-+++++++手动分割线+++++++++
-![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo2.png)<br>
-+++++++手动分割线+++++++++
-![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo3.png)<br>
-
+![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo1.png)
+<br>
+<br>
+![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo2.png)
+<br>
+<br>
+![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo3.png)
+<br>
+<br>
 > **demo地址：https://uchihaobitozzz.github.io/buildMusic
 
 ### 技术栈
