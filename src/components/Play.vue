@@ -134,7 +134,7 @@ export default {
         // 分享
         share() {
             this.$store.state.alertText = '暂不可用，敬请期待~'
-            this.$store.commit('set_alertStatus', true)
+            this.$store.commit($types.SET_ALERT_STATUS, true)
         },
         // 切换播放模式
         togglePlayType() {

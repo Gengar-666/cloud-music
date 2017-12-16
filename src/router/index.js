@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import routes from '@/router/routes'
 import store from '@/store'
+import * as types from '@/store/types'
 
 Vue.use(Router)
 
@@ -15,26 +16,26 @@ router.beforeEach((to, from, next) => {
     // 不一定要用到vuex
     let routeLength = store.state.routeChain.length;
     if (routeLength === 0) {
-        store.commit('settransitionName', 'fade');
+        store.commit(types.SET_TRANSITION_NAME, 'fade');
         if (to.path === from.path && to.path === '/') {
             //当直接打开根路由的时候
-            store.commit('addRouteChain', to);
+            store.commit(types.ADD_ROUTE_CHAIN, to);
         } else {
             //直接打开非根路由的时候其实生成了两个路径，from其实就是根路由
-            store.commit('addRouteChain', from);
-            store.commit('addRouteChain', to);
+            store.commit(types.ADD_ROUTE_CHAIN, from);
+            store.commit(types.ADD_ROUTE_CHAIN, to);
         }
     } else if (routeLength === 1) {
-        store.commit('settransitionName', 'slide-left');
-        store.commit('addRouteChain', to);
+        store.commit(types.SET_TRANSITION_NAME, 'slide-left');
+        store.commit(types.ADD_ROUTE_CHAIN, to);
     } else {
         let lastBeforeRoute = store.state.routeChain[routeLength - 2];
         if (lastBeforeRoute.path === to.path) {
-            store.commit('popRouteChain');
-            store.commit('settransitionName', 'slide-right');
+            store.commit(types.POP_ROUTE_CHAIN);
+            store.commit(types.SET_TRANSITION_NAME, 'slide-right');
         } else {
-            store.commit('addRouteChain', to);
-            store.commit('settransitionName', 'slide-left');
+            store.commit(types.ADD_ROUTE_CHAIN, to);
+            store.commit(types.SET_TRANSITION_NAME, 'slide-left');
         }
     }
     next();

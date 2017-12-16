@@ -21,7 +21,7 @@ export const fetchGet = (url, para) => {
                 reject(err)
                 store.state.isLoading = false
                 store.state.alertText = '网络好像不太给力，刷新页面试试~'
-                store.commit('set_alertStatus', true)
+                store.state.alertStatus = true
             })
             .catch(err => {
                 reject(err)

@@ -71,7 +71,7 @@ export default {
             let _this = this
             _this.$store.state.musicDuration = e.target.duration
             //设置播放状态
-            _this.$store.commit('set_playStatus', true)
+            _this.$store.state.playStatus = true
             //播放歌曲
             _this.$refs.player.play()
             //监听歌曲是否播放完毕

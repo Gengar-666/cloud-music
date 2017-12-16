@@ -67,7 +67,7 @@ export default {
       })
     } else {
       this.$store.state.confirmText = 'login'
-      this.$store.commit('set_confirmStatus', true)
+      this.$store.commit($types.SET_CONFIRM_STATUS, true)
     }
   },
   methods: {

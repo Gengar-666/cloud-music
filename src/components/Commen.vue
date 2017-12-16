@@ -65,11 +65,11 @@ export default {
     methods: {
         // 网络错误弹窗确定按钮判断是否后退
         onHide() {
-            this.$store.commit('set_alertStatus', false)
+            this.$store.commit($types.SET_ALERT_STATUS, false)
         },
         // 登录或退出弹窗
         onCancel() {
-            this.$store.commit('set_confirmStatus', false)
+            this.$store.commit($types.SET_CONFIRM_STATUS, false)
             this.$route.path == '/user' ? this.$router.go(-1) : ''
         },
         // 登录或退出弹窗
@@ -78,7 +78,7 @@ export default {
                 this.$store.state.user = ''
                 localStorage.removeItem('user')
             }
-            this.$store.commit('set_confirmStatus', false)
+            this.$store.commit($types.SET_CONFIRM_STATUS, false)
             this.$router.push('/login')
         },
         // 显示侧边栏

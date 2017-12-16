@@ -51,11 +51,13 @@ export default {
       this.width = '82%'
       this.cancelBtnShow = true
       if (isInput) {
-        this.$store.state.searchList = []
-        clearTimeout(this.timer)
-        this.timer = setTimeout(() => {
-          this.$store.dispatch('get_searchList', this.keyword)
-        }, 1000)
+        if (this.keyword !== '') {
+          this.$store.state.searchList = []
+          clearTimeout(this.timer)
+          this.timer = setTimeout(() => {
+            this.$store.dispatch('get_searchList', this.keyword)
+          }, 1000)
+        }
       } else {
         this.keyword = keyword
         this.$store.state.searchList = []

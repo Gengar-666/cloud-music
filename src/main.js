@@ -3,6 +3,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import fetch from '@/api'
+import * as types from '@/store/types'
 
 //监听移动端触摸事件组件
 var VueTouch = require('vue-touch')
@@ -20,6 +21,9 @@ Vue.use(VueLazyLoad,{
 
 //api请求
 Object.defineProperty(Vue.prototype, '$fetch', { value: fetch })
+
+//mutations_types
+Object.defineProperty(Vue.prototype, '$types', { value: types })
 
 Vue.config.productionTip = false
 
