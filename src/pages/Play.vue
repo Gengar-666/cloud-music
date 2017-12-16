@@ -82,6 +82,7 @@ export default {
         rotate: 0
     }),
     mounted() {
+        console.log(window.history.length)
     },
     computed: {
         ...mapGetters([
@@ -129,6 +130,11 @@ export default {
                 'opacity': 0,
                 'zIndex': -1
             }
+            if (window.history.length > 2) {
+                this.$router.go(-1)
+            } else {
+                this.$router.push('/recommend')
+            }
         },
         // 分享
         share() {
@@ -171,6 +177,7 @@ export default {
 <style lang="less">
 #play {
     position: relative;
+    overflow: hidden;
     @keyframes circling {
         0% {
             -webkit-transform: rotate(0deg);

@@ -66,14 +66,14 @@ export default {
     },
     disabled() {
       this.$store.state.alertText = '暂不可用，敬请期待~'
-      this.$store.commit($types.SET_ALERT_STATUS, true)
+      this.$store.commit(this.$types.SET_ALERT_STATUS, true)
     },
     login() {
       this.$router.push('/login')
     },
     sign_out() {
       this.$store.state.confirmText = 'sign_out'
-      this.$store.commit($types.SET_CONFIRM_STATUS, true)
+      this.$store.commit(this.$types.SET_CONFIRM_STATUS, true)
     }
   }
 }

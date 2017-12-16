@@ -64,14 +64,18 @@ export default {
     methods: {
         // 显示播放信息
         playShow() {
-            this.$store.state.playShow = true
+            this.$store.state.playStyleObject = {
+                'opacity': 1,
+                'zIndex': 100
+            }
+            this.$router.push('/play')
         },
         //播放音乐
         playMusic(e) {
             let _this = this
             _this.$store.state.musicDuration = e.target.duration
             //设置播放状态
-            _this.$store.state.playStatus = true
+            _this.$store.commit(_this.$types.SET_PLAY_STATUS, true)
             //播放歌曲
             _this.$refs.player.play()
             //监听歌曲是否播放完毕

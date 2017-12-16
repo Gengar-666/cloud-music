@@ -33,7 +33,7 @@ const RankDetail = resolve => {
 const routes = [
     {
         path: '/',
-        redirect: '/recommend',
+        redirect: '/play',
         component: Layout,
         children: [
             {
@@ -72,6 +72,13 @@ const routes = [
         path: '/rank-detail',
         name: 'rankDetail',
         component: RankDetail
+    },
+    {
+        path: '/play',
+        name: 'play',
+        component: resolve => {
+            require(['@/pages/Play'], resolve)
+        }
     }
 ]
 

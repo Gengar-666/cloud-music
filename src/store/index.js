@@ -64,8 +64,11 @@ const state = {
     sidebarShow: false,
     // 试听列表显示状态
     listenListStatus: false,
-    // 是否显示播放页
-    playShow: true,
+    // 播放页透明度
+    playStyleObject: {
+        'opacity': 1,
+        'zIndex': 100
+    },
     // 导航下标位置
     activeTab: 0,
     // 试听列表
@@ -126,7 +129,7 @@ const getters = {
     confirmText: state => state.confirmText,
     sidebarShow: state => state.sidebarShow,
     listenListStatus: state => state,
-    playShow: state => state,
+    playStyleObject: state => state.playStyleObject,
     activeTab: state => state.activeTab,
     listenLists: state => state.listenLists,
     playType: state => state.playType,
@@ -160,7 +163,6 @@ const actions = {
         fetch.MusicUrl(id).then(res => {
             dispatch('get_audioUrl', res.data[0])
             commit(types.SET_PLAY_STATUS, id)
-            router.push({ path: router.app.$route.path, query: { id: id } })
         })
     },
     // 获取当前点击歌曲url
