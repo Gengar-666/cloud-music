@@ -1,8 +1,8 @@
 # 山寨云音乐 (ง •̀_•́)ง
 
-![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo1.png)
-![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo2.png)
-![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo3.png)
+![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo1.png)<br>
+![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo2.png)<br>
+![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo3.png)<br>
 
 > **demo地址：https://uchihaobitozzz.github.io/buildMusic
 
