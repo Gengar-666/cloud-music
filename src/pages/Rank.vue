@@ -44,7 +44,9 @@ export default {
 
 <style lang="less" scoped>
 #rank {
+    height: 100%;
     .list {
+        height: 23%;
         background: -webkit-linear-gradient(left, #2A78DC, #CCC);
         background: -moz-linear-gradient(left, #2A78DC, #CCC);
         background: -o-linear-gradient(left, #2A78DC, #CCC);
@@ -53,13 +55,12 @@ export default {
         display: flex;
         align-items: center;
         width: 92%;
-        height: 100px;
         margin: 0 auto;
         margin-top: 10px;
         border-radius: 6px;
         img {
-            width: 80px;
-            height: 80px;
+            width: 25%;
+            height: 75%;
             border-radius: 6px;
             border: 1px solid #FFF;
         }

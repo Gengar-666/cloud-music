@@ -4,10 +4,6 @@
       <div class="avatar" :style="'background-image: url(' + avatar + ')'"></div>
       <span class="nickname">{{ user.code == 200 ? userDetail.profile.nickname : '你还没有登录~' }}</span>
       <span class="level" v-show="user.code == 200">Lv.{{ userDetail.level }}</span>
-      <div class="sign-in" v-show="user.code == 200" @click="disabled">
-        <img src="./../../static/img/signIn.svg" alt="">
-        <span>签到</span>
-      </div>
     </div>
     <div class="cell-box">
       <group>
@@ -89,8 +85,8 @@ export default {
     background-size: cover;
     background: #000;
     .avatar {
-      width: 80px;
-      height: 80px;
+      width: 65px;
+      height: 65px;
       background-size: cover;
       border-radius: 50%;
       margin-bottom: 15px;

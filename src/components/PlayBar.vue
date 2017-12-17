@@ -64,11 +64,7 @@ export default {
     methods: {
         // 显示播放信息
         playShow() {
-            this.$store.state.playStyleObject = {
-                'opacity': 1,
-                'zIndex': 100
-            }
-            this.$router.push('/play')
+            this.$store.state.playShow = true
         },
         //播放音乐
         playMusic(e) {

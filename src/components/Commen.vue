@@ -7,7 +7,6 @@
             <transition :name="transitionName">
                 <slot></slot>
             </transition>
-            <bubble></bubble>  
             <playbar></playbar>
             <loading v-model="isLoading"></loading>
             <div v-transfer-dom>
@@ -19,7 +18,9 @@
                 </confirm>
             </div>
             <listenLists></listenLists>
-            <!-- <play></play> -->
+            <transition name="fold">
+                <play v-show="playShow"></play>
+            </transition>
         </drawer>
     </div>
 </template>
@@ -31,6 +32,15 @@ import {
     Confirm,
     TransferDomDirective as TransferDom
 } from 'vux'
+// 底部播放栏
+import playbar from '@/components/Playbar'
+// 左侧过渡效果
+import drawer from '@/components/drawer'
+// 侧边栏
+import sidebar from '@/components/Sidebar'
+// 试听列表
+import listenLists from '@/components/ListenLists'
+import play from '@/components/Play'
 import { mapGetters } from 'vuex';
 
 export default {
@@ -59,7 +69,9 @@ export default {
             // confirm弹窗是否显示
             'confirmStatus',
             // 左侧菜单是否显示
-            'sidebarShow'
+            'sidebarShow',
+            // 是否显示播放页面
+            'playShow'
         ])
     },
     methods: {
@@ -94,30 +106,11 @@ export default {
         Loading,
         Alert,
         Confirm,
-        // canvas泡泡
-        bubble: resolve => {
-            require(['@/components/Bubble'], resolve)
-        },
-        // 底部播放栏
-        playbar: resolve => {
-            require(['@/components/Playbar'], resolve)
-        },
-        // 左侧过渡效果
-        drawer: resolve => {
-            require(['@/components/drawer'], resolve)
-        },
-        // 侧边栏
-        sidebar: resolve => {
-            require(['@/components/Sidebar'], resolve)
-        },
-        // 试听列表
-        listenLists: resolve => {
-            require(['@/components/ListenLists'], resolve)
-        },
-        // 播放页
-        play: resolve => {
-            require(['@/components/Play'], resolve)
-        }
+        playbar,
+        drawer,
+        sidebar,
+        listenLists,
+        play
     }
 }
 </script>
@@ -127,7 +120,16 @@ export default {
     width: 100%;
     height: 100%;
     .sidebar {
-        width: 80vw;
+        width: 45vw;
+    }
+    .fold-enter-active,
+    .fold-leave-active {
+        transition: all .5s ease-in;
+    }
+    .fold-enter,
+    .fold-leave-active {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
     }
 }
 </style>

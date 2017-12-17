@@ -56,7 +56,7 @@ export default {
     padding: 5px 0 5px 0;
     color: #666;
     font-size: 13px;
-    margin-left: 1.5rem;
+    margin-left: 1rem;
     margin-top: 21rem;
     margin-bottom: 1rem;
     border-bottom: 1px solid #ccc;
@@ -121,7 +121,6 @@ export default {
             font-size: 12px;
             margin-top: 5px;
             width: 55vw;
-            height: 15px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;

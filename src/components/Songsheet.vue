@@ -54,7 +54,7 @@ export default {
         padding: 5px 0 5px 0;
         color: #666;
         font-size: 13px;
-        margin-left: 1.5rem;
+        margin-left: 1rem;
         margin-top: 1.1rem;
         margin-bottom: 0.5rem;
         border-bottom: 1px solid #ccc;

@@ -25,23 +25,23 @@ const state = {
     hotSearchList: [{
         name: '火影忍者'
     }, {
-        name: '逆さまの蝶'
+        name: 'Wind Of Change'
     }, {
-        name: 'rollong star'
+        name: '水星记'
     }, {
-        name: '山外小楼夜听雨'
+        name: '大鱼'
     }, {
-        name: 'GLORIA'
+        name: '像风一样'
     }, {
-        name: 'again'
+        name: '我想'
     }, {
-        name: '边走边唱'
+        name: '给未来的自己'
     }, {
         name: '成全'
     }, {
         name: '残酷月光'
     }, {
-        name: '造梦者'
+        name: '骂醒我'
     }],
     // 是否加载状态
     isLoading: false,
@@ -64,15 +64,63 @@ const state = {
     sidebarShow: false,
     // 试听列表显示状态
     listenListStatus: false,
-    // 播放页透明度
-    playStyleObject: {
-        'opacity': 1,
-        'zIndex': 100
-    },
+    // 播放页是否显示
+    playShow: true,
     // 导航下标位置
     activeTab: 0,
     // 试听列表
-    listenLists: JSON.parse(localStorage.getItem('listenLists')) || [],
+    listenLists: JSON.parse(localStorage.getItem('listenLists')) || [
+        {
+            "id": 202360,
+            "musicName": "骂醒我",
+            "picUrl": "http://p1.music.126.net/4SNgD8XFxmkMpfg700cZPw==/60473139544728.jpg",
+            "singer": "周汤豪"
+        }, {
+            "id": 523533641,
+            "musicName": "残酷月光（再传一次我就不信这个邪）",
+            "picUrl": "http://p1.music.126.net/rnLCGSXHIT1wx7VSZvbTUA==/109951163033938440.jpg",
+            "singer": "leegof"
+        }, {
+            "id": 512384678,
+            "musicName": "成全（Cover 刘若英）",
+            "picUrl": "http://p1.music.126.net/CGQc6fxsaCaLMq58gqSGYA==/109951163033894325.jpg",
+            "singer": "Fiveonesix"
+        }, {
+            "id": 176028,
+            "musicName": "给未来的自己(Live) - live",
+            "picUrl": "http://p1.music.126.net/_Pg1PySV1Ot9MYN7g39G9w==/78065325577768.jpg",
+            "singer": "杨宗纬"
+        }, {
+            "id": 407435011,
+            "musicName": "我想",
+            "picUrl": "http://p1.music.126.net/O6d7GYY3gp2uy8zehvcOjQ==/17699938184267410.jpg",
+            "singer": "余佳运"
+        }, {
+            "id": 516657051, "musicName": "像风一样",
+            "picUrl": "http://p1.music.126.net/fNbj5uDwltSDLbETdnEYYQ==/109951163069265719.jpg",
+            "singer": "薛之谦"
+        }, {
+            "id": 413812448,
+            "musicName": "大鱼",
+            "picUrl": "http://p1.music.126.net/aiPQXP8mdLovQSrKsM3hMQ==/1416170985079958.jpg",
+            "singer": "周深"
+        }, {
+            "id": 441491828,
+            "musicName": "水星记",
+            "picUrl": "http://p1.music.126.net/wSMfGvFzOAYRU_yVIfquAA==/2946691248081599.jpg",
+            "singer": "郭顶"
+        }, {
+            "id": 28765012,
+            "musicName": "Wind Of Change",
+            "picUrl": "http://p1.music.126.net/Hyw3w51X-y-0hUXeT_hFoA==/3264450024433087.jpg",
+            "singer": "Susan Wong"
+        }, {
+            "id": 405597568,
+            "musicName": "山外小楼夜听雨",
+            "picUrl": "http://p1.music.126.net/L8SZ53Nf5le4JDvG6qVB6g==/1424967072083597.jpg",
+            "singer": "任然"
+        }
+    ],
     // 播放模式
     playType: 'listloop',
     // 当前播放歌曲Url
@@ -129,7 +177,7 @@ const getters = {
     confirmText: state => state.confirmText,
     sidebarShow: state => state.sidebarShow,
     listenListStatus: state => state,
-    playStyleObject: state => state.playStyleObject,
+    playShow: state => state.playShow,
     activeTab: state => state.activeTab,
     listenLists: state => state.listenLists,
     playType: state => state.playType,
@@ -378,7 +426,6 @@ const mutations = {
     },
     //设置歌曲详情
     [types.SET_MUSIC_DETAIL](state, payload) {
-        console.log(payload)
         state.musicDetail = payload;
     },
     //设置当前播放歌曲歌词

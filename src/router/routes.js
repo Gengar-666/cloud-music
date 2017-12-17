@@ -1,39 +1,25 @@
 //登录
-const Login = resolve => {
-    require(['@/pages/Login'], resolve)
-}
+import Login from '@/pages/Login'
 //布局
-const Layout = resolve => {
-    require(['@/pages/Layout'], resolve)
-}
+import Layout from '@/pages/Layout'
 //推荐
-const Recommend = resolve => {
-    require(['@/pages/Recommend'], resolve)
-}
+import Recommend from '@/pages/Recommend'
 //排行榜
-const Rank = resolve => {
-    require(['@/pages/Rank'], resolve)
-}
+import Rank from '@/pages/Rank'
 //我的
-const User = resolve => {
-    require(['@/pages/User'], resolve)
-}
+import User from '@/pages/User'
 //搜索
-const Search = resolve => {
-    require(['@/pages/Search'], resolve)
-}
+import Search from '@/pages/Search'
 //歌单详情
-const SongsheetDetail = resolve => {
-    require(['@/pages/SongsheetDetail'], resolve)
-}
+import SongsheetDetail from '@/pages/SongsheetDetail'
 //排行榜详情
-const RankDetail = resolve => {
-    require(['@/pages/RankDetail'], resolve)
-}
+import RankDetail from '@/pages/RankDetail'
+// //播放页
+// import Play from '@/pages/Play'
 const routes = [
     {
         path: '/',
-        redirect: '/play',
+        redirect: '/recommend',
         component: Layout,
         children: [
             {
@@ -72,13 +58,6 @@ const routes = [
         path: '/rank-detail',
         name: 'rankDetail',
         component: RankDetail
-    },
-    {
-        path: '/play',
-        name: 'play',
-        component: resolve => {
-            require(['@/pages/Play'], resolve)
-        }
     }
 ]
 

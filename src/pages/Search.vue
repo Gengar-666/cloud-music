@@ -82,13 +82,10 @@ export default {
 <style lang="less" scoped>
 #search {
   .search-bar {
-    position: fixed;
-    top: 0;
     width: 100%;
     background: #f4f4f4;
     padding: 6px;
     box-sizing: border-box;
-    z-index: 1000;
     .back {
       position: absolute;
       width: 40px;
@@ -114,7 +111,6 @@ export default {
     }
   }
   .hot-search {
-    margin-top: 50px;
     padding-left: 15px;
     padding-top: 15px;
     font-size: 14px;
@@ -145,7 +141,7 @@ export default {
     margin-top: 50px;
     height: 79vh;
     .search-title {
-      position: fixed;
+      position: absolute;
       width: 100%;
       top: 52px;
       height: 50px;
@@ -155,11 +151,7 @@ export default {
       line-height: 50px;
       color: #507daf;
       border-bottom: 1px solid rgba(0, 0, 0, .1);
-      z-index: 1000;
       background: #FFF;
-    }
-    #music-list {
-      margin-top: 100px;
     }
   }
 }

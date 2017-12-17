@@ -1,12 +1,12 @@
 <template>
-    <div id="play" :style="{zIndex: playStyleObject.zIndex}">
-        <div class="header-box-p" :style="{opacity: playStyleObject.opacity}">
+    <div id="play">
+        <div class="header-box-p">
             <div class="header-box-c">
                 <div class="play-box" v-if="musicDetail.length !==0">
                     <div class="header">
-                        <v-touch class="back" v-on:tap="back" v-on:press="back">
+                        <div class="back" @click="back">
                             <i class="iconfont">&#xe617;</i>
-                        </v-touch>
+                        </div>
                         <div class="title">
                             <marquee v-if="musicDetail.alia.length !==0" scrolldelay="150">
                                 <p class="top">
@@ -59,9 +59,9 @@
                             <v-touch tag="li" v-on:tap="next" v-on:press="next">
                                 <i class="iconfont next">&#xe603;</i>
                             </v-touch>
-                            <v-touch tag="li" v-on:tap="getListenLists" v-on:press="getListenLists">
+                            <li @click="getListenLists">
                                 <i class="iconfont">&#xe640;</i>
-                            </v-touch>
+                            </li>
                         </ul>
                     </v-touch>
                 </div>
@@ -81,11 +81,8 @@ export default {
         // 旋转角度
         rotate: 0
     }),
-    mounted() {
-    },
     computed: {
         ...mapGetters([
-            'playStyleObject',
             'playType',
             'musicDetail',
             // 播放状态
@@ -125,10 +122,7 @@ export default {
         },
         // 返回
         back() {
-            this.$store.state.playStyleObject = {
-                'opacity': 0,
-                'zIndex': -1
-            }
+           this.$store.state.playShow = false
         },
         // 分享
         share() {
@@ -170,7 +164,8 @@ export default {
 
 <style lang="less">
 #play {
-    position: relative;
+    overflow: hidden;
+    z-index: 100;
     @keyframes circling {
         0% {
             -webkit-transform: rotate(0deg);
@@ -192,7 +187,6 @@ export default {
         }
     }
     .lyric {
-        width: 100vw;
         height: 51px;
         position: relative;
         overflow: hidden;
@@ -201,7 +195,7 @@ export default {
         display: flex;
         justify-content: center;
         ul {
-            width: 80vw;
+            width: 80%;
             position: absolute;
             transition: all .5s;
             li {
@@ -220,6 +214,7 @@ export default {
         height: 100vh;
         position: relative;
         background: #FFF;
+        z-index: 100;
         transition: all 1.5s;
         .header-box-c {
             list-style: none;
@@ -358,12 +353,16 @@ export default {
                 }
                 .progress-bar {
                     position: relative;
-                    width: 85vw;
+                    width: 85%;
                     height: 50px;
                     margin-left: 4vw;
+                    margin: 0 auto;
                     margin-top: 30px;
                     .range-quantity {
                         background: #2A78DC;
+                    }
+                    .range-bar {
+                        width: 93%;
                     }
                     .range-handle {
                         width: 18px;
@@ -387,7 +386,7 @@ export default {
                         color: hsla(0, 0%, 100%, .6);
                         position: absolute;
                         top: -6px;
-                        right: -13px;
+                        right: 0;
                         font-size: 12px;
                     }
                 }
@@ -398,10 +397,11 @@ export default {
                     ul {
                         overflow: hidden;
                         height: 50px;
+                        padding-left: 10px;
                         li {
                             vertical-align: text-top;
                             display: inline-flex;
-                            width: 18%;
+                            width: 18.9%;
                             align-items: center;
                             justify-content: center;
                             .iconfont {

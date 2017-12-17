@@ -8,6 +8,7 @@
                             <i v-show="playType == 'listloop'" class="iconfont">&#xe6f2;</i>
                             <i v-show="playType == 'random'" class="iconfont">&#xe612;</i>
                             <span>{{ playType == 'listloop' ? '列表循环' : '随机播放'}}</span>
+                            <span>({{ listenLists.length }}首)</span>
                         </v-touch>
                         <v-touch class="delete-btn" v-on:tap="deleteAll" v-on:press="deleteAll">
                             <i class="iconfont">&#xe64d;</i>
@@ -78,8 +79,11 @@ export default {
 
 <style lang="less" scoped>
 #listenLists {
-    position: relative;
-    z-index: 100000;
+    width: 100%;
+    background: #FFF;
+    position: absolute;
+    z-index: 101;
+    top: 0;
     ul {
         position: relative;
         max-height: 380px;
@@ -148,7 +152,7 @@ export default {
             margin-top: 1px;
             .delete-btn {
                 position: absolute;
-                top: 0;
+                top: 5px;
                 right: 5px;
                 width: 100px;
                 display: flex;
@@ -162,7 +166,6 @@ export default {
             .toggle-btn {
                 position: absolute;
                 top: 3px;
-                width: 120px;
                 display: flex;
                 align-items: center;
                 .iconfont {
