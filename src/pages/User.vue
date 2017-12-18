@@ -54,6 +54,12 @@ export default {
       'userPlayList'
     ])
   },
+  activated() {
+    if (!this.user.code) {
+      this.$store.state.confirmText = 'login'
+      this.$store.commit(this.$types.SET_CONFIRM_STATUS, true)
+    }
+  },
   mounted() {
     if (this.user.code == 200) {
       this.$fetch.UserDetail(this.user.profile.userId).then(res => {
@@ -64,9 +70,6 @@ export default {
         this.$store.state.userPlayList = res
         localStorage.setItem('userPlayList', JSON.stringify(res))
       })
-    } else {
-      this.$store.state.confirmText = 'login'
-      this.$store.commit(this.$types.SET_CONFIRM_STATUS, true)
     }
   },
   methods: {
@@ -102,7 +105,7 @@ export default {
         display: flex;
         align-items: center;
         .user-fl {
-          
+
           width: 20%;
           color: #FFF;
           float: left;

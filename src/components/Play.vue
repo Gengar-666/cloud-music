@@ -22,7 +22,7 @@
                     </div>
                     <div class="play-bg" :style="'background-image: url(' + musicDetail.al.picUrl + ')'">
                     </div>
-                    <div :class="[{'circling-pause': !playStatus}, 'play-disc', 'circling']">
+                    <div :class="[{'circling-pause': !playStatus}, 'play-disc', 'circling']" :style="'background-image: url(' + discbg + ')'">
                         <div class="play-img">
                             <img class="u-img" :src="musicDetail.al.picUrl">
                         </div>
@@ -73,13 +73,15 @@
 <script>
 import { Range } from 'vux'
 import { mapGetters } from 'vuex';
+import discbg from './../../static/img/disc.png'
 export default {
     name: 'play',
     data: () => ({
         // 滑动到的时间节点
         newTime: 0,
         // 旋转角度
-        rotate: 0
+        rotate: 0,
+        discbg
     }),
     computed: {
         ...mapGetters([
@@ -313,7 +315,6 @@ export default {
                     margin: auto;
                     width: 260px;
                     height: 260px;
-                    background: url('./../../static/img/disc.png');
                     background-size: contain;
                     background-repeat: no-repeat;
                     .play-img {

@@ -10,7 +10,7 @@
           <input type="password" placeholder="密码" v-model="password">
         </div>
         <div class="login-btn">
-          <button type="button" v-on:tap="login" v-on:press="login">登录</button>
+          <button type="button" @click="login">登录</button>
         </div>
       </div>
       <div class="pass">
@@ -47,6 +47,7 @@ export default {
   },
   methods: {
     login() {
+      console.log(1)
       const para = {
         phone: this.phone,
         password: this.password
