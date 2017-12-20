@@ -20,11 +20,11 @@ export default {
             { img: banner }
         ],
         textList: [
-            { title: '你无处可藏' },
-            { title: '不是它可恶' },
-            { title: '而是它不懂你' },
-            { title: '我们试图' },
-            { title: '做些改变' }
+            { title: 'vue' },
+            { title: 'vuex' },
+            { title: 'axios' },
+            { title: 'webpack' },
+            { title: 'vue-router' }
         ]
     }),
     mounted() {
