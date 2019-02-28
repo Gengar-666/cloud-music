@@ -9,7 +9,7 @@
 ![image](https://github.com/UchihaObitoZzz/CloudMusic-vue/blob/master/demo3.png)
 <br>
 <br>
-> **demo地址：https://uchihaobitozzz.github.io/buildMusic
+> **demo地址：http://47.99.180.56:8090
 
 ### 技术栈
 
